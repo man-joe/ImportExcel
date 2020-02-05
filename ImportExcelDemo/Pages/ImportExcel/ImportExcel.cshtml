@@ -1,0 +1,86 @@
+﻿@page
+@model ImportExcelDemo.ImportExcelModel
+
+@{
+    ViewData["Title"] = "Import Excel";
+}
+
+<h1>Import Excel</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cmdb[0].CDTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cmdb[0].AdUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cmdb[0].Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Cmdb) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CDTag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CmdbID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CmdbID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CmdbID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="container">
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="row">
+                @using (Html.BeginForm("Index", "Import", FormMethod.Post, new { enctype = "multipart/form-data"}))
+                {
+
+                    <!--File Upload space -->
+                    <div class="form-group">
+                        @Html.Label("File Upload", "File Upload", new { @class = "col-sm-3" })
+                        
+                        <div class="col-sm-7">
+                            <input type ="file" id="postedFile" name="postedFile" class ="form-control" accept=".xls,.xlsx" />        
+                        </div>
+                    </div>
+
+                    <!--Upload Button-->
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-10">
+                            <br />
+                            <input type="submit" title="Upload" value="Upload" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                    <!--Error Message or Status-->
+                    <div class="form-group">
+                        <br />
+                        <span style="color:red;">
+                            @Model.Message
+                        </span>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
