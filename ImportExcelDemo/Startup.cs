@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ImportExcelDemo.Data;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,9 @@ namespace ImportExcelDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Added Windows-1252 Encoding
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             services.AddRazorPages();
             services.AddDbContext<DemoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DemoContext")));

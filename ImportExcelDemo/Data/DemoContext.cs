@@ -10,6 +10,10 @@ namespace ImportExcelDemo.Data
 {
     public class DemoContext : DbContext
     {
+        public DemoContext()
+        {
+        }
+
         public DemoContext(DbContextOptions<DemoContext> options) : base(options)
         {
         }
