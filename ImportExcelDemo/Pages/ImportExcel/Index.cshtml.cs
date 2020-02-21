@@ -105,6 +105,14 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
                     }
 
+                    /*
+                     * misc code scratchwork:
+                     * 
+                     * var workSheet = reader.asDataSet().Tables["Sheet1"] or owssvr
+                     * 
+                     */
+
+
                     //Insert Records as Entities
                     DemoContext entities = new DemoContext();
                     foreach(DataRow row in dt.Rows)
