@@ -88,6 +88,9 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     }
 
                     //Fill Data Table
+
+                    /// 
+                    /*
                     DataTable dt = new DataTable();
 
                     FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -100,28 +103,37 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             var result = reader.AsDataSet(new ExcelDataSetConfiguration());
 
                             DataTableCollection dataTable = result.Tables;
-                            dt = dataTable["Sheet1"]; // or owssvr?
+                            dt = dataTable["owssvr"]; // or owssvr / Sheet1?
                         }
 
                     }
+
+                    */
+                    ////
+
 
                     /*
                      * misc code scratchwork:
                      * 
                      * var workSheet = reader.asDataSet().Tables["Sheet1"] or owssvr
-                     * 
+                     * var sheets = from DataTable sheet in workbook.Tables select sheet.TableName;
                      */
 
+
+
+                    /*
 
                     //Insert Records as Entities
                     DemoContext entities = new DemoContext();
                     foreach(DataRow row in dt.Rows)
                     {
-                        entities.Add(GetCmdbFromExcelRow(row));
+                        entities.Cmdbs.Add(GetCmdbFromExcelRow(row));
                     }
                     entities.SaveChanges();
 
                     Message = "Data Imported Successfully.";
+
+                    */
 
                    /* //Read data from first sheet of excel into datatable
                     DataTable dt = new DataTable();

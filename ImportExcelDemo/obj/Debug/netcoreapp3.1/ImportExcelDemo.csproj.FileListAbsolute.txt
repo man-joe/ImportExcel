@@ -160,4 +160,13 @@ C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\obj\Debug\net
 C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\obj\Debug\netcoreapp3.1\Razor\Pages\ImportExcel\Index.cshtml.g.cs
 C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\ExcelDataReader.dll
 C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\ExcelDataReader.DataSet.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\EPPlus.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\joseph.hoang\source\repos\ImportExcelDemo\ImportExcelDemo\obj\Debug\netcoreapp3.1\ImportExcelDemo.MvcApplicationPartsAssemblyInfo.cache

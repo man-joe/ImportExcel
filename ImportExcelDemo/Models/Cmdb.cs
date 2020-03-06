@@ -8,6 +8,14 @@ namespace ImportExcelDemo.Models
 {
     public class Cmdb
     {
+        #region Constructor
+        public Cmdb()
+        {
+        }
+        #endregion
+
+        [Key]
+        [Required]
         public int CmdbID { get; set; }
         [StringLength(50)]
         public string CDTag { get; set; }
