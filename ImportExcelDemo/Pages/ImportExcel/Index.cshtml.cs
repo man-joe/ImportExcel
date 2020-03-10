@@ -35,18 +35,16 @@ namespace ImportExcelDemo.Pages.ImportExcel
         public string Message { get; set; }
 
         [BindProperty]
-        public IFormFile Upload { get; set; }
+        public IFormFile CmdbUpload { get; set; }
 
         [Obsolete]
         public async Task OnPostAsync()
         {
-
-            if(Upload != null)
-            {
-                
+            if(CmdbUpload != null)
+            {       
                 try
                 {
-                    string fileExt = Path.GetExtension(Upload.FileName);
+                    string fileExt = Path.GetExtension(CmdbUpload.FileName);
 
                     //Validate file Type
                     if(fileExt != ".xls" && fileExt != ".xlsx")
@@ -65,10 +63,11 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
                     //Save file to folder
                     var filePath = Path.Combine(folderPath,
-                                                Path.GetFileName(Upload.FileName));
+                                                Path.GetFileName(CmdbUpload.FileName));
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        await Upload.CopyToAsync(fileStream);
+                        await CmdbUpload.CopyToAsync(fileStream);
+                        Message += "CMDB uploaded.\n";
                     }
 
                     //Get File Extension
