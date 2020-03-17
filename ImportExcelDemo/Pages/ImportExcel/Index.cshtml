@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Upload and Commit</h1>
 
 
 <div class="container">
@@ -12,30 +12,80 @@
         <div class="tab-pane active">
             <div class="row">
                 <form method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="col-sm-3">File Upload</label>
-                        <div class="col-sm-7">
-                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" />
+                    <!--
+    <div class="form-group">
+        <label for="cmdbFileUpload">CMDB File Upload</label>
+        <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="form-control-file" id="cmdbFileUpload" />
+        <div class="col-md-offset-7">
+            <br />
+            <input type="submit" value="Upload" asp-page-handler="CmdbUpload" class="btn btn-warning" />
+            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-success" />
+        </div>
+    </div>
+    -->
+                    <br />
+                    <label for="cmdbFileUpload">CMDB File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
+                            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <br />
-                            <input type="submit" value="Upload" class="btn btn-dark" />
+                        <span style="color:red;">
+                            @ViewData.Model.Message
+                        </span>
+                    </div>
+
+
+
+
+
+                    <br />
+                    <label for="cmdbFileUpload">SunFlower File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
+                            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-offset-3 col-md-10">
-                            <br />
-                            <span style="color:red;">
-                                @ViewData.Model.Message
-                            </span>
-                        </div>
+                        <span style="color:red;">
+                            @ViewData.Model.Message
+                        </span>
                     </div>
 
 
+
+
+                    <br />
+                    <label for="cmdbFileUpload">Other File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
+                            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span style="color:red;">
+                            @ViewData.Model.Message
+                        </span>
+                    </div>
                 </form>
             </div>
         </div>
@@ -43,15 +93,6 @@
 
 
 </div>
-
-<form>
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFile">
-        <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
-</form>
-
-
 
 
 <!--
