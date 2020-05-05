@@ -6,6 +6,10 @@
 
 <h1>Upload and Commit</h1>
 
+<div class="container-sm">
+    <img src ="~/sql-joins.png"/>
+</div>
+
 
 <div class="container">
     <div class="tab-content">
@@ -27,64 +31,108 @@
                     <label for="cmdbFileUpload">CMDB File Upload</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
+                            <input type="file" asp-for="ExcelUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
                             <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
                         </div>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
+                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
                             <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <span style="color:red;">
-                            @ViewData.Model.Message
-                        </span>
-                    </div>
-
-
-
-
-
-                    <br />
-                    <label for="cmdbFileUpload">SunFlower File Upload</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
-                            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
-                            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <span style="color:red;">
-                            @ViewData.Model.Message
-                        </span>
                     </div>
 
 
 
 
                     <br />
-                    <label for="cmdbFileUpload">Other File Upload</label>
+                    <label for="sunFileUpload">SunFlower File Upload</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
-                            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
+                            <input type="file" asp-for="ExcelUpload" accept=".xls,.xlsx" class="custom-file-input" id="sunFileUpload">
+                            <label class="custom-file-label" for="sunFileUpload" aria-describedby="sunUploadAddon">Choose file</label>
                         </div>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
-                            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
+                            <button class="btn btn-outline-primary" type="submit" id="sunUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="SunCommit" class="btn btn-outline-success" />
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <span style="color:red;">
-                            @ViewData.Model.Message
-                        </span>
+
+
+
+                    <!--                   <br />
+    <label for="cmdbFileUpload">Other File Upload</label>
+    <div class="input-group">
+        <div class="custom-file">
+            <input type="file" asp-for="CmdbUpload" accept=".xls,.xlsx" class="custom-file-input" id="cmdbFileUpload">
+            <label class="custom-file-label" for="cmdbFileUpload" aria-describedby="CmdbUploadAddon">Choose file</label>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit" id="CmdbUploadAddon" asp-page-handler="CmdbUpload">Upload</button>
+            <input type="submit" value="Commit" asp-page-handler="CmdbCommit" class="btn btn-outline-success" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span style="color:red;">
+            @ViewData.Model.Message
+        </span>
+    </div> -->
+
+
+
+                    <br />
+                    <label for="epoFileUpload">EPO File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="ExcelUpload" accept=".csv" class="custom-file-input" id="epoFileUpload">
+                            <label class="custom-file-label" for="epoFileUpload" aria-describedby="epoUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="epoUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="EPOCommit" class="btn btn-outline-success" />
+                        </div>
+                    </div>
+
+
+                    <!-- Re Format for other files types-->
+
+                    <br />
+                    <label for="epoFileUpload">AD File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="ExcelUpload" accept=".csv" class="custom-file-input" id="epoFileUpload">
+                            <label class="custom-file-label" for="epoFileUpload" aria-describedby="epoUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="epoUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="EPOCommit" class="btn btn-outline-success" />
+                        </div>
+                    </div>
+
+                    <br />
+                    <label for="epoFileUpload">SCCM File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="ExcelUpload" accept=".csv" class="custom-file-input" id="epoFileUpload">
+                            <label class="custom-file-label" for="epoFileUpload" aria-describedby="epoUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="epoUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="EPOCommit" class="btn btn-outline-success" />
+                        </div>
+                    </div>
+
+                    <br />
+                    <label for="epoFileUpload">ECMO File Upload</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" asp-for="ExcelUpload" accept=".csv" class="custom-file-input" id="epoFileUpload">
+                            <label class="custom-file-label" for="epoFileUpload" aria-describedby="epoUploadAddon">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="epoUploadAddon" asp-page-handler="ExcelUpload">Upload</button>
+                            <input type="submit" value="Commit" asp-page-handler="EPOCommit" class="btn btn-outline-success" />
+                        </div>
                     </div>
                 </form>
             </div>
@@ -93,7 +141,12 @@
 
 
 </div>
-
+<br />
+<div class="form-group">
+    <span style="color:red;">
+        @ViewData.Model.Message
+    </span>
+</div>
 
 <!--
 <form method="post" enctype="multipart/form-data">

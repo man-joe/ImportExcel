@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joseph.hoang\\source\\repos\\ImportExcelDemo\\ImportExcelDemo\\ImportExcelDemo.csproj": {}
+    "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joseph.hoang\\source\\repos\\ImportExcelDemo\\ImportExcelDemo\\ImportExcelDemo.csproj": {
+    "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joseph.hoang\\source\\repos\\ImportExcelDemo\\ImportExcelDemo\\ImportExcelDemo.csproj",
+        "projectUniqueName": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
         "projectName": "ImportExcelDemo",
-        "projectPath": "C:\\Users\\joseph.hoang\\source\\repos\\ImportExcelDemo\\ImportExcelDemo\\ImportExcelDemo.csproj",
-        "packagesPath": "C:\\Users\\joseph.hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joseph.hoang\\source\\repos\\ImportExcelDemo\\ImportExcelDemo\\obj\\",
+        "projectPath": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
+        "packagesPath": "C:\\Users\\Joseph\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joseph.hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Joseph\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[15.0.3, )"
+            },
             "EPPlus": {
               "target": "Package",
               "version": "[4.5.3.3, )"
@@ -74,7 +78,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             },
             "System.Text.Encoding.CodePages": {
               "target": "Package",

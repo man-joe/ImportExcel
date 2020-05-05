@@ -34,6 +34,8 @@ namespace ImportExcelDemo.Data
 
         #region Properties
         public DbSet<Cmdb> Cmdbs { get; set; }
+        public DbSet<Sunflower> Sunflowers { get; set; }
+        public DbSet<EPO> Epos { get; set; }
         #endregion
     }
 }

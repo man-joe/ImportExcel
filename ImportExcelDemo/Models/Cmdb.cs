@@ -38,7 +38,7 @@ namespace ImportExcelDemo.Models
         public string MacAddress { get; set; }
         [StringLength(50)]
         public string Manufacturer { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         public string Model { get; set; }
         [StringLength(50)]
         public string SerialNumber { get; set; }
@@ -46,7 +46,7 @@ namespace ImportExcelDemo.Models
         public string OperatingSystem { get; set; }
         [StringLength(50)]
         public string AdUser { get; set; }
-        [StringLength(50)]
+        [StringLength(250)]
         public string SunflowerUser { get; set; }
         [StringLength(50)]
         public string Status { get; set; }
@@ -56,7 +56,7 @@ namespace ImportExcelDemo.Models
         public DateTime? WarrentyEndDate { get; set; }
         [StringLength(50)]
         public string Custodian { get; set; }
-        [StringLength(50)]
+        [StringLength(800)]
         public string Comments { get; set; }
         [StringLength(50)]
         public string InventoriedBy { get; set; }
