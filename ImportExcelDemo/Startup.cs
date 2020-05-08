@@ -29,7 +29,9 @@ namespace ImportExcelDemo
             //Added Windows-1252 Encoding
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            services.AddRazorPages();
+            // Added Dynamic Updated package RuntimeCompilation
+            // will allow for JS, HTML, CSS changes to work during runtime
+            services.AddRazorPages().AddRazorRuntimeCompilation(); 
             services.AddDbContext<DemoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DemoContext")));
         }
