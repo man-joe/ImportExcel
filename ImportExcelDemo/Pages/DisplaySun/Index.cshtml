@@ -1,0 +1,65 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplaySun.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Data Table -->
+<div class="border backgroundWhite container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">Sunflower List</h2>
+        </div>
+    </div>
+    <br />
+    <table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sun ID</th>
+                <th>Barcode #</th>
+                <th>Status</th>
+                <th>Official Name</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Model Name</th>
+                <th>Serial Number</th>
+                <th>Asset Value</th>
+                <th>Effective Date</th>
+                <th>Cust Area</th>
+                <th>Bureau Or Region</th>
+                <th>Property Contact</th>
+                <th>Current User</th>
+                <th>Fed Supply Group</th>
+                <th>Utilization Code</th>
+                <th>Asset Condition</th>
+                <th>Condition Description</th>
+                <th>Physical Inventory Date</th>
+                <th>Acquisition Date</th>
+                <th>Responsibility Date</th>
+                <th>Site</th>
+                <th>Stlv 1</th>
+                <th>Stlv 2</th>
+                <th>Stlv 3</th>
+                <th>MailStop</th>
+                <th>Gps 1</th>
+                <th>Gps 2</th>
+                <th>Gps 3</th>
+                <th>Resolution Date</th>
+                <th>Resolution</th>
+                <th>Final Event</th>
+                <th>Date Time</th>
+                <th>Final Event User Defined Label 01</th>
+                <th>Final Event User Field 01</th>
+
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script src="~/js/dtSunflower.js"></script>
+}

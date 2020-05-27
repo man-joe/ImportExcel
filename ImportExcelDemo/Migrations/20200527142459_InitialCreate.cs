@@ -54,7 +54,7 @@ namespace ImportExcelDemo.Migrations
                     SystemName = table.Column<string>(maxLength: 50, nullable: true),
                     Tags = table.Column<string>(maxLength: 150, nullable: true),
                     IpAddress = table.Column<string>(maxLength: 50, nullable: true),
-                    UniqueIdentifier = table.Column<string>(maxLength: 50, nullable: true)
+                    UserName = table.Column<string>(maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {

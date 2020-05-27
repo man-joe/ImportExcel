@@ -29,11 +29,20 @@ namespace ImportExcelDemo
             //Added Windows-1252 Encoding
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            // Added Dynamic Updated package RuntimeCompilation
-            // will allow for JS, HTML, CSS changes to work during runtime
-            services.AddRazorPages().AddRazorRuntimeCompilation(); 
+            
             services.AddDbContext<DemoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DemoContext")));
+
+
+           /* services.AddScoped<DemoContext, DbContext>*/
+
+            //Allows MVC to be used along with RazorPages
+            services.AddMvc(options => options.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            // Added Dynamic Updated package RuntimeCompilation
+            // will allow for JS, HTML, CSS changes to work during runtime          
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,14 +62,16 @@ namespace ImportExcelDemo
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            /*app.UseRouting();*/
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc();
+
+           /* app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-            });
+            });*/
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayEPO.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Data Table -->
+<div class="border backgroundWhite container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">EPO List</h2>
+        </div>
+    </div>
+    <br />
+    <table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>EPO ID</th>
+                <th>System Name</th>
+                <th>Tags</th>
+                <th>IP Address</th>
+                <th>User Name</th>            
+
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script src="~/js/dtEPO.js"></script>
+}
+

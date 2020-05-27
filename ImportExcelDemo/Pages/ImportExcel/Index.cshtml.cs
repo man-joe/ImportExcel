@@ -20,6 +20,7 @@ using CsvHelper;
 using System.Reflection;
 using System.Text;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace ImportExcelDemo.Pages.ImportExcel
 {
@@ -451,19 +452,32 @@ namespace ImportExcelDemo.Pages.ImportExcel
             {
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;
-                var records = csv.GetRecords<EPO>();
-                int nEPO = records.Count();
 
-                foreach(var r in records)
+                try
+                {
+                    var records = csv.GetRecords<EPO>();
+                   /* Console.WriteLine(JsonConvert.SerializeObject(records));*/
+                    int nEPO = records.Count();
+                    _context.Epos.AddRange(records);
+                    await _context.SaveChangesAsync();
+                    Message = "EPO Committed to Database. " +
+                        nEPO + " entries Added.";
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("{0} - datetime is not parsed", csv);
+                }
+                
+                
+
+                /*foreach(var r in records)
                 {
                     if (r.SystemName.Length == 15)
                         r.UniqueIdentifier = r.SystemName.Substring(6, 9);
                 }
                 _context.Epos.AddRange(records);
-
-                await _context.SaveChangesAsync();
-                Message = "EPO Committed to Database. " +
-                    nEPO + " entries Added.";
+*/
+               
             }
         }
 

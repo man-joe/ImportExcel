@@ -29,17 +29,18 @@ namespace ImportExcelDemo.Models
         [StringLength(50)]
         [Name("IP address")]
         public string IpAddress { get; set; }
-        [StringLength(50)]
-        public string? UniqueIdentifier { get; set; }
-
-
-     /* To Add Fields later...
-      * 
-      * [StringLength(150)]
+        [StringLength(150)]
         [Name("User Name")]
-        public string UserName { get; set; }*/
+        public string UserName { get; set; }
+        
+      /*  Issue: DateTime needs to be parsed correctly
+       *  
+       *  [Name("Last Communication")]
+        public DateTime? LastCommunication { get; set; }*/
 
 
+        /*[StringLength(50)]
+        public string UniqueIdentifier { get; set; }*/
         #endregion
     }
 
