@@ -19,11 +19,18 @@ function loadList() {
         "scrollX" : true,
         "columns": [
             { "data": "epoID" },
+            { "data": "managedState"},
             { "data": "systemName" },
             { "data": "tags" },
             { "data": "ipAddress" },
             { "data": "userName" }           
         ],
+        //Search Panes
+        searchPanes: {
+            cascadePanes: true
+        },
+        dom: 'Pfrtip', 
+
         "width":"100%",
     });
 }

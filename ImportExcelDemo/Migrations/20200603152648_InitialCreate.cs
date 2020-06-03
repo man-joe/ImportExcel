@@ -49,16 +49,17 @@ namespace ImportExcelDemo.Migrations
                 name: "Epos",
                 columns: table => new
                 {
-                    EpoId = table.Column<int>(nullable: false)
+                    EpoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SystemName = table.Column<string>(maxLength: 50, nullable: true),
+                    ManagedState = table.Column<string>(maxLength: 50, nullable: true),
                     Tags = table.Column<string>(maxLength: 150, nullable: true),
                     IpAddress = table.Column<string>(maxLength: 50, nullable: true),
                     UserName = table.Column<string>(maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Epos", x => x.EpoId);
+                    table.PrimaryKey("PK_Epos", x => x.EpoID);
                 });
 
             migrationBuilder.CreateTable(

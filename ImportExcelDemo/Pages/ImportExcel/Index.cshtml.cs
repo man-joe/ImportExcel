@@ -455,8 +455,12 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
                 try
                 {
-                    var records = csv.GetRecords<EPO>();
-                   /* Console.WriteLine(JsonConvert.SerializeObject(records));*/
+                    var records = csv.GetRecords<EPO>().ToList();
+/*                    foreach(var r in records)
+                    {
+                        Console.WriteLine(r.EpoId + "\t" + r.SystemName);
+                    }*/
+                    /* Console.WriteLine(JsonConvert.SerializeObject(records));*/
                     int nEPO = records.Count();
                     _context.Epos.AddRange(records);
                     await _context.SaveChangesAsync();

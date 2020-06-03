@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,13 +19,17 @@ namespace ImportExcelDemo.Models
 
         #region Instance Variables
         [Key]
+/*        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
         [Required]
-        public int? EpoId { get; set; }
+        public int? EpoID { get; set; }
         [StringLength(50)]
         [Name("System Name")]
         public string SystemName { get; set; }
+        [StringLength(50)]
+        [Name("Managed State")]
+        public string ManagedState { get; set; }
         [StringLength(150)]
-        [Name("Tags")]
+        [Name("Tags")]        
         public string Tags{ get; set; }
         [StringLength(50)]
         [Name("IP address")]

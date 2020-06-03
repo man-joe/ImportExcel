@@ -132,12 +132,16 @@ namespace ImportExcelDemo.Migrations
 
             modelBuilder.Entity("ImportExcelDemo.Models.EPO", b =>
                 {
-                    b.Property<int?>("EpoId")
+                    b.Property<int?>("EpoID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("IpAddress")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ManagedState")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -153,7 +157,7 @@ namespace ImportExcelDemo.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.HasKey("EpoId");
+                    b.HasKey("EpoID");
 
                     b.ToTable("Epos");
                 });

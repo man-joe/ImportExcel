@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#DT_load').DataTable({
+    dataTable = $('#DT_load').DataTable( {
         "ajax": {
             "type": "GET",
             "url": "/api/sample/GetSun",
@@ -15,20 +15,8 @@ function loadList() {
             //dataSrc: "",
             //contentType: "application/json",
             "dataType": "json"
-        },
-    /*    "responsive": {
-            "details": {
-                "display": $.fn.dataTable.Responsive.display.modal({
-                    "header": function (row) {
-                        var data = row.data();
-                        return 'Details for ' + data[0] + ' ' + data[1];
-                    }
-                }),
-                "renderer": $.fn.dataTable.Responsive.renderer.tableAll()
-            }
-        },*/
-
-        "scrollX" : true,
+        },        
+        
         "columns": [
             { "data": "sunID" },
             { "data": "barcodeNum" },
@@ -66,6 +54,19 @@ function loadList() {
             { "data": "finalEventUserDefinedLabel01" },
             { "data": "finalEventUserField01" }
         ],
+
+        "responsive": {
+            "details": {
+                "display": $.fn.dataTable.Responsive.display.modal({
+                    "header": function (row) {
+                        var data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                "renderer": $.fn.dataTable.Responsive.renderer.tableAll()
+            }
+        },
+        "scrollX": true,
         "width":"100%",
     });
 }
