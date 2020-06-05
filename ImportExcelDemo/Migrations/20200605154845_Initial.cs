@@ -3,10 +3,64 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ImportExcelDemo.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AD_Computers",
+                columns: table => new
+                {
+                    ADComputerName = table.Column<string>(maxLength: 200, nullable: false),
+                    ProgramOffice = table.Column<string>(maxLength: 200, nullable: true),
+                    OSType = table.Column<string>(maxLength: 200, nullable: true),
+                    OSVersion = table.Column<string>(maxLength: 200, nullable: true),
+                    ServicePack = table.Column<string>(maxLength: 200, nullable: true),
+                    Created = table.Column<DateTime>(nullable: true),
+                    Changed = table.Column<DateTime>(nullable: true),
+                    UAC = table.Column<int>(nullable: false),
+                    AccountDisabled = table.Column<bool>(nullable: false),
+                    SmartCardRequired = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    DN = table.Column<string>(nullable: true),
+                    Win7StatusExtendedinfo = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AD_Computers", x => x.ADComputerName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AD_Users",
+                columns: table => new
+                {
+                    ADUserId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramOffice = table.Column<string>(maxLength: 200, nullable: true),
+                    CACexemptionreason = table.Column<string>(maxLength: 200, nullable: true),
+                    SmartCardRequired = table.Column<bool>(nullable: false),
+                    UserEmailAddress = table.Column<string>(maxLength: 200, nullable: true),
+                    EmployeeType = table.Column<string>(maxLength: 200, nullable: true),
+                    SAMAccountName = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(maxLength: 200, nullable: true),
+                    UserPrincipalName = table.Column<string>(maxLength: 200, nullable: true),
+                    AccountDisabled = table.Column<bool>(nullable: false),
+                    PasswordDoesNotExpire = table.Column<bool>(nullable: false),
+                    PasswordCannotChange = table.Column<bool>(nullable: false),
+                    PasswordExpired = table.Column<bool>(nullable: false),
+                    AccountLockedOut = table.Column<bool>(nullable: false),
+                    CACExtendedInfo = table.Column<string>(nullable: true),
+                    UAC = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 200, nullable: true),
+                    DN = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: true),
+                    Changed = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AD_Users", x => x.ADUserId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "CMDB",
                 columns: table => new
@@ -110,6 +164,12 @@ namespace ImportExcelDemo.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AD_Computers");
+
+            migrationBuilder.DropTable(
+                name: "AD_Users");
+
             migrationBuilder.DropTable(
                 name: "CMDB");
 

@@ -19,6 +19,134 @@ namespace ImportExcelDemo.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ImportExcelDemo.Models.AD_Computer", b =>
+                {
+                    b.Property<string>("ADComputerName")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("AccountDisabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Changed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OSType")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("OSVersion")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("ProgramOffice")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("ServicePack")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("SmartCardRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UAC")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Win7StatusExtendedinfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ADComputerName");
+
+                    b.ToTable("AD_Computers");
+                });
+
+            modelBuilder.Entity("ImportExcelDemo.Models.AD_User", b =>
+                {
+                    b.Property<int>("ADUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AccountDisabled")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AccountLockedOut")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CACExtendedInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CACexemptionreason")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime?>("Changed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("EmployeeType")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("PasswordCannotChange")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PasswordDoesNotExpire")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PasswordExpired")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProgramOffice")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("SAMAccountName")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("SmartCardRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UAC")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmailAddress")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("UserPrincipalName")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("ADUserId");
+
+                    b.ToTable("AD_Users");
+                });
+
             modelBuilder.Entity("ImportExcelDemo.Models.Cmdb", b =>
                 {
                     b.Property<int>("CmdbID")

@@ -52,6 +52,9 @@ namespace ImportExcelDemo.Pages.ImportExcel
         public IFormFile SunUpload { get; set; }
 
 
+        [BindProperty]
+        public IFormFile ADUpload { get; set; }
+
 
         [Obsolete]
         public async Task OnPostExcelUploadAsync()
@@ -88,11 +91,11 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             if (fileName.ToUpper().Contains("CMDB"))
-                            {                                
+                            {
                                 Message = "CMDB File uploaded.";
                                 //CmdbUpload.CopyTo(fileStream);
                                 await ExcelUpload.CopyToAsync(fileStream);
-                               /* await CmdbUpload.CopyToAsync  */
+                                /* await CmdbUpload.CopyToAsync  */
                             }
                             else if (fileName.ToUpper().Contains("SUN"))
                             {
@@ -103,6 +106,12 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             {
                                 await ExcelUpload.CopyToAsync(fileStream);
                                 Message = "EPO File uploaded.";
+                            }
+                            else if (fileName.ToUpper().Contains("Active") || fileName.ToUpper().Contains("AD"))
+
+                            {
+                                await ExcelUpload.CopyToAsync(fileStream);
+                                Message = "AD File uploaded.";
                             }
 
                         }
@@ -129,22 +138,22 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
 
 
-/*                    //Get File Extension
-                    string excelConString = "";
+                    /*                    //Get File Extension
+                                        string excelConString = "";
 
-                    //Set Connection String based on Extension
-                    switch (fileExt)
-                    {
-                        //Excel 1997-2007 extension
-                        case ".xls":
-                            excelConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
-                            break;
-                        //Excel 2007 and above extension
-                        case ".xlsx":
-                            excelConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
-                            break;
-                    }
-*/
+                                        //Set Connection String based on Extension
+                                        switch (fileExt)
+                                        {
+                                            //Excel 1997-2007 extension
+                                            case ".xls":
+                                                excelConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
+                                                break;
+                                            //Excel 2007 and above extension
+                                            case ".xlsx":
+                                                excelConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
+                                                break;
+                                        }
+                    */
                     //Fill Data Table
 
                     /// 
@@ -454,7 +463,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 var records = csv.GetRecords<EPO>();
                 int nEPO = records.Count();
 
-                foreach(var r in records)
+                foreach (var r in records)
                 {
                     if (r.SystemName.Length == 15)
                         r.UniqueIdentifier = r.SystemName.Substring(6, 9);
@@ -467,8 +476,133 @@ namespace ImportExcelDemo.Pages.ImportExcel
             }
         }
 
+        [Obsolete]
+        public async Task OnPostADCommitAsync()
+        {
+            string folderPath = Path.Combine(_environment.ContentRootPath, "uploads");
+            var filePath = Path.Combine(folderPath,
+                                                    Path.GetFileName(ExcelUpload.FileName));
 
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                using (var ep = new ExcelPackage(stream))
+                {
+                    // get the first worksheet
+                    ExcelWorkbook wb = ep.Workbook;
+                    /*var ws = wb.Worksheets["owssvr"];*/
+                    int iSheetsCount = ep.Workbook.Worksheets.Count;
+                    var ws = wb.Worksheets["Users"];
+                    // initialize the record counters
+                    var nAD = 0;
 
+                    #region Import all CMDB entries
+                    // create a list containing all the CMDB entries already existing
+                    // into the Database (it should be empty on first run).
+                    var lstAD_Computers = _context.AD_Computers.ToList();
+                    var lstAD_Users = _context.AD_Users.ToList();
+
+                    // iterates through all rows, skipping the first one
+                    for (int nRow = 2; nRow <= ws.Dimension.Rows; nRow++)
+                    {
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
+                        // var ADTag = row[nRow, 1].GetValue<int>();
+
+                        // Did we already created a Cmdb entry with that name?
+                        //if (lstAD_Users.Where(c => c.ADUserId == ADTag).Count() >= 0)
+                        //{
+                        //    //There already exist a entry... Remove it then update!
+                        //    //ONE entry per CD Tag
+                        //    if (lstAD_Users.Where(c => c.ADUserId == ADTag).Count() > 0)
+                        //    {
+                        //        Console.WriteLine(lstAD_Users.Where(c => c.ADUserId == ADTag).Count());
+                        //        lstAD_Users.RemoveAll(c => c.ADUserId == ADTag);
+                        //    }
+                            // create a new CMDB entity and fill it with xlsx data                         
+
+                            var ad_user = new AD_User();
+
+                            //ad_user.ADUserId = ADTag;
+                            ad_user.ProgramOffice = row[nRow, 1].GetValue<string>();
+                            ad_user.CACexemptionreason = row[nRow, 2].GetValue<string>();
+                            ad_user.SmartCardRequired = row[nRow, 3].GetValue<bool>();
+                            ad_user.UserEmailAddress = row[nRow, 4].GetValue<string>();
+                            ad_user.EmployeeType = row[nRow, 5].GetValue<string>();
+                            ad_user.SAMAccountName = row[nRow, 6].GetValue<string>();
+                            ad_user.Description = row[nRow, 7].GetValue<string>();
+                            ad_user.UserPrincipalName = row[nRow, 8].GetValue<string>();
+                            ad_user.AccountDisabled = row[nRow, 9].GetValue<bool>();
+                            ad_user.PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>();
+                            ad_user.PasswordCannotChange = row[nRow, 11].GetValue<bool>();
+                            ad_user.PasswordExpired= row[nRow, 12].GetValue<bool>();
+                            ad_user.AccountLockedOut = row[nRow, 13].GetValue<bool>();
+                            ad_user.CACExtendedInfo = row[nRow, 14].GetValue<string>();
+                            ad_user.UAC = row[nRow, 15].GetValue<int>();
+                            ad_user.UserName = row[nRow, 16].GetValue<string>();
+                            ad_user.DN = row[nRow, 17].GetValue<string>();
+                            ad_user.Created = row[nRow, 18].GetValue<DateTime>();
+                            ad_user.Changed = row[nRow, 19].GetValue<DateTime>();
+                            // save it into the Database
+                            _context.AD_Users.Add(ad_user);
+                            await _context.SaveChangesAsync();
+
+                            // store the cmdb to retrieve its Id later on
+                            lstAD_Users.Add(ad_user);
+
+                            // increment the counter
+                            nAD++;
+                       // }
+                    }
+
+                    ws = ep.Workbook.Worksheets["Computers"];
+
+                    // iterates through all rows, skipping the first one
+                    for (int nRow = 2; nRow <= ws.Dimension.End.Row; nRow++)
+                    {
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
+                        //var ADTag = row[nRow, 1].GetValue<int>();
+
+                        // Did we already created a Cmdb entry with that name?
+                        //if (lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count() >= 0)
+                        //{
+                        //    //There already exist a entry... Remove it then update!
+                        //    //ONE entry per CD Tag
+                        //    if (lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count() > 0)
+                        //    {
+                        //        Console.WriteLine(lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count());
+                        //        lstAD_Computers.RemoveAll(c => c.ADComputerId == ADTag);
+                        //    }
+                            // create a new CMDB entity and fill it with xlsx data                         
+
+                            var ad_computer = new AD_Computer();
+
+                            ad_computer.ADComputerName = row[nRow, 2].GetValue<string>();
+                            ad_computer.ProgramOffice = row[nRow, 1].GetValue<string>();
+                            ad_computer.OSType = row[nRow, 3].GetValue<string>();
+                            ad_computer.OSVersion = row[nRow, 4].GetValue<string>();
+                            ad_computer.ServicePack = row[nRow, 5].GetValue<string>();
+                            ad_computer.Created = row[nRow, 6].GetValue<DateTime>();
+                            ad_computer.Changed = row[nRow, 7].GetValue<DateTime>();
+                            ad_computer.UAC = row[nRow, 8].GetValue<int>();
+                            ad_computer.AccountDisabled = row[nRow, 9].GetValue<bool>();
+                            ad_computer.SmartCardRequired = row[nRow, 10].GetValue<bool>();
+                            ad_computer.Description = row[nRow, 11].GetValue<string>();
+                            ad_computer.DN = row[nRow, 12].GetValue<string>();
+                            ad_computer.Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>();
+                            // save it into the Database
+                            _context.AD_Computers.Add(ad_computer);
+                            await _context.SaveChangesAsync();
+
+                            // store the cmdb to retrieve its Id later on
+                            lstAD_Computers.Add(ad_computer);
+
+                            // increment the counter
+                            nAD++;
+                        }
+                    }
+                }
+
+                #endregion
+            }
         //Helper Method with grabbing specific data/columns 
         private Cmdb GetCmdbFromExcelRow(DataRow row)
         {
@@ -479,9 +613,8 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 AdUser = row[13].ToString()
             };
         }
-
-
-        /*public void */
-
     }
+
 }
+
+

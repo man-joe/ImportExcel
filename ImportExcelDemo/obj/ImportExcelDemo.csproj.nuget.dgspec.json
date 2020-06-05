@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {}
+    "C:\\Users\\Shervin Razazi\\Source\\Repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {
+    "C:\\Users\\Shervin Razazi\\Source\\Repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
+        "projectUniqueName": "C:\\Users\\Shervin Razazi\\Source\\Repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
         "projectName": "ImportExcelDemo",
-        "projectPath": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
-        "packagesPath": "C:\\Users\\Joseph\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Joseph\\source\\repos\\ImportExcel\\ImportExcelDemo\\obj\\",
+        "projectPath": "C:\\Users\\Shervin Razazi\\Source\\Repos\\ImportExcel\\ImportExcelDemo\\ImportExcelDemo.csproj",
+        "packagesPath": "C:\\Users\\Shervin Razazi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Shervin Razazi\\Source\\Repos\\ImportExcel\\ImportExcelDemo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Joseph\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shervin Razazi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -103,6 +103,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -111,7 +117,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
