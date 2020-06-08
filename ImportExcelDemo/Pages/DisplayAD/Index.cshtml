@@ -1,0 +1,178 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayAD.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<img src="~/sql-joins.png" />
+<hr />
+<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Joining Form</legend>
+
+        <!-- Multiple Checkboxes (inline) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="DataSets">Data Sources</label>
+            <div class="col-md-4">
+                <label class="checkbox-inline" for="DataSets-0">
+                    <input type="checkbox" name="DataSets" id="DataSets-0" value="1">
+                    AD_User
+                </label>
+                <label class="checkbox-inline" for="DataSets-1">
+                    <input type="checkbox" name="DataSets" id="DataSets-1" value="2">
+                    AD_Computer
+                </label>
+            </div>
+        </div>
+
+        -->
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton">Submit</label>
+            <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<hr />
+
+<h1>Display Tables...</h1>
+
+<!-- JSON Result Button -->
+
+<label class="col-md-4 control-label" for="singlebutton"></label>
+<div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" asp-page-handler="List">Display</button>
+</div>
+
+<label class="col-md-4 control-label" for="singlebutton"></label>
+<div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="reset" asp-page-handler="List">Delete</button>
+</div>
+
+<br />
+<br />
+
+
+<span style="color:red;">
+    @ViewData.Model.StatusMessage
+</span>
+<br />
+<span style="color:red;">
+    @ViewData.Model.NumMessage
+</span>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Users[0].ADUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Users[0].SAMAccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Users[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Users[0].UserEmailAddress)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AD_Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SAMAccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmailAddress)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ADUserId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ADUserId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ADUserId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+<span style="color:red;">
+    @ViewData.Model.StatusMessage
+</span>
+<br />
+<span style="color:red;">
+    @ViewData.Model.NumMessage
+</span>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Computers[0].ADComputerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Computers[0].DN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Computers[0].Win7StatusExtendedinfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AD_Computers[0].UAC)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AD_Computers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADComputerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Win7StatusExtendedinfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UAC)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ADComputerName">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ADComputerName">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ADComputerName">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+<script type="text/javascript">
+  function reloadPage()
+  {
+      window.location.reload();
+      table.reload();
+  }
+</script>
+

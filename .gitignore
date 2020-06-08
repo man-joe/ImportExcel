@@ -358,3 +358,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# CMDB specific ignores
+Migrations/
+uploads/
