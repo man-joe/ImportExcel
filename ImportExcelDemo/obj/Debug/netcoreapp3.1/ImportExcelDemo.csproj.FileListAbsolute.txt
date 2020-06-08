@@ -1054,3 +1054,4 @@ C:\Users\Shervin Razazi\Source\Repos\ImportExcel\ImportExcelDemo\obj\Debug\netco
 C:\Users\Shervin Razazi\Source\Repos\ImportExcel\ImportExcelDemo\obj\Debug\netcoreapp3.1\ImportExcelDemo.pdb
 C:\Users\Shervin Razazi\Source\Repos\ImportExcel\ImportExcelDemo\obj\Debug\netcoreapp3.1\ImportExcelDemo.genruntimeconfig.cache
 C:\Users\Shervin Razazi\Source\Repos\ImportExcel\ImportExcelDemo\obj\Debug\netcoreapp3.1\ImportExcelDemo.csprojAssemblyReference.cache
+C:\Users\Shervin Razazi\Source\Repos\ImportExcel\ImportExcelDemo\obj\Debug\netcoreapp3.1\Razor\Pages\DisplayAD\Index.cshtml.g.cs
