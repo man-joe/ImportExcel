@@ -31,6 +31,7 @@
     <Compile Remove="Migrations\20200408124407_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200429135538_InitialCreate.cs" />
     <Compile Remove="Migrations\20200429135538_InitialCreate.Designer.cs" />
+<<<<<<< HEAD
     <Compile Remove="Migrations\20200527125841_InitialCreate.cs" />
     <Compile Remove="Migrations\20200527125841_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200527142459_InitialCreate.cs" />
@@ -41,6 +42,10 @@
     <Compile Remove="Migrations\20200603133917_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200603142435_InitialCreate.cs" />
     <Compile Remove="Migrations\20200603142435_InitialCreate.Designer.cs" />
+=======
+    <Compile Remove="Migrations\20200605152941_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200605152941_InitialCreate.Designer.cs" />
+>>>>>>> 36da458b95468ef2a15a9cddc7631fb13968ba18
   </ItemGroup>
 
   <ItemGroup>
