@@ -462,7 +462,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 csv.Configuration.HeaderValidated = null;
                 csv.Configuration.MissingFieldFound = null;
 
-<<<<<<< HEAD
                 try
                 {
                     var records = csv.GetRecords<EPO>().ToList();
