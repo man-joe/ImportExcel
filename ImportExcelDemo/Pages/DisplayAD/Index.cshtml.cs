@@ -87,14 +87,11 @@ namespace ImportExcelDemo.Pages.DisplayAD
             FirstOptionChecked = true;
             OptionsSet = true;
 
-            int count = 0;
-
             foreach(var item in Request.Form.Keys)
             {
                 if (item.Contains("DataSetsOptions"))
                 {
                     DataSetOptions.Add(item);
-                    Response.Cookies.Append("DataSetsOptions", item);
                 }
             }
 
