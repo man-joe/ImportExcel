@@ -69,10 +69,9 @@ namespace ImportExcelDemo.Pages.DisplayAD
         {
             FirstOptionChecked = true;
             DataSet = Convert.ToInt32(Request.Form["DataSets"]);
-            Response.Cookies.Append("DataSet", DataSet.ToString());
             return Page();
         }
-        public async Task OnPostDisplay()
+        public async Task OnPostDisplay(int DataSet)
         {
             AD_Users = await _context.AD_Users
                .AsNoTracking()
@@ -82,9 +81,6 @@ namespace ImportExcelDemo.Pages.DisplayAD
                 .AsNoTracking()
                 .ToListAsync();
 
-            DataSet = Convert.ToInt32(Request.Cookies["DataSet"]);
-
-            FirstOptionChecked = true;
             OptionsSet = true;
 
             foreach(var item in Request.Form.Keys)

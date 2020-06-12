@@ -42,13 +42,6 @@ namespace ImportExcelDemo
             // will allow for JS, HTML, CSS changes to work during runtime          
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.Cookie.Name = "Cookie";
-            });
-
-            services.AddMemoryCache();
-
 
         }
 
@@ -77,8 +70,6 @@ namespace ImportExcelDemo
              {
                  endpoints.MapRazorPages();
              });*/
-
-            app.UseSession();
         }
     }
 }
