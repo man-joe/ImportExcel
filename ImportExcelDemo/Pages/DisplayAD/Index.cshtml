@@ -5,30 +5,70 @@
 }
 
 <style>
+
     td, th {
-        border: 1px solid blue;
+        border: 1px solid #ddd;
         border-collapse: collapse;
-        padding: 5px;
+        padding: 8px;
+    }
+
+    table.center tr:hover {
+        background-color: #f2f2f2;
     }
 
     div.ex1 {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         width: 100%;
         height: 800px;
         overflow: auto;
     }
 
-    table.center {
+    div.ex2 {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         margin-left: auto;
         margin-right: auto;
-        overflow: auto;
-        border: 1px solid blue;
-        border-collapse: collapse;
     }
 
-    thead {
-        border: 3px solid black;
-        border-collapse: collapse;
+    table.center {
+        border: 1px solid #ddd;
     }
+
+        table.center tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+            table.center tr:nth-child(even):hover {
+                background-color: #ddd;
+            }
+
+        table.center tr:hover {
+            background-color: #ddd;
+        }
+
+
+    thead {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-collapse: collapse;
+        color: rgba(255, 255, 255, 0.83);
+        background-color: #1f3cc6;
+    }
+
+    .btn-primary {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: rgba(255, 255, 255, 0.83);
+        background-color: #1f3cc6;
+        border-radius: var(--border-radius);
+    }
+
+        .btn-primary:hover {
+            box-shadow: inset 0 0 0 20rem var(--darken-1);
+        }
+
+        .btn-primary:active {
+            box-shadow: inset 0 0 0 20rem var(--darken-2), inset 0 3px 4px 0 var(--darken-3),
 </style>
 
 @if (Model.FirstOptionChecked == false && Model.OptionsSet == false)
@@ -233,18 +273,18 @@
 @if (Model.OptionsSet == true)
 {
     <div class="ex1">
+        <div class="ex2">
+            <h1 class="center">Display Tables</h1>
+            @ViewData.Model.StatusMessage
+            <br />
+            @ViewData.Model.NumMessage
+        </div>
         @if (Model.DataSet == 0)
         {
             <form method="post">
-                <h1>Display Tables</h1>
-
                 <button method="post" asp-page-handler="Refresh" class="btn btn-primary">Refresh</button>
-                <div style="color:red;">
-                    @ViewData.Model.StatusMessage
-                    <br />
-                    @ViewData.Model.NumMessage
-                </div>
                 <table class="center">
+
                     <thead>
                         <tr>
                             @if (Model.DataSetOptions.Contains("DataSetsOptions-0"))
@@ -596,14 +636,8 @@
         }
         else if (Model.DataSet == 1)
         {
-            <h1>Display Tables</h1>
             <form method="post">
                 <button method="post" asp-page-handler="Refresh" class="btn btn-primary">Refresh</button>
-                <div style="color:red;">
-                    @ViewData.Model.StatusMessage
-                    <br />
-                    @ViewData.Model.NumMessage
-                </div>
                 <table class="center">
                     <thead>
                         <tr>
@@ -835,5 +869,6 @@
 }
 
 @section Scripts{
-    <script src="~/js/dtAD.js"></script>
+    <script src="~/js/dtAD.js">
+    </script>
 }
