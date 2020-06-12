@@ -16,7 +16,29 @@ function loadList() {
             //contentType: "application/json",
             "dataType": "json"
         },
-        "scrollX" : true,
+        "scrollX": true,
+        "columnDefs": [
+          /*  {
+                "targets": [0], //Hide CmdbID
+                "visible": false,
+                "searchable": false
+            }*/
+
+
+           /* {
+                "targets": [18], // Aquisition Date - Changed format
+                "render": $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'MM/DD/YYYY')
+            },
+*/
+            {
+                "targets": [19],
+                "render": $.fn.dataTable.render.moment("YYYY-MM-DD HH:mm:ss", "MM/DD/YYYY")
+            }
+
+
+
+        ],
+
         "columns": [
             { "data": "cmdbID" },
             { "data": "cdTag" },
