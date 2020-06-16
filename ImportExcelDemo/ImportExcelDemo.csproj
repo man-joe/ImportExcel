@@ -5,47 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200327075603_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200327075603_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200401125744_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200401125744_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200401130309_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200401130309_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200401131716_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200401131716_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200401133509_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200401133509_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200401133949_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200401133949_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408110440_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408110440_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408111607_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408111607_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408112647_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408112647_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408114932_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408114932_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408115459_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408115459_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200408124407_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200408124407_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200429135538_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200429135538_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200527125841_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200527125841_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200527142459_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200527142459_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200603132624_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200603132624_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200603133917_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200603133917_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200603142435_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200603142435_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200605152941_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200605152941_InitialCreate.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="15.0.3" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />

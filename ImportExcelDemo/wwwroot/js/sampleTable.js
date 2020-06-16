@@ -30,10 +30,10 @@ function loadList() {
                 "render": $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'MM/DD/YYYY')
             },
 */
-            {
+         /*   {
                 "targets": [19],
                 "render": $.fn.dataTable.render.moment("YYYY-MM-DD HH:mm:ss", "MM/DD/YYYY")
-            }
+            }*/
 
 
 

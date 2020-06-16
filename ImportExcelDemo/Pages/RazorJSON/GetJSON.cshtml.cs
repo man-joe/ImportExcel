@@ -25,8 +25,11 @@ namespace ImportExcelDemo.Pages.RazorJSON
 
         public JsonResult OnGet()
         {
-            List<Cmdb> lstCmdbs = _context.Cmdbs.ToList();
-            return new JsonResult(lstCmdbs);
+            /*List<Cmdb> lstCmdbs = _context.Cmdbs.ToList();
+            return new JsonResult(lstCmdbs);*/
+
+            List<Sunflower> lst = _context.Sunflowers.ToList();
+            return new JsonResult(lst);
         }
     }
 }

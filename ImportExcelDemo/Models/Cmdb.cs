@@ -53,7 +53,7 @@ namespace ImportExcelDemo.Models
         [StringLength(50)]
         public string ClassType { get; set; }
         public DateTime? AcquisitionDate { get; set; }
-        public DateTime? WarrentyEndDate { get; set; }
+        public DateTime? WarrantyEndDate { get; set; }
         [StringLength(50)]
         public string Custodian { get; set; }
         [StringLength(800)]

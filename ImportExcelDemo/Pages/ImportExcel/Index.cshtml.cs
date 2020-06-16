@@ -314,7 +314,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             cmdb.Status = row[nRow, 16].GetValue<string>();
                             cmdb.ClassType = row[nRow, 17].GetValue<string>();
                             cmdb.AcquisitionDate = row[nRow, 18].GetValue<DateTime>();
-                            cmdb.WarrentyEndDate = row[nRow, 19].GetValue<DateTime>();
+                            cmdb.WarrantyEndDate = row[nRow, 19].GetValue<DateTime>();
                             cmdb.Custodian = row[nRow, 20].GetValue<string>();
                             cmdb.Comments = row[nRow, 21].GetValue<string>();
                             cmdb.InventoriedBy = row[nRow, 22].GetValue<string>();

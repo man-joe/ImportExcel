@@ -38,7 +38,7 @@ function loadList() {
             { "data": "conditionDescription" },
             { "data": "physicalInventoryDate" },
             { "data": "acquisitionDate" },
-            { "data": "responsibiltyDate" },
+            { "data": "responsibilityDate" },
             { "data": "site" },
             { "data": "stlv1" },
             { "data": "stlv2" },
