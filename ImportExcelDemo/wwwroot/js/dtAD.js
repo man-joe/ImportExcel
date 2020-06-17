@@ -8,7 +8,7 @@ function loadList() {
     dataTable = $('#DT_load').DataTable( {
         "ajax": {
             "type": "GET",
-            "url": "/api/sample/GetSun",
+            "url": "/api/sample/GetAD",
             "serverSide": true,
             // "url": PlaySpace/?handler=List
 
