@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using ImportExcelDemo.Data;
 using ImportExcelDemo.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace ImportExcelDemo.Pages.DisplayAD
 {
@@ -20,11 +24,23 @@ namespace ImportExcelDemo.Pages.DisplayAD
         private readonly ImportExcelDemo.Data.DemoContext _context;
         /*public List<> JoinDatas { get; set; }*/
 
+        [ViewData]
+        public bool FirstOptionChecked { get; set; }
+
+        public bool OptionsSet { get; set; }
+
+        public int DataSet { get; set; }
+
+        public List<string> DataSetOptions { get; set; }
+
         [Obsolete]
         public IndexModel(IHostingEnvironment environment, DemoContext context)
         {
             _environment = environment;
             _context = context;
+            FirstOptionChecked = false;
+            OptionsSet = false;
+            DataSetOptions = new List<string>();
         }
 
 
@@ -48,42 +64,50 @@ namespace ImportExcelDemo.Pages.DisplayAD
             AD_Computers = await _context.AD_Computers
                 .AsNoTracking()
                 .ToListAsync();
-
-            //if(AD_Users.Count != 0)
-            //{
-
-            //    int nUserEntries = AD_Users.Count();
-            //    StatusMessage = "Currently Showing AD_Users";
-            //    NumMessage = "Total Entries: " + nUserEntries;
-            //} else if (AD_Computers.Count != 0)
-            //{
-                int nComputerEntries = AD_Computers.Count();
-                StatusMessage = "Currently Showing AD_Computers";
-                NumMessage = "Total Entries: " + nComputerEntries;
-            //}
         }
-        //JSON result / using js for a more dynamic table...
-        public IList<AD_User> AD_User { get; set; }
-
-        public IList<AD_Computer> AD_Computer { get; set; }
-        
-        public async Task<ActionResult> OnGetListAsync()
+        public IActionResult OnPostSubmit()
         {
-            AD_User = await _context.AD_Users
+            FirstOptionChecked = true;
+            DataSet = Convert.ToInt32(Request.Form["DataSets"]);
+            return Page();
+        }
+        public async Task OnPostDisplay(int DataSet)
+        {
+            AD_Users = await _context.AD_Users
+               .AsNoTracking()
+               .ToListAsync();
+
+            AD_Computers = await _context.AD_Computers
                 .AsNoTracking()
                 .ToListAsync();
 
-            AD_Computer = await _context.AD_Computers
-                .AsNoTracking()
-                .ToListAsync();
+            OptionsSet = true;
 
+            foreach(var item in Request.Form.Keys)
+            {
+                if (item.Contains("DataSetsOptions"))
+                {
+                    DataSetOptions.Add(item);
+                }
+            }
 
-            //if(AD_User.Count != 0)
-            //{
-            //    return new JsonResult(AD_User);
-            //}
+            if (DataSet == 0)
+            {
+                NumMessage = "The total number of Users is " + AD_Users.Count;
+                StatusMessage = "Now displaying AD Users";
+            }
+            else if (DataSet == 1)
+            {
+                NumMessage = "The total number of Computers is " + AD_Computers.Count;
+                StatusMessage = "Now displaying AD Computers";
+            }
+        }
 
-            return new JsonResult(AD_Computer);
+        public IActionResult OnPostRefresh()
+        {
+            FirstOptionChecked = false;
+            OptionsSet = false;
+            return Page();
         }
     }
 }

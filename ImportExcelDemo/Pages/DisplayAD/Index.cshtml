@@ -4,175 +4,871 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
 
-<img src="~/sql-joins.png" />
-<hr />
-<form class="form-horizontal">
-    <fieldset>
+    td, th {
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        padding: 8px;
+    }
 
-        <!-- Form Name -->
-        <legend>Joining Form</legend>
+    table.center tr:hover {
+        background-color: #f2f2f2;
+    }
 
-        <!-- Multiple Checkboxes (inline) -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="DataSets">Data Sources</label>
-            <div class="col-md-4">
-                <label class="checkbox-inline" for="DataSets-0">
-                    <input type="checkbox" name="DataSets" id="DataSets-0" value="1">
-                    AD_User
-                </label>
-                <label class="checkbox-inline" for="DataSets-1">
-                    <input type="checkbox" name="DataSets" id="DataSets-1" value="2">
-                    AD_Computer
-                </label>
-            </div>
-        </div>
+    div.ex1 {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        width: 100%;
+        height: 800px;
+        overflow: auto;
+    }
 
-        -->
-        <!-- Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton">Submit</label>
-            <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
+    div.ex2 {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-    </fieldset>
-</form>
+    table.center {
+        border: 1px solid #ddd;
+    }
 
-<hr />
-
-<h1>Display Tables...</h1>
-
-<!-- JSON Result Button -->
-
-<label class="col-md-4 control-label" for="singlebutton"></label>
-<div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" asp-page-handler="List">Display</button>
-</div>
-
-<label class="col-md-4 control-label" for="singlebutton"></label>
-<div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="reset" asp-page-handler="List">Delete</button>
-</div>
-
-<br />
-<br />
-
-
-<span style="color:red;">
-    @ViewData.Model.StatusMessage
-</span>
-<br />
-<span style="color:red;">
-    @ViewData.Model.NumMessage
-</span>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Users[0].ADUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Users[0].SAMAccountName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Users[0].UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Users[0].UserEmailAddress)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.AD_Users)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADUserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SAMAccountName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserEmailAddress)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ADUserId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ADUserId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ADUserId">Delete</a>
-                </td>
-            </tr>
+        table.center tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
-    </tbody>
-</table>
 
-<br />
-<br />
+            table.center tr:nth-child(even):hover {
+                background-color: #ddd;
+            }
 
-<span style="color:red;">
-    @ViewData.Model.StatusMessage
-</span>
-<br />
-<span style="color:red;">
-    @ViewData.Model.NumMessage
-</span>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Computers[0].ADComputerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Computers[0].DN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Computers[0].Win7StatusExtendedinfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AD_Computers[0].UAC)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.AD_Computers)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADComputerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Win7StatusExtendedinfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UAC)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ADComputerName">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ADComputerName">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ADComputerName">Delete</a>
-                </td>
-            </tr>
+        table.center tr:hover {
+            background-color: #ddd;
         }
-    </tbody>
-</table>
 
-<br />
-<br />
 
-<script type="text/javascript">
-  function reloadPage()
-  {
-      window.location.reload();
-      table.reload();
-  }
-</script>
+    thead {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-collapse: collapse;
+        color: rgba(255, 255, 255, 0.83);
+        background-color: #1f3cc6;
+    }
 
+    .btn-primary {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: rgba(255, 255, 255, 0.83);
+        background-color: #1f3cc6;
+        border-radius: var(--border-radius);
+    }
+
+        .btn-primary:hover {
+            box-shadow: inset 0 0 0 20rem var(--darken-1);
+        }
+
+        .btn-primary:active {
+            box-shadow: inset 0 0 0 20rem var(--darken-2), inset 0 3px 4px 0 var(--darken-3),
+</style>
+
+@if (Model.FirstOptionChecked == false && Model.OptionsSet == false)
+
+{
+
+    <hr />
+    <form method="post" class="form-horizontal">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>Selection Form</legend>
+
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="DataSets">Data Sources</label>
+                <div class="col-md-4">
+                    <label class="checkbox-inline" for="DataSets-0">
+                        <input type="checkbox" name="DataSets" id="DataSets-0" value="0">
+                        AD_User
+                    </label>
+                    <label class="checkbox-inline" for="DataSets-1">
+                        <input type="checkbox" name="DataSets" id="DataSets-1" value="1">
+                        AD_Computer
+                    </label>
+                </div>
+            </div>
+            <button method="post" asp-page-handler="Submit" asp-route-id="0" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+}
+
+
+@if (Model.FirstOptionChecked == true && Model.OptionsSet == false)
+{
+    <hr />
+    @if (Model.DataSet == 0)
+    {
+        <form method="post" class="form-horizontal">
+            <fieldset>
+                <legend>
+                    Options
+                </legend>
+                <div class="form-group">
+                    <label class=" col-md-4 control-label" for="DatasetsOptions">Data Options</label>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline" for="DataSetsOptions-0">
+                            <input type="checkbox" name="DataSetsOptions-0" id="DataSetsOptions-0" value=" 0" />
+                            User Id
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-1">
+                            <input type="checkbox" name="DataSetsOptions-1" id="DataSetsOptions-1" value=" 1" />
+                            Program Office
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-2">
+                            <input type="checkbox" name="DataSetsOptions-2" id="DataSetsOptions-2" value=" 2" />
+                            CAC Exemption Reason
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-3">
+                            <input type="checkbox" name="DataSetsOptions-3" id="DataSetsOptions-3" value=" 3" />
+                            Smart Card Required
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-4">
+                            <input type="checkbox" name="DataSetsOptions-4" id="DataSetsOptions-4" value=" 4" />
+                            User E-mail Address
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-5">
+                            <input type="checkbox" name="DataSetsOptions-5" id="DataSetsOptions-5" value=" 5" />
+                            Employee Type
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-6">
+                            <input type="checkbox" name="DataSetsOptions-6" id="DataSetsOptions-6" value=" 6" />
+                            SAM Account Name
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-7">
+                            <input type="checkbox" name="DataSetsOptions-7" id="DataSetsOptions-7" value=" 7" />
+                            Description
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-8">
+                            <input type="checkbox" name="DataSetsOptions-8" id="DataSetsOptions-8" value=" 8" />
+                            User Principal Name
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-9">
+                            <input type="checkbox" name="DataSetsOptions-9" id="DataSetsOptions-9" value=" 9" />
+                            Account Disabled
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-10">
+                            <input type="checkbox" name="DataSetsOptions-10" id="DataSetsOptions-10" value=" 10" />
+                            Password Does Not Expire
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-11">
+                            <input type="checkbox" name="DataSetsOptions-11" id="DataSetsOptions-11" value=" 11" />
+                            Password Cannot Change
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-12">
+                            <input type="checkbox" name="DataSetsOptions-12" id="DataSetsOptions-12" value=" 12" />
+                            Password Expired
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-13">
+                            <input type="checkbox" name="DataSetsOptions-13" id="DataSetsOptions-13" value=" 13" />
+                            Account Locked Out
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-14">
+                            <input type="checkbox" name="DataSetsOptions-14" id="DataSetsOptions-14" value=" 14" />
+                            CAC Extended Info
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-15">
+                            <input type="checkbox" name="DataSetsOptions-15" id="DataSetsOptions-15" value=" 15" />
+                            UAC
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-16">
+                            <input type="checkbox" name="DataSetsOptions-16" id="DataSetsOptions-16" value=" 16" />
+                            User Name
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-17">
+                            <input type="checkbox" name="DataSetsOptions-17" id="DataSetsOptions-17" value=" 17" />
+                            DN
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-18">
+                            <input type="checkbox" name="DataSetsOptions-18" id="DataSetsOptions-18" value=" 18" />
+                            Date Created
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-19">
+                            <input type="checkbox" name="DataSetsOptions-19" id="DataSetsOptions-19" value=" 19" />
+                            Date Changed
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <button method="post" asp-page-handler="Display" asp-route-id="0" class="btn btn-primary">Display</button>
+        </form>
+    }
+    else if (Model.DataSet == 1)
+    {
+        <form method="post" class="form-horizontal" style="width: 80%">
+            <fieldset>
+                <legend>
+                    Options
+                </legend>
+                <div class="form-group">
+                    <label class=" col-md-4 control-label" for="DatasetsOptions">Data Options</label>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline" for="DataSetsOptions-0">
+                            <input type="checkbox" name="DataSetsOptions-0" id="DataSetsOptions-0" value=" 0" />
+                            Computer Name
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-1">
+                            <input type="checkbox" name="DataSetsOptions-1" id="DataSetsOptions-1" value=" 1" />
+                            Program Office
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-2">
+                            <input type="checkbox" name="DataSetsOptions-2" id="DataSetsOptions-2" value=" 2" />
+                            OS Type
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-3">
+                            <input type="checkbox" name="DataSetsOptions-3" id="DataSetsOptions-3" value=" 3" />
+                            OS Version
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-4">
+                            <input type="checkbox" name="DataSetsOptions-4" id="DataSetsOptions-4" value=" 4" />
+                            Service Pack
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-5">
+                            <input type="checkbox" name="DataSetsOptions-5" id="DataSetsOptions-5" value=" 5" />
+                            Date Created
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-6">
+                            <input type="checkbox" name="DataSetsOptions-6" id="DataSetsOptions-6" value=" 6" />
+                            Date Changed
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-7">
+                            <input type="checkbox" name="DataSetsOptions-7" id="DataSetsOptions-7" value=" 7" />
+                            UAC
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-8">
+                            <input type="checkbox" name="DataSetsOptions-8" id="DataSetsOptions-8" value=" 8" />
+                            Account Disabled
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-9">
+                            <input type="checkbox" name="DataSetsOptions-9" id="DataSetsOptions-9" value=" 9" />
+                            Smart Card Required
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-10">
+                            <input type="checkbox" name="DataSetsOptions-10" id="DataSetsOptions-10" value=" 10" />
+                            Description
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-11">
+                            <input type="checkbox" name="DataSetsOptions-11" id="DataSetsOptions-11" value=" 11" />
+                            DN
+                        </label>
+                        <label class="checkbox-inline" for="DataSetsOptions-12">
+                            <input type="checkbox" name="DataSetsOptions-12" id="DataSetsOptions-12" value=" 12" />
+                            Windows 7 Status Extended Info
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <button method="post" asp-page-handler="Display" asp-route-id="1" class="btn btn-primary">Display</button>
+        </form>
+    }
+}
+
+@if (Model.OptionsSet == true)
+{
+    <div class="ex1">
+        <div class="ex2">
+            <h1 class="center">Display Tables</h1>
+            @ViewData.Model.StatusMessage
+            <br />
+            @ViewData.Model.NumMessage
+        </div>
+        @if (Model.DataSet == 0)
+        {
+            <form method="post">
+                <button method="post" asp-page-handler="Refresh" class="btn btn-primary">Refresh</button>
+                <table class="center">
+
+                    <thead>
+                        <tr>
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-0"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].ADUserId)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-1"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].ProgramOffice)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-2"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].CACexemptionreason)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-3"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].SmartCardRequired)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-4"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].UserEmailAddress)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-5"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].EmployeeType)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-6"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].SAMAccountName)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-7"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].Description)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-8"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].UserPrincipalName)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-9"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].AccountDisabled)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-10"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].PasswordDoesNotExpire)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-11"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].PasswordCannotChange)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-12"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].PasswordExpired)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-13"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].AccountLockedOut)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-14"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].CACExtendedInfo)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-15"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].UAC)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-16"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].UserName)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-17"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].DN)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-18"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].Created)
+                                </th>
+                            }
+
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-19"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Users[0].Changed)
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AD_Users)
+                        {
+                            <tr>
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-0"))
+                                {
+
+                                    <th>
+                                        @item.ADUserId
+                                    </th>
+                                }
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-1"))
+                                {
+
+                                    <th>
+                                        @item.ProgramOffice
+                                    </th>
+                                }
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-2"))
+                                {
+
+                                    <th>
+                                        @item.CACexemptionreason
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-3"))
+                                {
+
+                                    <th>
+                                        @item.SmartCardRequired
+                                    </th>
+
+                                }
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-4"))
+                                {
+
+                                    <th>
+                                        @item.UserEmailAddress
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-5"))
+                                {
+
+
+                                    <th>
+                                        @item.EmployeeType
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-6"))
+                                {
+
+                                    <th>
+                                        @item.SAMAccountName
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-7"))
+                                {
+
+                                    <th>
+                                        @item.Description
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-8"))
+                                {
+
+                                    <th>
+                                        @item.UserPrincipalName
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-9"))
+                                {
+
+                                    <th>
+                                        @item.AccountDisabled
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-10"))
+                                {
+
+                                    <th>
+                                        @item.PasswordDoesNotExpire
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-11"))
+                                {
+
+                                    <th>
+                                        @item.PasswordCannotChange
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-12"))
+                                {
+
+                                    <th>
+                                        @item.PasswordExpired
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-13"))
+                                {
+
+                                    <th>
+                                        @item.AccountLockedOut
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-14"))
+                                {
+
+                                    <th>
+                                        @item.CACExtendedInfo
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-15"))
+                                {
+
+                                    <th>
+                                        @item.UAC
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-16"))
+                                {
+                                    <th>
+
+                                        @item.UserName
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-17"))
+                                {
+                                    <th>
+
+                                        @item.DN
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-18"))
+                                {
+
+                                    <th>
+                                        @item.Created
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-19"))
+                                {
+
+                                    <th>
+                                        @item.Changed
+                                    </th>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <br />
+            </form>
+        }
+        else if (Model.DataSet == 1)
+        {
+            <form method="post">
+                <button method="post" asp-page-handler="Refresh" class="btn btn-primary">Refresh</button>
+                <table class="center">
+                    <thead>
+                        <tr>
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-0"))
+                            {
+
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].ADComputerName)
+
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-1"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].ProgramOffice)
+
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-2"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].OSType)
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-3"))
+                            {
+
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].OSVersion)
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-4"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].ServicePack)
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-5"))
+                            {
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].Created)
+
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-6"))
+                            {
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].Changed)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-7"))
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].UAC)
+                                </th>
+                            }
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-8"))
+                            {
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].AccountDisabled)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-9"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].SmartCardRequired)
+
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-10"))
+                            {
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].Description)
+
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-11"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].DN)
+                                </th>
+                            }
+
+                            @if (Model.DataSetOptions.Contains("DataSetsOptions-12"))
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AD_Computers[0].Win7StatusExtendedinfo)
+
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AD_Computers)
+                        {
+                            <tr>
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-0"))
+                                {
+
+                                    <th>
+                                        @item.ADComputerName
+
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-1"))
+                                {
+
+                                    <th>
+                                        @item.ProgramOffice
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-2"))
+                                {
+
+                                    <th>
+                                        @item.OSType
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-3"))
+                                {
+
+                                    <th>
+                                        @item.OSVersion
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-4"))
+                                {
+
+                                    <th>
+                                        @item.ServicePack
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-5"))
+                                {
+
+                                    <th>
+                                        @item.Created
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-6"))
+                                {
+
+                                    <th>
+                                        @item.Changed
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-7"))
+                                {
+
+                                    <th>
+                                        @item.UAC
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-8"))
+                                {
+
+                                    <th>
+                                        @item.AccountDisabled
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-9"))
+                                {
+
+                                    <th>
+                                        @item.SmartCardRequired
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-10"))
+                                {
+
+                                    <th>
+                                        @item.Description
+                                    </th>
+                                }
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-11"))
+                                {
+
+                                    <th>
+                                        @item.DN
+                                    </th>
+                                }
+
+
+                                @if (Model.DataSetOptions.Contains("DataSetsOptions-12"))
+                                {
+
+                                    <th>
+                                        @item.Win7StatusExtendedinfo
+                                    </th>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <br />
+            </form>
+        }
+    </div>
+}
+
+@section Scripts{
+    <script src="~/js/dtAD.js">
+    </script>
+}

@@ -33,7 +33,6 @@ namespace ImportExcelDemo
             services.AddDbContext<DemoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DemoContext")));
 
-
            /* services.AddScoped<DemoContext, DbContext>*/
 
             //Allows MVC to be used along with RazorPages
@@ -42,6 +41,7 @@ namespace ImportExcelDemo
             // Added Dynamic Updated package RuntimeCompilation
             // will allow for JS, HTML, CSS changes to work during runtime          
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 
         }
 
@@ -61,17 +61,15 @@ namespace ImportExcelDemo
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             /*app.UseRouting();*/
 
             app.UseAuthorization();
 
             app.UseMvc();
-
-           /* app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });*/
+            /* app.UseEndpoints(endpoints =>
+             {
+                 endpoints.MapRazorPages();
+             });*/
         }
     }
 }
