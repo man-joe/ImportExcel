@@ -108,7 +108,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                 await ExcelUpload.CopyToAsync(fileStream);
                                 Message = "EPO File uploaded.";
                             }
-                            else if (fileName.ToUpper().Contains("Active") || fileName.ToUpper().Contains("AD"))
+                            else if (fileName.ToUpper().Contains("ACTIVE") || fileName.ToUpper().Contains("AD"))
 
                             {
                                 await ExcelUpload.CopyToAsync(fileStream);
