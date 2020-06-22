@@ -108,8 +108,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                 await ExcelUpload.CopyToAsync(fileStream);
                                 Message = "EPO File uploaded.";
                             }
-                            else if (fileName.ToUpper().Contains("Active") || fileName.ToUpper().Contains("AD"))
-
+                            else if (fileName.ToUpper().Contains("ACTIVE") || fileName.ToUpper().Contains("AD"))
                             {
                                 await ExcelUpload.CopyToAsync(fileStream);
                                 Message = "AD File uploaded.";
@@ -294,46 +293,79 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             }
                             // create a new CMDB entity and fill it with xlsx data                         
 
-                            var cmdb = new Cmdb();
-
-                            cmdb.CDTag = cdTag;
-                            cmdb.Org = row[nRow, 2].GetValue<string>();
-                            cmdb.HostName = row[nRow, 3].GetValue<string>();
-                            cmdb.Location = row[nRow, 4].GetValue<string>();
-                            cmdb.Floor = row[nRow, 5].GetValue<string>();
-                            cmdb.Room = row[nRow, 6].GetValue<string>();
-                            cmdb.IpAddress = row[nRow, 7].GetValue<string>();
-                            cmdb.SubnetMask = row[nRow, 8].GetValue<string>();
-                            cmdb.MacAddress = row[nRow, 9].GetValue<string>();
-                            cmdb.Manufacturer = row[nRow, 10].GetValue<string>();
-                            cmdb.Model = row[nRow, 11].GetValue<string>();
-                            cmdb.SerialNumber = row[nRow, 12].GetValue<string>();
-                            cmdb.OperatingSystem = row[nRow, 13].GetValue<string>();
-                            cmdb.AdUser = row[nRow, 14].GetValue<string>();
-                            cmdb.SunflowerUser = row[nRow, 15].GetValue<string>();
-                            cmdb.Status = row[nRow, 16].GetValue<string>();
-                            cmdb.ClassType = row[nRow, 17].GetValue<string>();
-                            cmdb.AcquisitionDate = row[nRow, 18].GetValue<DateTime>();
-                            cmdb.WarrantyEndDate = row[nRow, 19].GetValue<DateTime>();
-                            cmdb.Custodian = row[nRow, 20].GetValue<string>();
-                            cmdb.Comments = row[nRow, 21].GetValue<string>();
-                            cmdb.InventoriedBy = row[nRow, 22].GetValue<string>();
-                            cmdb.InventoryDate = row[nRow, 23].GetValue<DateTime>();
-                            cmdb.LastScan = row[nRow, 24].GetValue<DateTime>();
-                            cmdb.ModifiedBy = row[nRow, 25].GetValue<string>();
-                            cmdb.Modified = row[nRow, 26].GetValue<DateTime>();
+                            lstCmdbs.Add(new Cmdb
+                            {
+                                CDTag = row[nRow, 1].GetValue<string>(),
+                                Org = row[nRow, 2].GetValue<string>(),
+                                HostName = row[nRow, 3].GetValue<string>(),
+                                Location = row[nRow, 4].GetValue<string>(),
+                                Floor = row[nRow, 5].GetValue<string>(),
+                                Room = row[nRow, 6].GetValue<string>(),
+                                IpAddress = row[nRow, 7].GetValue<string>(),
+                                SubnetMask = row[nRow, 8].GetValue<string>(),
+                                MacAddress = row[nRow, 9].GetValue<string>(),
+                                Manufacturer = row[nRow, 10].GetValue<string>(),
+                                Model = row[nRow, 11].GetValue<string>(),
+                                SerialNumber = row[nRow, 12].GetValue<string>(),
+                                OperatingSystem = row[nRow, 13].GetValue<string>(),
+                                AdUser = row[nRow, 14].GetValue<string>(),
+                                SunflowerUser = row[nRow, 15].GetValue<string>(),
+                                Status = row[nRow, 16].GetValue<string>(),
+                                ClassType = row[nRow, 17].GetValue<string>(),
+                                AcquisitionDate = row[nRow, 18].GetValue<DateTime>(),
+                                WarrantyEndDate = row[nRow, 19].GetValue<DateTime>(),
+                                Custodian = row[nRow, 20].GetValue<string>(),
+                                Comments = row[nRow, 21].GetValue<string>(),
+                                InventoriedBy = row[nRow, 22].GetValue<string>(),
+                                InventoryDate = row[nRow, 23].GetValue<DateTime>(),
+                                LastScan = row[nRow, 24].GetValue<DateTime>(),
+                                ModifiedBy = row[nRow, 25].GetValue<string>(),
+                                Modified = row[nRow, 26].GetValue<DateTime>()
+                            });
 
                             // save it into the Database
-                            _context.Cmdbs.Add(cmdb);
-                            await _context.SaveChangesAsync();
+                            _context.Cmdbs.AddRange(lstCmdbs);
 
+                            /*                    var cmdb = new Cmdb();
+
+                                                cmdb.CDTag = cdTag;
+                                                cmdb.Org = row[nRow, 2].GetValue<string>();
+                                                cmdb.HostName = row[nRow, 3].GetValue<string>();
+                                                cmdb.Location = row[nRow, 4].GetValue<string>();
+                                                cmdb.Floor = row[nRow, 5].GetValue<string>();
+                                                cmdb.Room = row[nRow, 6].GetValue<string>();
+                                                cmdb.IpAddress = row[nRow, 7].GetValue<string>();
+                                                cmdb.SubnetMask = row[nRow, 8].GetValue<string>();
+                                                cmdb.MacAddress = row[nRow, 9].GetValue<string>();
+                                                cmdb.Manufacturer = row[nRow, 10].GetValue<string>();
+                                                cmdb.Model = row[nRow, 11].GetValue<string>();
+                                                cmdb.SerialNumber = row[nRow, 12].GetValue<string>();
+                                                cmdb.OperatingSystem = row[nRow, 13].GetValue<string>();
+                                                cmdb.AdUser = row[nRow, 14].GetValue<string>();
+                                                cmdb.SunflowerUser = row[nRow, 15].GetValue<string>();
+                                                cmdb.Status = row[nRow, 16].GetValue<string>();
+                                                cmdb.ClassType = row[nRow, 17].GetValue<string>();
+                                                cmdb.AcquisitionDate = row[nRow, 18].GetValue<DateTime>();
+                                                cmdb.WarrantyEndDate = row[nRow, 19].GetValue<DateTime>();
+                                                cmdb.Custodian = row[nRow, 20].GetValue<string>();
+                                                cmdb.Comments = row[nRow, 21].GetValue<string>();
+                                                cmdb.InventoriedBy = row[nRow, 22].GetValue<string>();
+                                                cmdb.InventoryDate = row[nRow, 23].GetValue<DateTime>();
+                                                cmdb.LastScan = row[nRow, 24].GetValue<DateTime>();
+                                                cmdb.ModifiedBy = row[nRow, 25].GetValue<string>();
+                                                cmdb.Modified = row[nRow, 26].GetValue<DateTime>();*/
+
+                            // save it into the Database
+                            //_context.Cmdbs.AddRange(lstCmdbs);
                             // store the cmdb to retrieve its Id later on
-                            lstCmdbs.Add(cmdb);
+                            //lstCmdbs.Add(cmdb);
 
                             // increment the counter
                             nCMDB++;
                         }
                     }
+
+                    await _context.SaveChangesAsync();
 
                     #endregion
 
@@ -391,54 +423,58 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             }
                             // create a new CMDB entity and fill it with xlsx data                         
 
-                            var sun = new Sunflower();
+                            lstSuns.Add(new Sunflower //I prefer it this way better
+                            {
+                                BarcodeNum = barcodeNum,
+                                Status = row[nRow, 3].GetValue<string>(),
+                                Manufacturer = row[nRow, 6].GetValue<string>(),
+                                Model = row[nRow, 7].GetValue<string>(),
+                                OfficialName = row[nRow, 5].GetValue<string>(),
+                                ModelName = row[nRow, 9].GetValue<string>(),
+                                SerialNumber = row[nRow, 11].GetValue<string>(),
+                                AssetValue = row[nRow, 13].GetValue<string>(),
+                                EffectiveDate = row[nRow, 16].GetValue<DateTime>(),
+                                CustArea = row[nRow, 19].GetValue<string>(),
+                                BureauOrRegion = row[nRow, 20].GetValue<string>(),
+                                PropertyContact = row[nRow, 22].GetValue<string>(),
+                                CurrentUser = row[nRow, 23].GetValue<string>(),
+                                FedSupplyGroup = row[nRow, 24].GetValue<string>(),
+                                UtilizationCode = row[nRow, 25].GetValue<string>(),
+                                AssetCondition = row[nRow, 27].GetValue<string>(),
+                                ConditionDescription = row[nRow, 28].GetValue<string>(),
+                                PhysicalInventoryDate = row[nRow, 29].GetValue<DateTime>(),
+                                AcquisitionDate = row[nRow, 30].GetValue<DateTime>(),
+                                ResponsibilityDate = row[nRow, 31].GetValue<DateTime>(),
+                                Site = row[nRow, 33].GetValue<string>(),
+                                Stlv1 = row[nRow, 36].GetValue<string>(),
+                                Stlv2 = row[nRow, 38].GetValue<string>(),
+                                Stlv3 = row[nRow, 39].GetValue<string>(),
+                                MailStop = row[nRow, 48].GetValue<string>(),
+                                Gps1 = row[nRow, 49].GetValue<string>(),
+                                Gps2 = row[nRow, 50].GetValue<string>(),
+                                Gps3 = row[nRow, 51].GetValue<string>(),
+                                ResolutionDate = row[nRow, 53].GetValue<DateTime>(),
+                                Resolution = row[nRow, 54].GetValue<string>(),
+                                FinalEvent = row[nRow, 55].GetValue<string>(),
+                                Datetime = row[nRow, 56].GetValue<DateTime>(),
+                                FinalEventUserDefinedLabel01 = row[nRow, 57].GetValue<string>(),
+                                FinalEventUserField01 = row[nRow, 58].GetValue<string>()
+                        });
 
-                            sun.BarcodeNum = barcodeNum;
-                            sun.Status = row[nRow, 3].GetValue<string>();
-                            sun.Manufacturer = row[nRow, 6].GetValue<string>();
-                            sun.Model = row[nRow, 7].GetValue<string>();
-                            sun.OfficialName = row[nRow, 5].GetValue<string>();
-                            sun.ModelName = row[nRow, 9].GetValue<string>();
-                            sun.SerialNumber = row[nRow, 11].GetValue<string>();
-                            sun.AssetValue = row[nRow, 13].GetValue<string>();
-                            sun.EffectiveDate = row[nRow, 16].GetValue<DateTime>();
-                            sun.CustArea = row[nRow, 19].GetValue<string>();
-                            sun.BureauOrRegion = row[nRow, 20].GetValue<string>();
-                            sun.PropertyContact = row[nRow, 22].GetValue<string>();
-                            sun.CurrentUser = row[nRow, 23].GetValue<string>();
-                            sun.FedSupplyGroup = row[nRow, 24].GetValue<string>();
-                            sun.UtilizationCode = row[nRow, 25].GetValue<string>();
-                            sun.AssetCondition = row[nRow, 27].GetValue<string>();
-                            sun.ConditionDescription = row[nRow, 28].GetValue<string>();
-                            sun.PhysicalInventoryDate = row[nRow, 29].GetValue<DateTime>();
-                            sun.AcquisitionDate = row[nRow, 30].GetValue<DateTime>();
-                            sun.ResponsibilityDate = row[nRow, 31].GetValue<DateTime>();
-                            sun.Site = row[nRow, 33].GetValue<string>();
-                            sun.Stlv1 = row[nRow, 36].GetValue<string>();
-                            sun.Stlv2 = row[nRow, 38].GetValue<string>();
-                            sun.Stlv3 = row[nRow, 39].GetValue<string>();
-                            sun.MailStop = row[nRow, 48].GetValue<string>();
-                            sun.Gps1 = row[nRow, 49].GetValue<string>();
-                            sun.Gps2 = row[nRow, 50].GetValue<string>();
-                            sun.Gps3 = row[nRow, 51].GetValue<string>();
-                            sun.ResolutionDate = row[nRow, 53].GetValue<DateTime>();
-                            sun.Resolution = row[nRow, 54].GetValue<string>();
-                            sun.FinalEvent = row[nRow, 55].GetValue<string>();
-                            sun.Datetime = row[nRow, 56].GetValue<DateTime>();
-                            sun.FinalEventUserDefinedLabel01 = row[nRow, 57].GetValue<string>();
-                            sun.FinalEventUserField01 = row[nRow, 58].GetValue<string>();
+                            
 
                             // save it into the Database
-                            _context.Sunflowers.Add(sun);
-                            await _context.SaveChangesAsync();
+                            _context.Sunflowers.AddRange(lstSuns);
+                            
 
                             // store the cmdb to retrieve its Id later on
-                            lstSuns.Add(sun);
+                            /*lstSuns.Add(sun);*/
 
                             // increment the counter
                             sunSum++;
                         }
                     }
+                    await _context.SaveChangesAsync();
                     #endregion
 
                     Message = "SunFlower Committed to Database. " +
@@ -465,10 +501,10 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 try
                 {
                     var records = csv.GetRecords<EPO>().ToList();
-/*                    foreach(var r in records)
-                    {
-                        Console.WriteLine(r.EpoId + "\t" + r.SystemName);
-                    }*/
+                    /*                    foreach(var r in records)
+                                        {
+                                            Console.WriteLine(r.EpoId + "\t" + r.SystemName);
+                                        }*/
                     /* Console.WriteLine(JsonConvert.SerializeObject(records));*/
                     int nEPO = records.Count();
                     _context.Epos.AddRange(records);
@@ -480,20 +516,20 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 {
                     Console.WriteLine("{0} - datetime is not parsed", csv);
                 }
-                
-                
+
+
 
                 /*foreach(var r in records)
-=======
+        =======
                 foreach (var r in records)
->>>>>>> 36da458b95468ef2a15a9cddc7631fb13968ba18
+        >>>>>>> 36da458b95468ef2a15a9cddc7631fb13968ba18
                 {
                     if (r.SystemName.Length == 15)
                         r.UniqueIdentifier = r.SystemName.Substring(6, 9);
                 }
                 _context.Epos.AddRange(records);
-*/
-               
+        */
+
             }
         }
 
@@ -538,41 +574,66 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         //        Console.WriteLine(lstAD_Users.Where(c => c.ADUserId == ADTag).Count());
                         //        lstAD_Users.RemoveAll(c => c.ADUserId == ADTag);
                         //    }
-                            // create a new CMDB entity and fill it with xlsx data                         
+                        // create a new CMDB entity and fill it with xlsx data                         
 
-                            var ad_user = new AD_User();
 
-                            //ad_user.ADUserId = ADTag;
-                            ad_user.ProgramOffice = row[nRow, 1].GetValue<string>();
-                            ad_user.CACexemptionreason = row[nRow, 2].GetValue<string>();
-                            ad_user.SmartCardRequired = row[nRow, 3].GetValue<bool>();
-                            ad_user.UserEmailAddress = row[nRow, 4].GetValue<string>();
-                            ad_user.EmployeeType = row[nRow, 5].GetValue<string>();
-                            ad_user.SAMAccountName = row[nRow, 6].GetValue<string>();
-                            ad_user.Description = row[nRow, 7].GetValue<string>();
-                            ad_user.UserPrincipalName = row[nRow, 8].GetValue<string>();
-                            ad_user.AccountDisabled = row[nRow, 9].GetValue<bool>();
-                            ad_user.PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>();
-                            ad_user.PasswordCannotChange = row[nRow, 11].GetValue<bool>();
-                            ad_user.PasswordExpired= row[nRow, 12].GetValue<bool>();
-                            ad_user.AccountLockedOut = row[nRow, 13].GetValue<bool>();
-                            ad_user.CACExtendedInfo = row[nRow, 14].GetValue<string>();
-                            ad_user.UAC = row[nRow, 15].GetValue<int>();
-                            ad_user.UserName = row[nRow, 16].GetValue<string>();
-                            ad_user.DN = row[nRow, 17].GetValue<string>();
-                            ad_user.Created = row[nRow, 18].GetValue<DateTime>();
-                            ad_user.Changed = row[nRow, 19].GetValue<DateTime>();
-                            // save it into the Database
-                            _context.AD_Users.Add(ad_user);
-                            await _context.SaveChangesAsync();
+                        lstAD_Users.Add(new AD_User
+                        {
+                            ProgramOffice = row[nRow, 1].GetValue<string>(),
+                            CACexemptionreason = row[nRow, 2].GetValue<string>(),
+                            SmartCardRequired = row[nRow, 3].GetValue<bool>(),
+                            UserEmailAddress = row[nRow, 4].GetValue<string>(),
+                            EmployeeType = row[nRow, 5].GetValue<string>(),
+                            SAMAccountName = row[nRow, 6].GetValue<string>(),
+                            Description = row[nRow, 7].GetValue<string>(),
+                            UserPrincipalName = row[nRow, 8].GetValue<string>(),
+                            AccountDisabled = row[nRow, 9].GetValue<bool>(),
+                            PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>(),
+                            PasswordCannotChange = row[nRow, 11].GetValue<bool>(),
+                            PasswordExpired = row[nRow, 12].GetValue<bool>(),
+                            AccountLockedOut = row[nRow, 13].GetValue<bool>(),
+                            CACExtendedInfo = row[nRow, 14].GetValue<string>(),
+                            UAC = row[nRow, 15].GetValue<int>(),
+                            UserName = row[nRow, 16].GetValue<string>(),
+                            DN = row[nRow, 17].GetValue<string>(),
+                            Created = row[nRow, 18].GetValue<DateTime>(),
+                            Changed = row[nRow, 19].GetValue<DateTime>()
+                        });
+                       /* var ad_user = new AD_User();
 
-                            // store the cmdb to retrieve its Id later on
-                            lstAD_Users.Add(ad_user);
+                        //ad_user.ADUserId = ADTag;
+                        ad_user.ProgramOffice = row[nRow, 1].GetValue<string>();
+                        ad_user.CACexemptionreason = row[nRow, 2].GetValue<string>();
+                        ad_user.SmartCardRequired = row[nRow, 3].GetValue<bool>();
+                        ad_user.UserEmailAddress = row[nRow, 4].GetValue<string>();
+                        ad_user.EmployeeType = row[nRow, 5].GetValue<string>();
+                        ad_user.SAMAccountName = row[nRow, 6].GetValue<string>();
+                        ad_user.Description = row[nRow, 7].GetValue<string>();
+                        ad_user.UserPrincipalName = row[nRow, 8].GetValue<string>();
+                        ad_user.AccountDisabled = row[nRow, 9].GetValue<bool>();
+                        ad_user.PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>();
+                        ad_user.PasswordCannotChange = row[nRow, 11].GetValue<bool>();
+                        ad_user.PasswordExpired = row[nRow, 12].GetValue<bool>();
+                        ad_user.AccountLockedOut = row[nRow, 13].GetValue<bool>();
+                        ad_user.CACExtendedInfo = row[nRow, 14].GetValue<string>();
+                        ad_user.UAC = row[nRow, 15].GetValue<int>();
+                        ad_user.UserName = row[nRow, 16].GetValue<string>();
+                        ad_user.DN = row[nRow, 17].GetValue<string>();
+                        ad_user.Created = row[nRow, 18].GetValue<DateTime>();
+                        ad_user.Changed = row[nRow, 19].GetValue<DateTime>();
+                        // save it into the Database*/
+                        _context.AD_Users.AddRange(lstAD_Users);
+                        
 
-                            // increment the counter
-                            nAD++;
-                       // }
+                        // store the cmdb to retrieve its Id later on
+                       /* lstAD_Users.Add(ad_user);*/
+
+                        // increment the counter
+                        nAD++;
+                        // }
                     }
+
+
 
                     ws = ep.Workbook.Worksheets["Computers"];
 
@@ -592,38 +653,61 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         //        Console.WriteLine(lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count());
                         //        lstAD_Computers.RemoveAll(c => c.ADComputerId == ADTag);
                         //    }
-                            // create a new CMDB entity and fill it with xlsx data                         
+                        // create a new CMDB entity and fill it with xlsx data                         
 
-                            var ad_computer = new AD_Computer();
 
-                            ad_computer.ADComputerName = row[nRow, 2].GetValue<string>();
-                            ad_computer.ProgramOffice = row[nRow, 1].GetValue<string>();
-                            ad_computer.OSType = row[nRow, 3].GetValue<string>();
-                            ad_computer.OSVersion = row[nRow, 4].GetValue<string>();
-                            ad_computer.ServicePack = row[nRow, 5].GetValue<string>();
-                            ad_computer.Created = row[nRow, 6].GetValue<DateTime>();
-                            ad_computer.Changed = row[nRow, 7].GetValue<DateTime>();
-                            ad_computer.UAC = row[nRow, 8].GetValue<int>();
-                            ad_computer.AccountDisabled = row[nRow, 9].GetValue<bool>();
-                            ad_computer.SmartCardRequired = row[nRow, 10].GetValue<bool>();
-                            ad_computer.Description = row[nRow, 11].GetValue<string>();
-                            ad_computer.DN = row[nRow, 12].GetValue<string>();
-                            ad_computer.Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>();
-                            // save it into the Database
-                            _context.AD_Computers.Add(ad_computer);
-                            await _context.SaveChangesAsync();
+                        lstAD_Computers.Add(new AD_Computer
+                        {
+                            ADComputerName = row[nRow, 2].GetValue<string>(),
+                            ProgramOffice = row[nRow, 1].GetValue<string>(),
+                            OSType = row[nRow, 3].GetValue<string>(),
+                            OSVersion = row[nRow, 4].GetValue<string>(),
+                            ServicePack = row[nRow, 5].GetValue<string>(),
+                            Created = row[nRow, 6].GetValue<DateTime>(),
+                            Changed = row[nRow, 7].GetValue<DateTime>(),
+                            UAC = row[nRow, 8].GetValue<int>(),
+                            AccountDisabled = row[nRow, 9].GetValue<bool>(),
+                            SmartCardRequired = row[nRow, 10].GetValue<bool>(),
+                            Description = row[nRow, 11].GetValue<string>(),
+                            DN = row[nRow, 12].GetValue<string>(),
+                            Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>()
+                        });
 
-                            // store the cmdb to retrieve its Id later on
-                            lstAD_Computers.Add(ad_computer);
+                        _context.AddRange(lstAD_Computers);
+                        /*var ad_computer = new AD_Computer();*/
+/*
+                        ad_computer.ADComputerName = row[nRow, 2].GetValue<string>();
+                        ad_computer.ProgramOffice = row[nRow, 1].GetValue<string>();
+                        ad_computer.OSType = row[nRow, 3].GetValue<string>();
+                        ad_computer.OSVersion = row[nRow, 4].GetValue<string>();
+                        ad_computer.ServicePack = row[nRow, 5].GetValue<string>();
+                        ad_computer.Created = row[nRow, 6].GetValue<DateTime>();
+                        ad_computer.Changed = row[nRow, 7].GetValue<DateTime>();
+                        ad_computer.UAC = row[nRow, 8].GetValue<int>();
+                        ad_computer.AccountDisabled = row[nRow, 9].GetValue<bool>();
+                        ad_computer.SmartCardRequired = row[nRow, 10].GetValue<bool>();
+                        ad_computer.Description = row[nRow, 11].GetValue<string>();
+                        ad_computer.DN = row[nRow, 12].GetValue<string>();
+                        ad_computer.Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>();
+                        // save it into the Database
+                        _context.AD_Computers.Add(ad_computer);
+                        *//*await _context.SaveChangesAsync();*//*
 
-                            // increment the counter
-                            nAD++;
-                        }
+                        // store the cmdb to retrieve its Id later on
+                        lstAD_Computers.Add(ad_computer);
+*/
+                        // increment the counter
+                        nAD++;
                     }
-                }
+                    await _context.SaveChangesAsync();
 
-                #endregion
+                    Message = "AD Committed to Database. " +
+                                nAD + " entries Added.";
+                }
             }
+
+            #endregion
+        }
         //Helper Method with grabbing specific data/columns 
         private Cmdb GetCmdbFromExcelRow(DataRow row)
         {

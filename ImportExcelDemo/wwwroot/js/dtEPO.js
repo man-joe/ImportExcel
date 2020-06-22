@@ -25,7 +25,7 @@ function loadList() {
             { "data": "ipAddress" },
             { "data": "userName" }, 
             //Adding Buttons editing and deleting
-            {
+          /*  {
                 
                 "data": "id",
                 "render": function (data) {
@@ -37,13 +37,17 @@ function loadList() {
                                 </a>
                     </div> `;
                 }, "width": "30%"
-            }, 
+            }, */
         ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+
         //Search Panes
         searchPanes: {
             cascadePanes: true
         },
-        dom: 'Pfrtip', 
+        dom: 'Plfrtip', 
+
+
 
         "width":"100%",
     });
