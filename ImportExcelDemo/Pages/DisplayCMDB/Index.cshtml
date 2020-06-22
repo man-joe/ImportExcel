@@ -5,182 +5,241 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].CDTag)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Org)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].HostName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Floor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Room)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].IpAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].SubnetMask)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].MacAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Manufacturer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].SerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].OperatingSystem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].AdUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].SunflowerUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].ClassType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].AcquisitionDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].WarrantyEndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Custodian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Comments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].InventoriedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].InventoryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].LastScan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cmdb[0].Modified)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Cmdb) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CDTag)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Org)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HostName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Floor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Room)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IpAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubnetMask)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MacAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerialNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OperatingSystem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SunflowerUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClassType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AcquisitionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WarrantyEndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Custodian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InventoriedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InventoryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastScan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modified)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CmdbID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CmdbID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CmdbID">Delete</a>
-            </td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].CDTag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Org)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].HostName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Floor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Room)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].IpAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].SubnetMask)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].MacAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Manufacturer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].SerialNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].OperatingSystem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].AdUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].SunflowerUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].ClassType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].AcquisitionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].WarrantyEndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Custodian)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].InventoriedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].InventoryDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].LastScan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].ModifiedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cmdb[0].Modified)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cmdb)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CDTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Org)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HostName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Floor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Room)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IpAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubnetMask)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MacAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Manufacturer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SerialNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OperatingSystem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SunflowerUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AcquisitionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WarrantyEndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Custodian)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InventoriedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InventoryDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastScan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modified)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.CmdbID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.CmdbID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.CmdbID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+<div class="border backgroundWhite container">
+    <br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">CMDB List</h2>
+        </div>
+
+        <div class="col-6 text-right">
+            <a asp-page="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create New</a>
+        </div>
+
+    </div>
+    <br />
+    <table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+        <!--table table-striped table-bordered compact -->
+        <thead>
+            <tr>
+                <th>CMDB ID</th>
+                <th>CD Tag</th>
+                <th>Organization</th>
+                <th>Host Name</th>
+                <th>Location</th>
+                <th>Floor</th>
+                <th>Room</th>
+                <th>IP Address</th>
+                <th>Subnet Mask</th>
+                <th>MAC Address</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Operating System</th>
+                <th>AD User</th>
+                <th>Sunflower User</th>
+                <th>Status</th>
+                <th>Class - Type</th>
+                <th>Acquisition Date</th>
+                <th>Warranty End Date</th>
+                <th>Custodian</th>
+                <th>Comments</th>
+                <th>Inventoried By</th>
+                <th>Inventory Date</th>
+                <th>Last Scan</th>
+                <th>Modified By</th>
+                <th>Modified</th>
+                <!--<th></th> -->
+            </tr>
+        </thead>
+    </table>
+</div>
+<!-- to add for each modal
+<td> 
+    //removed to @@ -1 from item.cmdbID, will need to re-add if using asp routing for rows
+    <a asp-page="./Edit" asp-route-id="item.CmdbID">Edit</a> |
+    <a asp-page="./Details" asp-route-id="item.CmdbID">Details</a> |
+    <a asp-page="./Delete" asp-route-id="item.CmdbID">Delete</a>
+</td>
+    -->
+@section Scripts{
+    <script src="~/js/sampleTable.js"></script>
 }
-    </tbody>
-</table>
