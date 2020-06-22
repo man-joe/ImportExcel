@@ -22,9 +22,7 @@ namespace ImportExcelDemo.Pages.DisplayAD
         private IHostingEnvironment _environment;
 
         private readonly ImportExcelDemo.Data.DemoContext _context;
-        /*public List<> JoinDatas { get; set; }*/
 
-        [ViewData]
         public bool FirstOptionChecked { get; set; }
 
         public bool OptionsSet { get; set; }
@@ -45,16 +43,13 @@ namespace ImportExcelDemo.Pages.DisplayAD
 
 
 
-        [ViewData]
         public string StatusMessage { get; set; }
-        [ViewData]
         public string NumMessage { get; set; }
         public IList<AD_User> AD_Users { get; set; }
 
         public IList<AD_Computer> AD_Computers { get; set; }
 
         
-        /*public var joins { get; set; }*/
         public async Task OnGetAsync() 
         {
             AD_Users = await _context.AD_Users
@@ -71,7 +66,7 @@ namespace ImportExcelDemo.Pages.DisplayAD
             DataSet = Convert.ToInt32(Request.Form["DataSets"]);
             return Page();
         }
-        public async Task OnPostDisplay(int DataSet)
+        public async Task OnPostDisplay(int id)
         {
             AD_Users = await _context.AD_Users
                .AsNoTracking()
@@ -82,6 +77,8 @@ namespace ImportExcelDemo.Pages.DisplayAD
                 .ToListAsync();
 
             OptionsSet = true;
+
+            DataSet = id;
 
             foreach(var item in Request.Form.Keys)
             {
