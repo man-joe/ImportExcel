@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
-namespace ImportExcelDemo.Pages
+namespace ImportExcelDemo.Pages.Display_AD_CMDB
 {
     public class IndexModel : PageModel
     {
@@ -22,13 +22,15 @@ namespace ImportExcelDemo.Pages
         private IHostingEnvironment _environment;
 
         private readonly ImportExcelDemo.Data.DemoContext _context;
-        /*public List<> JoinDatas { get; set; }*/
 
+        public bool FirstOptionChecked { get; set; }
         public bool OptionsSet { get; set; }
 
         public List<string> ComputerOptions { get; set; }
 
         public List<string> CMDBOptions { get; set; }
+
+        public List<string> UserOptions { get; set; }
 
 
         [Obsolete]
@@ -39,10 +41,9 @@ namespace ImportExcelDemo.Pages
             OptionsSet = false;
             ComputerOptions = new List<string>();
             CMDBOptions = new List<String>();
+            UserOptions = new List<String>();
         }
-
-
-
+        public int DataSet { get; set; }
         [ViewData]
         public string StatusMessage { get; set; }
         [ViewData]
@@ -51,7 +52,8 @@ namespace ImportExcelDemo.Pages
 
         public IList<AD_Computer> AD_Computers { get; set; }
 
-        /*public var joins { get; set; }*/
+        public IList<AD_User> AD_Users { get; set; }
+
         public async Task OnGetAsync()
         {
             Cmdbs = await _context.Cmdbs
@@ -61,9 +63,20 @@ namespace ImportExcelDemo.Pages
             AD_Computers = await _context.AD_Computers
                 .AsNoTracking()
                 .ToListAsync();
+
+            AD_Users = await _context.AD_Users
+                .AsNoTracking()
+                .ToListAsync();
         }
-        public async Task OnPostDisplay()
+        public IActionResult OnPostSubmit()
         {
+            FirstOptionChecked = true;
+            DataSet = Convert.ToInt32(Request.Form["DataSets"]);
+            return Page();
+        }
+        public async Task OnPostDisplay(int id)
+        {
+            DataSet = id;
             Cmdbs = await _context.Cmdbs
                .AsNoTracking()
                .ToListAsync();
@@ -72,19 +85,89 @@ namespace ImportExcelDemo.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            var queryCD = from computers in _context.AD_Computers
-                          join CDItem in _context.Cmdbs on computers.ADComputerName equals CDItem.HostName
-                          orderby computers.ADComputerName
-                          select CDItem;
+            AD_Users = await _context.AD_Users
+                .AsNoTracking()
+                .ToListAsync();
 
-            var queryAD = from computers in _context.AD_Computers
-                          join CDItem in _context.Cmdbs on computers.ADComputerName equals CDItem.HostName
+            if (id == 0)
+            {
+                NumMessage = "The total number AD Computer entries is " + AD_Computers.Count;
+                StatusMessage = "Now displaying AD Computer entries";
+            } 
+            else if (id == 1)
+            {
+                NumMessage = "The total number AD User entries is " + AD_Users.Count;
+                StatusMessage = "Now displaying AD User entries";
+            } 
+            else if (id == 2)
+            {
+                NumMessage = "The total number CMDB entries is " + Cmdbs.Count;
+                StatusMessage = "Now displaying CMDB entries";
+            } 
+            else if (id == 3)
+            {
+                var Cd_User = from u in _context.AD_Users
+                                  join d in _context.Cmdbs on u.UserName equals d.AdUser
+                                  orderby d.AdUser
+                                  select d;
 
-                          orderby computers.ADComputerName
-                          select computers;
+                var User_Cd = from u in _context.AD_Users
+                                  join d in _context.Cmdbs on u.UserName equals d.AdUser
+                                  orderby d.AdUser
+                                  select u;
 
-            Cmdbs = await queryCD.AsNoTracking().ToListAsync();
-            AD_Computers = await queryAD.AsNoTracking().ToListAsync();
+
+                Cmdbs = await Cd_User.AsNoTracking().ToListAsync();
+                AD_Users = await User_Cd.AsNoTracking().ToListAsync();
+                NumMessage = "The total number of CMDB entries with a Corresponding AD Computer entry is " + AD_Computers.Count;
+                StatusMessage = "Now displaying common CMDB and AD Computer entries";
+
+            }
+            else if (id == 4)
+            {
+                var Cd_Computer = from computers in _context.AD_Computers
+                                  join CDItem in _context.Cmdbs on computers.ADComputerName equals CDItem.HostName
+                                  orderby CDItem.AdUser
+                                  select CDItem;
+
+                var Computer_Cd = from computers in _context.AD_Computers
+                                  join CDItem in _context.Cmdbs on computers.ADComputerName equals CDItem.HostName
+                                  orderby CDItem.AdUser
+                                  select computers;
+
+
+                Cmdbs = await Cd_Computer.AsNoTracking().ToListAsync();
+                AD_Computers = await Computer_Cd.AsNoTracking().ToListAsync();
+                NumMessage = "The total number of CMDB entries with a Corresponding AD Computer entry is " + AD_Computers.Count;
+                StatusMessage = "Now displaying common CMDB and AD Computer entries";
+            }
+            else if (id == 5)
+            {
+                var queryUser = from d in _context.Cmdbs
+                                join u in _context.AD_Users on d.AdUser equals u.UserName
+                                join c in _context.AD_Computers on d.HostName equals c.ADComputerName
+                                orderby d.AdUser
+                                select u;
+                var queryComputer = from d in _context.Cmdbs
+                                join u in _context.AD_Users on d.AdUser equals u.UserName
+                                join c in _context.AD_Computers on d.HostName equals c.ADComputerName
+                                orderby d.AdUser
+                                select c;
+                var queryCD = from d in _context.Cmdbs
+                                join u in _context.AD_Users on d.AdUser equals u.UserName
+                                join c in _context.AD_Computers on d.HostName equals c.ADComputerName
+                                orderby d.AdUser
+                                select d;
+
+                AD_Users = await queryUser.AsNoTracking().ToListAsync();
+                AD_Computers = await queryComputer.AsNoTracking().ToListAsync();
+                Cmdbs = await queryCD.AsNoTracking().ToListAsync();
+                NumMessage = "The total number of CMDB entries with a Corresponding AD Computer entry and AD User entry is " + AD_Computers.Count;
+                StatusMessage = "Now displaying common CMDB and AD Computer/User entries";
+            }
+
+            
+
 
             OptionsSet = true;
 
@@ -93,6 +176,7 @@ namespace ImportExcelDemo.Pages
             {
                 if(item.Contains("ComputerOptions-13"))
                 {
+                    ComputerOptions.Add("ComputerOptions-0");
                     ComputerOptions.Add("ComputerOptions-1");
                     ComputerOptions.Add("ComputerOptions-2");
                     ComputerOptions.Add("ComputerOptions-3");
@@ -111,8 +195,36 @@ namespace ImportExcelDemo.Pages
                 {
                     ComputerOptions.Add(item);
                 }
-                if(item.Contains("CMDBOptions-26"))
+                if (item.Contains("UserOptions-20"))
                 {
+                    UserOptions.Add("UserOptions-0");
+                    UserOptions.Add("UserOptions-1");
+                    UserOptions.Add("UserOptions-2");
+                    UserOptions.Add("UserOptions-3");
+                    UserOptions.Add("UserOptions-4");
+                    UserOptions.Add("UserOptions-5");
+                    UserOptions.Add("UserOptions-6");
+                    UserOptions.Add("UserOptions-7");
+                    UserOptions.Add("UserOptions-8");
+                    UserOptions.Add("UserOptions-9");
+                    UserOptions.Add("UserOptions-10");
+                    UserOptions.Add("UserOptions-11");
+                    UserOptions.Add("UserOptions-12");
+                    UserOptions.Add("UserOptions-13");
+                    UserOptions.Add("UserOptions-14");
+                    UserOptions.Add("UserOptions-15");
+                    UserOptions.Add("UserOptions-16");
+                    UserOptions.Add("UserOptions-17");
+                    UserOptions.Add("UserOptions-18");
+                    UserOptions.Add("UserOptions-19");
+                }
+                else if (item.Contains("UserOptions"))
+                {
+                    UserOptions.Add(item);
+                }
+                if (item.Contains("CMDBOptions-26"))
+                {
+                    CMDBOptions.Add("CMDBOptions-0");
                     CMDBOptions.Add("CMDBOptions-1");
                     CMDBOptions.Add("CMDBOptions-2");
                     CMDBOptions.Add("CMDBOptions-3");
@@ -144,8 +256,6 @@ namespace ImportExcelDemo.Pages
                     CMDBOptions.Add(item);
                 }
             }
-            NumMessage = "The total number of CMDB entries with a Corresponding AD Computer entry is " + AD_Computers.Count;
-            StatusMessage = "Now displaying common CMDB and AD Computer entries";
         }
 
         public IActionResult OnPostRefresh()

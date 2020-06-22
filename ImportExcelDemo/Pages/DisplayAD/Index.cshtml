@@ -68,7 +68,8 @@
         }
 
         .btn-primary:active {
-            box-shadow: inset 0 0 0 20rem var(--darken-2), inset 0 3px 4px 0 var(--darken-3),
+            box-shadow: inset 0 0 0 20rem var(--darken-2), inset 0 3px 4px 0 var(--darken-3)
+        }
 </style>
 
 @if (Model.FirstOptionChecked == false && Model.OptionsSet == false)
@@ -101,7 +102,7 @@
 }
 
 
-@if (Model.FirstOptionChecked == true && Model.OptionsSet == false)
+@if (Model.FirstOptionChecked && !Model.OptionsSet)
 {
     <hr />
     @if (Model.DataSet == 0)
@@ -270,7 +271,7 @@
     }
 }
 
-@if (Model.OptionsSet == true)
+@if (Model.OptionsSet)
 {
     <div class="ex1">
         <div class="ex2">
