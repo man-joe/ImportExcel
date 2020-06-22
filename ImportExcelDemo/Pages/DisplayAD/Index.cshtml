@@ -197,7 +197,7 @@
                     </div>
                 </div>
             </fieldset>
-            <button method="post" asp-page-handler="Display" asp-route-id="0" class="btn btn-primary">Display</button>
+            <button method="post" asp-page-handler="Display" DataSet = 0 asp-route-id="0" class="btn btn-primary">Display</button>
         </form>
     }
     else if (Model.DataSet == 1)
@@ -265,7 +265,7 @@
                     </div>
                 </div>
             </fieldset>
-            <button method="post" asp-page-handler="Display" asp-route-id="1" class="btn btn-primary">Display</button>
+            <button method="post" asp-page-handler="Display" DataSet = 1 asp-route-id="1" class="btn btn-primary">Display</button>
         </form>
     }
 }

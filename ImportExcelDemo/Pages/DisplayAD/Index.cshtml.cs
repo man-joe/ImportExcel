@@ -71,7 +71,7 @@ namespace ImportExcelDemo.Pages.DisplayAD
             DataSet = Convert.ToInt32(Request.Form["DataSets"]);
             return Page();
         }
-        public async Task OnPostDisplay(int DataSet)
+        public async Task OnPostDisplay(int id)
         {
             AD_Users = await _context.AD_Users
                .AsNoTracking()
@@ -82,6 +82,8 @@ namespace ImportExcelDemo.Pages.DisplayAD
                 .ToListAsync();
 
             OptionsSet = true;
+
+            DataSet = id;
 
             foreach(var item in Request.Form.Keys)
             {
