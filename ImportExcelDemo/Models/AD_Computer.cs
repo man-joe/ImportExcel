@@ -18,6 +18,8 @@ namespace ImportExcelDemo.Models
         #region Instance Variables
         [Key]
         [Required]
+        public int ADComputerId { get; set; }
+
         [StringLength(200)]
         public string ADComputerName { get; set; }
 

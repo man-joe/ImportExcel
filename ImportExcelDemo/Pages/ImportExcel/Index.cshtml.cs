@@ -115,132 +115,17 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             }
 
                         }
-
-                        /*else if(fileName.ToUpper().Contains("SUN"))
-                        {
-                            var filePath = Path.Combine(folderPath,
-                                                    Path.GetFileName(SunUpload.FileName));
-                            using (var fileStream = new FileStream(filePath, FileMode.Create))
-                            {
-                                
-                            }
-                        }
-
-
-                        var filePath = Path.Combine(folderPath,
-                                                    Path.GetFileName(CmdbUpload.FileName));
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await CmdbUpload.CopyToAsync(fileStream);
-                            Message = "CMDB File uploaded.";
-                        }*/
                     }
-
-
-
-                    /*                    //Get File Extension
-                                        string excelConString = "";
-
-                                        //Set Connection String based on Extension
-                                        switch (fileExt)
-                                        {
-                                            //Excel 1997-2007 extension
-                                            case ".xls":
-                                                excelConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
-                                                break;
-                                            //Excel 2007 and above extension
-                                            case ".xlsx":
-                                                excelConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
-                                                break;
-                                        }
-                    */
-                    //Fill Data Table
-
-                    /// 
-                    /*
-                    DataTable dt = new DataTable();
-
-                    FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                    using(stream)
-                    {
-                        //Will auto-detect if xls or xlsx format
-                        using(var reader = ExcelReaderFactory.CreateReader(stream))
-                        {
-                            //Read all of Excel File and assign to a DataSet
-                            var result = reader.AsDataSet(new ExcelDataSetConfiguration());
-
-                            DataTableCollection dataTable = result.Tables;
-                            dt = dataTable["owssvr"]; // or owssvr / Sheet1?
-                        }
-
-                    }
-
-                    */
-                    ////
-
-
-                    /*
-                     * misc code scratchwork:
-                     * 
-                     * var workSheet = reader.asDataSet().Tables["Sheet1"] or owssvr
-                     * var sheets = from DataTable sheet in workbook.Tables select sheet.TableName;
-                     */
-
-
-
-                    /*
-
-                    //Insert Records as Entities
-                    DemoContext entities = new DemoContext();
-                    foreach(DataRow row in dt.Rows)
-                    {
-                        entities.Cmdbs.Add(GetCmdbFromExcelRow(row));
-                    }
-                    entities.SaveChanges();
-
-                    Message = "Data Imported Successfully.";
-
-                    */
-
-                    /* //Read data from first sheet of excel into datatable
-                     DataTable dt = new DataTable();
-                     excelConString = string.Format(excelConString, filePath);
-
-                     using(OleDbConnection excelOledbConnection = new OleDbConnection(excelConString))
-                     {
-                         using(OleDbCommand excelDbCommand = new OleDbCommand())
-                         {
-                             using (OldDbDataAdapter excelDataAdapter = new OleDbDataAdapter())
-                             {
-                                 excelDbCommand.Connection = excelOledbConnection;
-                             }
-                         }
-
-                     }
-                     System.Data.datase*/
                 }
                 catch (Exception ex)
                 {
                     Message = ex.Message;
                 }
-
-
-                ///
-             /*   var file = Path.Combine(_environment.ContentRootPath, "uploads", Upload.FileName);
-
-                using (var fileStream = new FileStream(file, FileMode.Create))
-                {
-                    await Upload.CopyToAsync(fileStream);
-                }*/
-
             }
             else
             {
                 Message = "Please select a File to upload.";
             }
-
-            //No need for return View() as a Razor page is considered View-Model with 
-            //Controller features
         }
 
 
@@ -253,10 +138,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
             string folderPath = Path.Combine(_environment.ContentRootPath, "uploads");
             var filePath = Path.Combine(folderPath,
                                                     Path.GetFileName(ExcelUpload.FileName));
-
-            /* var path = Path.Combine(
-                 _environment.ContentRootPath,
-                 String.Format("Data/Source/02042020_CMDB.xlsx"));*/
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -325,42 +206,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
                             // save it into the Database
                             _context.Cmdbs.AddRange(lstCmdbs);
-
-                            /*                    var cmdb = new Cmdb();
-
-                                                cmdb.CDTag = cdTag;
-                                                cmdb.Org = row[nRow, 2].GetValue<string>();
-                                                cmdb.HostName = row[nRow, 3].GetValue<string>();
-                                                cmdb.Location = row[nRow, 4].GetValue<string>();
-                                                cmdb.Floor = row[nRow, 5].GetValue<string>();
-                                                cmdb.Room = row[nRow, 6].GetValue<string>();
-                                                cmdb.IpAddress = row[nRow, 7].GetValue<string>();
-                                                cmdb.SubnetMask = row[nRow, 8].GetValue<string>();
-                                                cmdb.MacAddress = row[nRow, 9].GetValue<string>();
-                                                cmdb.Manufacturer = row[nRow, 10].GetValue<string>();
-                                                cmdb.Model = row[nRow, 11].GetValue<string>();
-                                                cmdb.SerialNumber = row[nRow, 12].GetValue<string>();
-                                                cmdb.OperatingSystem = row[nRow, 13].GetValue<string>();
-                                                cmdb.AdUser = row[nRow, 14].GetValue<string>();
-                                                cmdb.SunflowerUser = row[nRow, 15].GetValue<string>();
-                                                cmdb.Status = row[nRow, 16].GetValue<string>();
-                                                cmdb.ClassType = row[nRow, 17].GetValue<string>();
-                                                cmdb.AcquisitionDate = row[nRow, 18].GetValue<DateTime>();
-                                                cmdb.WarrantyEndDate = row[nRow, 19].GetValue<DateTime>();
-                                                cmdb.Custodian = row[nRow, 20].GetValue<string>();
-                                                cmdb.Comments = row[nRow, 21].GetValue<string>();
-                                                cmdb.InventoriedBy = row[nRow, 22].GetValue<string>();
-                                                cmdb.InventoryDate = row[nRow, 23].GetValue<DateTime>();
-                                                cmdb.LastScan = row[nRow, 24].GetValue<DateTime>();
-                                                cmdb.ModifiedBy = row[nRow, 25].GetValue<string>();
-                                                cmdb.Modified = row[nRow, 26].GetValue<DateTime>();*/
-
-                            // save it into the Database
-                            //_context.Cmdbs.AddRange(lstCmdbs);
-                            // store the cmdb to retrieve its Id later on
-                            //lstCmdbs.Add(cmdb);
-
-                            // increment the counter
                             nCMDB++;
                         }
                     }
@@ -501,11 +346,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 try
                 {
                     var records = csv.GetRecords<EPO>().ToList();
-                    /*                    foreach(var r in records)
-                                        {
-                                            Console.WriteLine(r.EpoId + "\t" + r.SystemName);
-                                        }*/
-                    /* Console.WriteLine(JsonConvert.SerializeObject(records));*/
                     int nEPO = records.Count();
                     _context.Epos.AddRange(records);
                     await _context.SaveChangesAsync();
@@ -516,19 +356,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                 {
                     Console.WriteLine("{0} - datetime is not parsed", csv);
                 }
-
-
-
-                /*foreach(var r in records)
-        =======
-                foreach (var r in records)
-        >>>>>>> 36da458b95468ef2a15a9cddc7631fb13968ba18
-                {
-                    if (r.SystemName.Length == 15)
-                        r.UniqueIdentifier = r.SystemName.Substring(6, 9);
-                }
-                _context.Epos.AddRange(records);
-        */
 
             }
         }
@@ -561,26 +388,13 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     // iterates through all rows, skipping the first one
                     for (int nRow = 2; nRow <= ws.Dimension.Rows; nRow++)
                     {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
-                        // var ADTag = row[nRow, 1].GetValue<int>();
-
-                        // Did we already created a Cmdb entry with that name?
-                        //if (lstAD_Users.Where(c => c.ADUserId == ADTag).Count() >= 0)
-                        //{
-                        //    //There already exist a entry... Remove it then update!
-                        //    //ONE entry per CD Tag
-                        //    if (lstAD_Users.Where(c => c.ADUserId == ADTag).Count() > 0)
-                        //    {
-                        //        Console.WriteLine(lstAD_Users.Where(c => c.ADUserId == ADTag).Count());
-                        //        lstAD_Users.RemoveAll(c => c.ADUserId == ADTag);
-                        //    }
-                        // create a new CMDB entity and fill it with xlsx data                         
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];         
 
 
                         lstAD_Users.Add(new AD_User
                         {
                             ProgramOffice = row[nRow, 1].GetValue<string>(),
-                            CACexemptionreason = row[nRow, 2].GetValue<string>(),
+                            CACExemptionReason = row[nRow, 2].GetValue<string>(),
                             SmartCardRequired = row[nRow, 3].GetValue<bool>(),
                             UserEmailAddress = row[nRow, 4].GetValue<string>(),
                             EmployeeType = row[nRow, 5].GetValue<string>(),
@@ -599,38 +413,8 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             Created = row[nRow, 18].GetValue<DateTime>(),
                             Changed = row[nRow, 19].GetValue<DateTime>()
                         });
-                        /* var ad_user = new AD_User();
-
-                         //ad_user.ADUserId = ADTag;
-                         ad_user.ProgramOffice = row[nRow, 1].GetValue<string>();
-                         ad_user.CACexemptionreason = row[nRow, 2].GetValue<string>();
-                         ad_user.SmartCardRequired = row[nRow, 3].GetValue<bool>();
-                         ad_user.UserEmailAddress = row[nRow, 4].GetValue<string>();
-                         ad_user.EmployeeType = row[nRow, 5].GetValue<string>();
-                         ad_user.SAMAccountName = row[nRow, 6].GetValue<string>();
-                         ad_user.Description = row[nRow, 7].GetValue<string>();
-                         ad_user.UserPrincipalName = row[nRow, 8].GetValue<string>();
-                         ad_user.AccountDisabled = row[nRow, 9].GetValue<bool>();
-                         ad_user.PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>();
-                         ad_user.PasswordCannotChange = row[nRow, 11].GetValue<bool>();
-                         ad_user.PasswordExpired = row[nRow, 12].GetValue<bool>();
-                         ad_user.AccountLockedOut = row[nRow, 13].GetValue<bool>();
-                         ad_user.CACExtendedInfo = row[nRow, 14].GetValue<string>();
-                         ad_user.UAC = row[nRow, 15].GetValue<int>();
-                         ad_user.UserName = row[nRow, 16].GetValue<string>();
-                         ad_user.DN = row[nRow, 17].GetValue<string>();
-                         ad_user.Created = row[nRow, 18].GetValue<DateTime>();
-                         ad_user.Changed = row[nRow, 19].GetValue<DateTime>();
-                         // save it into the Database*/
                         _context.AD_Users.AddRange(lstAD_Users);
-
-
-                        // store the cmdb to retrieve its Id later on
-                        /* lstAD_Users.Add(ad_user);*/
-
-                        // increment the counter
                         nAD++;
-                        // }
                     }
 
 
@@ -640,20 +424,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     // iterates through all rows, skipping the first one
                     for (int nRow = 2; nRow <= ws.Dimension.End.Row; nRow++)
                     {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
-                        //var ADTag = row[nRow, 1].GetValue<int>();
-
-                        // Did we already created a Cmdb entry with that name?
-                        //if (lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count() >= 0)
-                        //{
-                        //    //There already exist a entry... Remove it then update!
-                        //    //ONE entry per CD Tag
-                        //    if (lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count() > 0)
-                        //    {
-                        //        Console.WriteLine(lstAD_Computers.Where(c => c.ADComputerId == ADTag).Count());
-                        //        lstAD_Computers.RemoveAll(c => c.ADComputerId == ADTag);
-                        //    }
-                        // create a new CMDB entity and fill it with xlsx data                         
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];                
 
 
                         lstAD_Computers.Add(new AD_Computer
@@ -674,29 +445,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         });
 
                         _context.AddRange(lstAD_Computers);
-                        /*var ad_computer = new AD_Computer();*/
-                        /*
-                                                ad_computer.ADComputerName = row[nRow, 2].GetValue<string>();
-                                                ad_computer.ProgramOffice = row[nRow, 1].GetValue<string>();
-                                                ad_computer.OSType = row[nRow, 3].GetValue<string>();
-                                                ad_computer.OSVersion = row[nRow, 4].GetValue<string>();
-                                                ad_computer.ServicePack = row[nRow, 5].GetValue<string>();
-                                                ad_computer.Created = row[nRow, 6].GetValue<DateTime>();
-                                                ad_computer.Changed = row[nRow, 7].GetValue<DateTime>();
-                                                ad_computer.UAC = row[nRow, 8].GetValue<int>();
-                                                ad_computer.AccountDisabled = row[nRow, 9].GetValue<bool>();
-                                                ad_computer.SmartCardRequired = row[nRow, 10].GetValue<bool>();
-                                                ad_computer.Description = row[nRow, 11].GetValue<string>();
-                                                ad_computer.DN = row[nRow, 12].GetValue<string>();
-                                                ad_computer.Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>();
-                                                // save it into the Database
-                                                _context.AD_Computers.Add(ad_computer);
-                                                *//*await _context.SaveChangesAsync();*//*
-
-                                                // store the cmdb to retrieve its Id later on
-                                                lstAD_Computers.Add(ad_computer);
-                        */
-                        // increment the counter
                         nAD++;
                     }
                     await _context.SaveChangesAsync();

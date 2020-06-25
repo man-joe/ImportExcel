@@ -26,7 +26,7 @@ namespace ImportExcelDemo.Models
         public string ProgramOffice { get; set; }
 
         [StringLength(200)]
-        public string CACexemptionreason { get; set; }
+        public string CACExemptionReason { get; set; }
 
         public bool SmartCardRequired { get; set; }
 

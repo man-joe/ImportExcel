@@ -4,12 +4,10 @@
     ViewData["Title"] = "Home page";
 }
 
-<h1>Home Page</h1>
-
 <div class="text-center">
 
     <div class="jumbotron">
-        <h1 class="display-4">Welcome @Model.Message</h1>
+        <h1 class="display-4">Welcome To Our CMDB Project</h1>
         <h1 class="display-4">@Model.TimeNow</h1>
         <hr class="my-4" />
         <p class="lead">
@@ -19,5 +17,37 @@
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
 
+    <form method="post" class="form-horizontal">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>Please Select Which Data Source You Wish To Look At</legend>
 
+            <!-- Multiple Checkboxes -->
+            <div class="form-group" >
+                    <div class="col-md-12">
+                        <label for= "DataSets-0">
+                            <input type="radio" name="DataSets" id="DataSets-0" value="0">
+                            AD Computer
+                        </label>
+                        <label for= "DataSets-1">
+                            <input type="radio" name="DataSets" id="DataSets-1" value="1">
+                            AD User
+                        </label>
+                        <label for= "DataSets-2">
+                            <input type="radio" name="DataSets" id="DataSets-2" value="2">
+                            CMDB
+                        </label>
+                        <label for = "DataSets-3">
+                            <input type="radio" name="DataSets" id="DataSets-3" value="3">
+                            Sunflower
+                        </label>
+                        <label for = "DataSets-4">
+                            <input type="radio" name="DataSets" id="DataSets-4" value="4">
+                            EPO
+                        </label>
+                </div>
+            </div>
+            <button method="post" asp-page-handler="Submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
 </div>

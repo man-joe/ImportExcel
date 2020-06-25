@@ -1,0 +1,44 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayADUser.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Data Table -->
+<div class="border backgroundWhite container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">AD User List</h2>
+        </div>
+    </div>
+    <br />
+    <table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>AD User Id</th>
+                <th>Program Office</th>
+                <th>CAC Exemption Reason</th>
+                <th>Smart Card Required</th>
+                <th>User Email Address</th>
+                <th>Employee Type</th>
+                <th>SAM Account Name</th>
+                <th>Description</th>
+                <th>User Principal Name</th>
+                <th>Account Disabled</th>
+                <th>Password Does Not Expire</th>
+                <th>Password Cannot Change</th>
+                <th>Password Expired</th>
+                <th>Account Locked Out</th>
+                <th>CAC Extended Info</th>
+                <th>UAC</th>
+                <th>User Name</th>
+                <th>DN</th>
+                <th>Created</th>
+                <th>Changed</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/dtADUser.js"></script>
+}

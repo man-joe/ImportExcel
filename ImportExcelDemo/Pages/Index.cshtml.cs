@@ -12,9 +12,6 @@ namespace ImportExcelDemo
     {
         private readonly ILogger<IndexModel> _logger;
 
-        //Will construct getters and setters for a string called "Message"
-        public string Message { get; set; }
-
         public string TimeNow { get; set; }
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -23,9 +20,45 @@ namespace ImportExcelDemo
 
         public void OnGet()
         {
-            Message = "to the Home Page";
-
             TimeNow = DateTime.Now.ToLongTimeString();
+        }
+
+        public IActionResult OnPostSubmit()
+        {
+            int dataSet = Convert.ToInt32(Request.Form["DataSets"]);
+            if (dataSet == 0)
+            {
+                Response.Redirect("/DisplayADComputer");
+            }
+            else if (dataSet == 1)
+            {
+                Response.Redirect("/DisplayADUser");
+            }
+            else if (dataSet == 2)
+            {
+                Response.Redirect("/DisplayCMDB");
+            }
+            else if (dataSet == 3)
+            {
+                Response.Redirect("/DisplaySun");
+            } 
+            else if (dataSet == 4)
+            {
+                Response.Redirect("/DisplayEPO");
+            } 
+            else if (dataSet == 5)
+            {
+                Response.Redirect("/DisplayADUser_CMDB");
+            } 
+            else if (dataSet == 6)
+            {
+                Response.Redirect("/DisplayADComputer_CMDB");
+            } 
+            else if (dataSet == 7)
+            {
+                Response.Redirect("/DisplayAD_CMDB");
+            }
+            return Page();
         }
     }
 

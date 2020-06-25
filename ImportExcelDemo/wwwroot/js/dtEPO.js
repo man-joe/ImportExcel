@@ -10,10 +10,6 @@ function loadList() {
             "type": "GET",
             "url": "/api/sample/GetEPO",
             "serverSide": true,
-            // "url": PlaySpace/?handler=List
-
-            //dataSrc: "",
-            //contentType: "application/json",
             "dataType": "json"
         },
         "scrollX" : true,

@@ -8,13 +8,33 @@ function loadList() {
     dataTable = $('#DT_load').DataTable({
         "ajax": {
             "type": "GET",
-            "url": "/api/sample/GetCMDB",
+            "url": "/api/sample/GetAD_User",
             "serverSide": true,
             "dataType": "json"
         },
         "scrollX": true,
 
         "columns": [
+            { "data": "adUserId" },
+            { "data": "programOffice" },
+            { "data": "cacExemptionReason" },
+            { "data": "smartCardRequired" },
+            { "data": "userEmailAddress" },
+            { "data": "employeeType" },
+            { "data": "samAccountName" },
+            { "data": "description" },
+            { "data": "userPrincipalName" },
+            { "data": "accountDisabled" },
+            { "data": "passwordDoesNotExpire" },
+            { "data": "passwordCannotChange" },
+            { "data": "passwordExpired" },
+            { "data": "accountLockedOut" },
+            { "data": "cacExtendedInfo" },
+            { "data": "uac" },
+            { "data": "userName" },
+            { "data": "dn" },
+            { "data": "created" },
+            { "data": "changed" },
             { "data": "cmdbID" },
             { "data": "cdTag" },
             { "data": "org" },
@@ -41,28 +61,7 @@ function loadList() {
             { "data": "inventoryDate" },
             { "data": "lastScan" },
             { "data": "modifiedBy" },
-            { "data": "modified" },
-            //Adding buttons for editing and deleting
-            {
-                "data": "id",
-                "render": function (data) {
-                    return ` <div class="text-center">
-                                <a href = "/DisplayCMDB/Edit?id=${data}" class= "btn btn-success text-white" style = "cussor:pointer; width:100px;" >
-                                    <i class="far fa-edit"></i> Edit     
-                                <a href = "/DisplayCMDB/Delete?id=${data}" class= "btn btn-danger text-white" style = "cussor:pointer; width:100px;" >
-                                    <i class="far fa-edit"></i> Delete 
-                                
-                    </div> `;
-                }, "width": "30%"
-            }, 
-        ],
-        //Search Panes
-        searchPanes: {
-            cascadePanes: true
-        },
-        dom: 'Pfrtip', 
-        "width": "100%",
-
-       
+            { "data": "modified" }
+        ]
     });
 }
