@@ -38,9 +38,9 @@ namespace ImportExcelDemo.Models
         [Name("User Name")]
         public string UserName { get; set; }
         
-      /*  Issue: DateTime needs to be parsed correctly
-       *  
-       *  [Name("Last Communication")]
+        // Issue: DateTime needs to be parsed correctly
+        
+        /*[Name("Last Communication")] //might not need since we're parsing each field individually
         public DateTime? LastCommunication { get; set; }*/
 
 

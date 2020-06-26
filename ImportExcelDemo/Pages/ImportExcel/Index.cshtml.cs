@@ -511,6 +511,32 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     await _context.SaveChangesAsync();
                     Message = "EPO Committed to Database. " +
                         nEPO + " entries Added.";
+
+                    // Read things individually because of DateTime conversion
+                    // More eloquent solution would be changing config of csv but will require more 
+                    // research....
+
+                    /*while (csv.Read()) 
+                    {
+                        //Grab and saves 
+                        var getLastCom = csv.GetField<string>("Last Communication").Trim();
+                        DateTime LastCom;
+                        getLastCom.con
+                        LastCom = DateTime.ParseExact(
+                            getLastCom,
+                            "M-d-yy ",
+                            System.Globalization.CultureInfo.InvariantCulture);
+
+                        var record = new EPO
+                        {
+                            SystemName = csv.GetField<string>("System Name"),
+                            ManagedState = csv.GetField<string>("Managed State"),
+                            Tags = csv.GetField<string>("Tags"),
+                            IpAddress = csv.GetField<string>("IP address"),
+                            UserName = csv.GetField<string>("User Name"),
+                            LastCommunication = LastCom
+                        };
+                    }*/
                 }
                 catch (FormatException)
                 {
