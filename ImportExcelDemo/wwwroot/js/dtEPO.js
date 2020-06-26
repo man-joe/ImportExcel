@@ -19,27 +19,13 @@ function loadList() {
             { "data": "systemName" },
             { "data": "tags" },
             { "data": "ipAddress" },
-            { "data": "userName" }, 
-            //Adding Buttons editing and deleting
-            {
-                
-                "data": "id",
-                "render": function (data) {
-                    return ` <div class="text-center">
-                                <a href = "/DisplayEPO/Update?id=${data}" class= "btn btn-success text-white" style = "cussor:pointer; width:100px;" >
-                                    <i class="far fa-edit"></i> Edit                           
-                                <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete('/api/EPO/'+${data})>
-                                    <i class="far fa-trash-alt"></i> Delete
-                                </a>
-                    </div> `;
-                }, "width": "30%"
-            }, 
+            { "data": "userName" },          
         ],
         //Search Panes
         searchPanes: {
             cascadePanes: true
         },
-        dom: 'Pfrtip', 
+        dom: 'Plfrtip', 
 
         "width":"100%",
     });
