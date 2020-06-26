@@ -2,39 +2,44 @@
 
 $(document).ready(function () {
     loadList();
+    highlight();
 });
 
-function loadList() {
+
+function highlight() {
+    var table = dataTable.DataTable();
+
+    $('#DT_Load').on('mouseenter', 'td', function () {
+        var colIdx = table.cell(this).index().column;
+        
+        $(table.cells().nodes()).removeClass('highlight');
+        $(table.column(colIdx).nodes()).addClass('highlight');
+    },
+
+ function loadList() {
     dataTable = $('#DT_load').DataTable({
         "ajax": {
             "type": "GET",
-            "url": "/api/sample/GetAD_User",
+            "url": "/api/sample/GetADComputer_CMDB",
             "serverSide": true,
             "dataType": "json"
         },
         "scrollX": true,
 
         "columns": [
-            { "data": "adUserId" },
+            { "data": "adComputerId" },
+            { "data": "adComputerName" },
             { "data": "programOffice" },
-            { "data": "cacExemptionReason" },
-            { "data": "smartCardRequired" },
-            { "data": "userEmailAddress" },
-            { "data": "employeeType" },
-            { "data": "samAccountName" },
-            { "data": "description" },
-            { "data": "userPrincipalName" },
-            { "data": "accountDisabled" },
-            { "data": "passwordDoesNotExpire" },
-            { "data": "passwordCannotChange" },
-            { "data": "passwordExpired" },
-            { "data": "accountLockedOut" },
-            { "data": "cacExtendedInfo" },
-            { "data": "uac" },
-            { "data": "userName" },
-            { "data": "dn" },
+            { "data": "osType" },
+            { "data": "osVersion" },
+            { "data": "servicePack" },
             { "data": "created" },
             { "data": "changed" },
+            { "data": "uac" },
+            { "data": "accountDisabled" },
+            { "data": "smartCardRequired" },
+            { "data": "description" },
+            { "data": "dn" },
             { "data": "cmdbID" },
             { "data": "cdTag" },
             { "data": "org" },
@@ -61,7 +66,7 @@ function loadList() {
             { "data": "inventoryDate" },
             { "data": "lastScan" },
             { "data": "modifiedBy" },
-            { "data": "modified" }
+            { "data": "modified" },
         ]
     });
 }

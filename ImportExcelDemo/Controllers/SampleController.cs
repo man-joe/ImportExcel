@@ -115,5 +115,134 @@ namespace ImportExcelDemo.Controllers
                           };
             return Json(new { data = Cd_User.ToList() });
         }
+
+        [HttpGet]
+        [ActionName("GetADComputer_CMDB")]
+        public IActionResult GetADComputer_CMDB()
+        {
+            var Cd_User = from c in _context.AD_Computers
+                          join d in _context.Cmdbs on c.ADComputerName equals d.HostName
+                          orderby d.AdUser
+                          select new
+                          {
+                              c.ADComputerId,
+                              c.ADComputerName,
+                              c.ProgramOffice,
+                              c.OSType,
+                              c.OSVersion,
+                              c.ServicePack,
+                              c.Created,
+                              c.Changed,
+                              c.UAC,
+                              c.AccountDisabled,
+                              c.SmartCardRequired,
+                              c.Description,
+                              c.DN,
+                              d.CmdbID,
+                              d.CDTag,
+                              d.Org,
+                              d.HostName,
+                              d.Location,
+                              d.Floor,
+                              d.Room,
+                              d.IpAddress,
+                              d.SubnetMask,
+                              d.MacAddress,
+                              d.Manufacturer,
+                              d.Model,
+                              d.SerialNumber,
+                              d.OperatingSystem,
+                              d.AdUser,
+                              d.SunflowerUser,
+                              d.Status,
+                              d.ClassType,
+                              d.AcquisitionDate,
+                              d.WarrantyEndDate,
+                              d.Custodian,
+                              d.Comments,
+                              d.InventoriedBy,
+                              d.InventoryDate,
+                              d.LastScan,
+                              d.ModifiedBy,
+                              d.Modified
+                          };
+            return Json(new { data = Cd_User.ToList() });
+        }
+
+        [HttpGet]
+        [ActionName("GetAD_CMDB")]
+        public IActionResult GetAD_CMDB()
+        {
+
+            var queryCD = from d in _context.Cmdbs
+                          join u in _context.AD_Users on d.AdUser equals u.UserName
+                          join c in _context.AD_Computers on d.HostName equals c.ADComputerName
+                          orderby d.AdUser
+                          select new
+                          {
+                              u.ADUserId,
+                              u.ProgramOffice,
+                              u.CACExemptionReason,
+                              u.SmartCardRequired,
+                              u.UserEmailAddress,
+                              u.EmployeeType,
+                              u.SAMAccountName,
+                              u.Description,
+                              u.UserPrincipalName,
+                              u.AccountDisabled,
+                              u.PasswordDoesNotExpire,
+                              u.PasswordCannotChange,
+                              u.PasswordExpired,
+                              u.AccountLockedOut,
+                              u.CACExtendedInfo,
+                              u.UAC,
+                              u.UserName,
+                              u.DN,
+                              u.Created,
+                              u.Changed,
+                              c.ADComputerId,
+                              c.ADComputerName,
+                              ComputerProgramOffice = c.ProgramOffice,
+                              c.OSType,
+                              c.OSVersion,
+                              c.ServicePack,
+                              ComputerCreated = c.Created,
+                              ComputerChanged = c.Changed,
+                              ComputerUAC = c.UAC,
+                              ComputerAccount = c.AccountDisabled,
+                              ComputerCard = c.SmartCardRequired,
+                              ComputerDescription = c.Description,
+                              ComputerDN = c.DN,
+                              d.CmdbID,
+                              d.CDTag,
+                              d.Org,
+                              d.HostName,
+                              d.Location,
+                              d.Floor,
+                              d.Room,
+                              d.IpAddress,
+                              d.SubnetMask,
+                              d.MacAddress,
+                              d.Manufacturer,
+                              d.Model,
+                              d.SerialNumber,
+                              d.OperatingSystem,
+                              d.AdUser,
+                              d.SunflowerUser,
+                              d.Status,
+                              d.ClassType,
+                              d.AcquisitionDate,
+                              d.WarrantyEndDate,
+                              d.Custodian,
+                              d.Comments,
+                              d.InventoriedBy,
+                              d.InventoryDate,
+                              d.LastScan,
+                              d.ModifiedBy,
+                              d.Modified
+                          };
+            return Json(new { data = queryCD.ToList() });
+        }
     }
 }
+
