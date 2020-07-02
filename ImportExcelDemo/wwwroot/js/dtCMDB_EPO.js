@@ -2,45 +2,26 @@
 
 $(document).ready(function () {
     loadList();
-    highlight();
 });
 
-
-function highlight() {
-    var table = dataTable.DataTable();
-
-    $('#DT_Load').on('mouseenter', 'td', function () {
-        var colIdx = table.cell(this).index().column;
-        
-        $(table.cells().nodes()).removeClass('highlight');
-        $(table.column(colIdx).nodes()).addClass('highlight');
-    },
-
- function loadList() {
+function loadList() {
     dataTable = $('#DT_load').DataTable({
         "ajax": {
-            "type": "GET",
-            "url": "/api/sample/GetADComputer_CMDB",
+            "url": "/api/sample/GetCMDB_EPO",
+            "type": "GET",            
             "serverSide": true,
             "dataType": "json"
         },
         "scrollX": true,
 
         "columns": [
-            { "data": "adComputerId" },
-            { "data": "adComputerName" },
-            { "data": "programOffice" },
-            { "data": "osType" },
-            { "data": "osVersion" },
-            { "data": "servicePack" },
-            { "data": "created" },
-            { "data": "changed" },
-            { "data": "uac" },
-            { "data": "accountDisabled" },
-            { "data": "smartCardRequired" },
-            { "data": "description" },
-            { "data": "dn" },
-            { "data": "cmdbID" },
+            { "data": "epoID" },
+            { "data": "managedState" },
+            { "data": "systemName" },
+            { "data": "tags" },
+            { "data": "ipAddress" },
+            { "data": "userName" },     
+            { "data": "cmdbID" }, // position 0
             { "data": "cdTag" },
             { "data": "org" },
             { "data": "hostName" },
@@ -67,18 +48,18 @@ function highlight() {
             { "data": "lastScan" },
             { "data": "modifiedBy" },
             { "data": "modified" },
+            
         ],
-
         //Search Panes
         searchPanes: {
             cascadePanes: true,
             controls: true,
             layout: 'columns-5',
-            columns: [2, 3, 4, 5, 6] // find which columns to filter, more than 10 slows down the page
+            columns: [2,3,4,5,6] // find which columns to filter, more than 10 slows down the page
         },
         //Buttons
         buttons: [
-            'colvis', 'copy', 'csv', 'excel', 'pdf', 'print'
+            'colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
 
         /*responsive: {
@@ -96,5 +77,7 @@ function highlight() {
         dom: 'PBlfrtip',
 
         "width": "100%",
+
+       
     });
 }

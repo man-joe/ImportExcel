@@ -7,8 +7,8 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#DT_load').DataTable({
         "ajax": {
-            "type": "GET",
             "url": "/api/sample/GetAD_CMDB",
+            "type": "GET",
             "serverSide": true,
             "dataType": "json"
         },
@@ -75,6 +75,33 @@ function loadList() {
             { "data": "lastScan" },
             { "data": "modifiedBy" },
             { "data": "modified" },
-        ]
+        ],
+        //Search Panes
+        searchPanes: {
+            cascadePanes: true,
+            controls: true,
+            layout: 'columns-5',
+            columns: [2, 3, 4, 5, 6] // find which columns to filter, more than 10 slows down the page
+        },
+        //Buttons
+        buttons: [
+            'colvis', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+
+        /*responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+            }
+        },*/
+
+        dom: 'PBlfrtip',
+
+        "width": "100%",
     });
 }

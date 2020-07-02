@@ -25,7 +25,7 @@ namespace ImportExcelDemo
 
         public IActionResult OnPostSubmit()
         {
-            int dataSet = Convert.ToInt32(Request.Form["DataSets"]);
+            int dataSet = Convert.ToInt32(Request.Form["DataSet"]);
             if (dataSet == 0)
             {
                 Response.Redirect("/DisplayADComputer");
@@ -57,6 +57,30 @@ namespace ImportExcelDemo
             else if (dataSet == 7)
             {
                 Response.Redirect("/DisplayAD_CMDB");
+            }
+            else if (dataSet == 8)
+            {
+                Response.Redirect("/DisplayCMDB_Sunflower");
+            }
+            else if (dataSet == 9)
+            {
+                Response.Redirect("/DisplayCMDB_EPO");
+            }
+            else if (dataSet == 10)
+            {
+                Response.Redirect("/DisplayADComputer_EPO");
+            }
+            else if (dataSet == 11)
+            {
+                Response.Redirect("/DisplayCMDB_AD_Computer_EPO");
+            }
+            else if (dataSet == 12)
+            {
+                Response.Redirect("DisplayCMDB_AD_EPO");
+            }
+            else if (dataSet == 13)
+            {
+                Response.Redirect("DisplayCMDB_AD_EPO_Sunflower");
             }
             return Page();
         }
