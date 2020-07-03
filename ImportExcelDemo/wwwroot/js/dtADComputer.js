@@ -28,7 +28,20 @@ function loadList() {
             { "data": "smartCardRequired" },
             { "data": "description" },
             { "data": "dn" },
+
         ],
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+            }
+        },
+
         //Search Panes
         searchPanes: {
             cascadePanes: true,
@@ -40,6 +53,8 @@ function loadList() {
         buttons: [
             'colvis', 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
+
+       
 
         /*responsive: {
             details: {
