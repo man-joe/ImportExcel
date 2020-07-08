@@ -345,29 +345,60 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
                 try
                 {
-                    var records = csv.GetRecords<EPO>().ToList();
-                    int nEPO = records.Count();
-                    _context.Epos.AddRange(records);
-                    await _context.SaveChangesAsync();
-                    Message = "EPO Committed to Database. " +
-                        nEPO + " entries Added.";
+                    int nEPO = 0;
+                    /* var records = csv.GetRecords<EPO>().ToList();
+                     int nEPO = records.Count();
+                     _context.Epos.AddRange(records);
+                     await _context.SaveChangesAsync();
+                     Message = "EPO Committed to Database. " +
+                         nEPO + " entries Added.";
+
+                     */
 
                     // Read things individually because of DateTime conversion
                     // More eloquent solution would be changing config of csv but will require more 
                     // research....
 
-                    /*while (csv.Read()) 
-                    {
-                        //Grab and saves 
-                        var getLastCom = csv.GetField<string>("Last Communication").Trim();
-                        DateTime LastCom;
-                        getLastCom.con
-                        LastCom = DateTime.ParseExact(
-                            getLastCom,
-                            "M-d-yy ",
-                            System.Globalization.CultureInfo.InvariantCulture);
 
-                        var record = new EPO
+                    //Change Model using DateTimeOffset???
+                    csv.Read();
+                    csv.ReadHeader();
+                    var lstEpos = _context.Epos.ToList();
+                    while (csv.Read())
+                    {
+                        /* csv.ReadHeader();*/
+                        //Grab and saves 
+                        var epo = _context.Epos
+                            .Where(e => e.SystemName == csv.GetField<string>("System Name"))
+                            .FirstOrDefault();
+                        if (epo != null) // there exists an entry already
+                            continue;
+
+                        var getLastCom = csv.GetField<string>("Last Communication");
+                        DateTime LastCom;
+
+                        if (String.IsNullOrEmpty(getLastCom))
+                        {
+                            LastCom = new DateTime();
+                        }
+                        else 
+                        {
+                            if (getLastCom.Contains("EDT"))
+                            {
+                                getLastCom = getLastCom.Replace("EDT", "-4:00");
+                            }
+                            else if (getLastCom.Contains("EST"))
+                            {
+                                getLastCom = getLastCom.Replace("EST", "-5:00");
+                            }
+
+                            LastCom = DateTime.ParseExact(
+                                                getLastCom,
+                                                "M/d/yy h:mm:ss tt zzz",
+                                                System.Globalization.CultureInfo.InvariantCulture).ToUniversalTime();
+                        }                                           
+
+                        lstEpos.Add(new EPO
                         {
                             SystemName = csv.GetField<string>("System Name"),
                             ManagedState = csv.GetField<string>("Managed State"),
@@ -375,8 +406,15 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             IpAddress = csv.GetField<string>("IP address"),
                             UserName = csv.GetField<string>("User Name"),
                             LastCommunication = LastCom
-                        };
-                    }*/
+                        });
+
+                        _context.Epos.AddRange(lstEpos);
+                        nEPO++;
+                    }
+
+                    await _context.SaveChangesAsync();
+                    Message = "EPO Committed to Database. " +
+                        nEPO + " entries Added.";
                 }
                 catch (FormatException)
                 {
@@ -414,7 +452,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     // iterates through all rows, skipping the first one
                     for (int nRow = 2; nRow <= ws.Dimension.Rows; nRow++)
                     {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];         
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
 
 
                         lstAD_Users.Add(new AD_User
@@ -450,7 +488,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     // iterates through all rows, skipping the first one
                     for (int nRow = 2; nRow <= ws.Dimension.End.Row; nRow++)
                     {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];                
+                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
 
 
                         lstAD_Computers.Add(new AD_Computer
@@ -482,6 +520,60 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
             #endregion
         }
+
+        [Obsolete]
+        public async Task OnPostSCCMCommitAsync()
+        {
+            string folderPath = Path.Combine(_environment.ContentRootPath, "uploads");
+            var filePath = Path.Combine(folderPath,
+                                                    Path.GetFileName(ExcelUpload.FileName));
+
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            using (var streamReader = System.IO.File.OpenText(filePath))
+            using (var csv = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+            {
+                csv.Configuration.HeaderValidated = null;
+                csv.Configuration.MissingFieldFound = null;
+
+
+                //Skips non-header
+                while(csv.Read())
+                {
+                    if(csv.Context.Record[0].StartsWith("Header_"))
+                    {
+                        csv.Read();
+                        var header = csv.ReadHeader();
+                        break;
+                    }
+                }
+
+                int nSCCM = 0;
+                var records = csv.GetRecords<SCCM>().ToList();
+                nSCCM = records.Count();
+                _context.Sccms.AddRange(records);
+                await _context.SaveChangesAsync();
+                Message = "SCCM Commited to Database. " + 
+                    nSCCM + " entries Added.";
+
+                /*try
+                {
+                    int nEPO = 0;
+                    var records = csv.GetRecords<EPO>().ToList();
+                    int nEPO = records.Count();
+                    _context.Epos.AddRange(records);
+                    await _context.SaveChangesAsync();
+                    Message = "EPO Committed to Database. " +
+                        nEPO + " entries Added.";
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("{0} - datetime is not parsed", csv);
+                }*/
+            }
+
+        }
+
         //Helper Method with grabbing specific data/columns 
         private Cmdb GetCmdbFromExcelRow(DataRow row)
         {

@@ -19,13 +19,30 @@ function loadList() {
             { "data": "systemName" },
             { "data": "tags" },
             { "data": "ipAddress" },
-            { "data": "userName" },          
+            { "data": "userName" },
+            { "data": "lastCommunication"},
         ],
+
+        //Modal
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
+
         //Search Panes
         searchPanes: {
             cascadePanes: true
         },
-        dom: 'Plfrtip', 
+        dom: 'Plfr<t>ip', 
 
         "width":"100%",
     });
