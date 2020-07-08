@@ -50,7 +50,8 @@ function loadList() {
                                 <a href = "/DisplayCMDB/Edit?id=${data}" class= "btn btn-success text-white" style = "cussor:pointer; width:50px;" >
                                     Edit
                                 </a>     
-                                <a href = "/DisplayCMDB/Delete?id=${data}" class= "btn btn-danger text-white" style = "cussor:pointer; width:75px;" >
+                                <a class= "btn btn-danger text-white" style = "cussor:pointer; width:75px;" 
+                                    onclick=Delete('/api/sample/DeleteCMDB?id='+${data})>
                                     Delete
                                 </a>                                
                             </div> `;
@@ -86,5 +87,31 @@ function loadList() {
         "width": "100%",
 
        
+    });
+}
+
+function Delete(url) {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this entry!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        dataTable.ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
     });
 }

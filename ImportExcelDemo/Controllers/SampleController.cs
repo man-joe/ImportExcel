@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ImportExcelDemo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace ImportExcelDemo.Controllers
 {
@@ -17,43 +20,54 @@ namespace ImportExcelDemo.Controllers
         {
             _context = context;
         }
-
-
-
         
         [HttpGet]
         [ActionName("GetCMDB")]
-        public IActionResult GetCMDB()
+        public async Task<IActionResult> GetCMDB()
         {
-            return Json(new { data = _context.Cmdbs.ToList() });
+            return Json(new { data = await _context.Cmdbs.ToListAsync() });
         }
+        [HttpDelete]
+        [ActionName("DeleteCMDB")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var cmdbFromDb = await _context.Cmdbs.FirstOrDefaultAsync(u => u.CmdbID == id);
+            if(cmdbFromDb == null)
+            {
+                return Json(new { success = false, message = "Error while Deleting" });
+            }
+            _context.Cmdbs.Remove(cmdbFromDb);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, Message = "Deletion of " + cmdbFromDb.CDTag + " was successful" });
+        }
+
 
         [HttpGet]
         [ActionName("GetSun")]
-        public IActionResult GetSun()
+        public async Task<IActionResult> GetSun()
         {
-            return Json(new { data = _context.Sunflowers.ToList() });
+            return Json(new { data = await _context.Sunflowers.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetEPO")]
-        public IActionResult GetEPO()
+        public async Task<IActionResult> GetEPO()
         {
-            return Json(new { data = _context.Epos.ToList() });
+            return Json(new { data = await _context.Epos.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetAD_Computer")]
-        public IActionResult GetADComputer()
+        public async Task<IActionResult> GetADComputer()
         {
-            return Json(new { data = _context.AD_Computers.ToList() });
+            return Json(new { data = await _context.AD_Computers.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetAD_User")]
-        public IActionResult GetADUser()
+        public async Task<IActionResult> GetADUser()
         {
-            return Json(new { data = _context.AD_Users.ToList() });
+            return Json(new { data = await _context.AD_Users.ToListAsync() });
         }
 
         [HttpGet]

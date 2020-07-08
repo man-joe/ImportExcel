@@ -19,7 +19,7 @@ namespace ImportExcelDemo.Models
 
         #region Instance Variables
         [Key]
-/*        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         public int? EpoID { get; set; }
         [StringLength(50)]
@@ -37,11 +37,11 @@ namespace ImportExcelDemo.Models
         [StringLength(150)]
         [Name("User Name")]
         public string UserName { get; set; }
-        
+
         // Issue: DateTime needs to be parsed correctly
-        
-        /*[Name("Last Communication")] //might not need since we're parsing each field individually
-        public DateTime? LastCommunication { get; set; }*/
+
+        [Name("Last Communication")] //might not need since we're parsing each field individually
+        public DateTime? LastCommunication { get; set; }
 
 
         /*[StringLength(50)]

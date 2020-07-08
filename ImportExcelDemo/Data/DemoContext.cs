@@ -38,6 +38,8 @@ namespace ImportExcelDemo.Data
         public DbSet<EPO> Epos { get; set; }
         public DbSet<AD_User> AD_Users { get; set; }
         public DbSet<AD_Computer> AD_Computers { get; set; }
+        public DbSet<SCCM> Sccms { get; set; }
+
         #endregion
     }
 }
