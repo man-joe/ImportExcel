@@ -21,43 +21,50 @@
         <fieldset>
             <!-- Form Name -->
             <legend>Please Select Which Data Source You Wish To Look At</legend>
-
             <!-- Multiple Checkboxes -->
             <div class="form-group" >
                 <div class="col-md-12">
-                    <label for="DataSets-0">
-                        <input type="radio" name="DataSets" id="DataSets-0" value="0">
-                        AD Computer
-                    </label>
-                    <label for="DataSets-1">
-                        <input type="radio" name="DataSets" id="DataSets-1" value="1">
-                        AD User
-                    </label>
-                    <label for="DataSets-2">
-                        <input type="radio" name="DataSets" id="DataSets-2" value="2">
-                        CMDB
-                    </label>
-                    <label for="DataSets-3">
-                        <input type="radio" name="DataSets" id="DataSets-3" value="3">
-                        Sunflower
-                    </label>
-                    <label for="DataSets-4">
-                        <input type="radio" name="DataSets" id="DataSets-4" value="4">
-                        EPO
-                    </label>
-                    <br>
-                    <label for="DataSets-5">
-                        <input type="radio" name="DataSets" id="DataSets-5" value="5">
-                        AD User and CMDB
-                    </label>
-                    <label for="DataSets-6">
-                        <input type="radio" name="DataSets" id="DataSets-6" value="6">
-                        AD Computer and CMDB
-                    </label>
-                    <label for="DataSets-7">
-                        <input type="radio" name="DataSets" id="DataSets-7" value="7">
-                        AD User, AD Computer, and CMDB
-                    </label>
+                    <select name="DataSet">
+                        <option value="0">
+                            AD Computer
+                        </option>
+
+                        <option value="1">
+                            AD User
+                        </option>
+
+                        <option value="2">
+                            CMDB
+                        </option>
+
+                        <option value="3">
+                            Sunflower
+                        </option>
+
+                        <option value="4">
+                            EPO
+                        </option>
+
+                        <option value="5">
+                            AD User and CMDB
+                        </option>
+
+                        <option value="6">
+                            AD Computer and CMDB
+                        </option>
+
+                        <option value="7">
+                            AD User, AD Computer, and CMDB
+                        </option>
+
+                        <option value="8">
+                            CMDB And Sunflower
+                        </option>
+
+                        <option value="9">
+                            CMDB And EPO
+                        </option>
+                    </select>
                 </div>
             </div>
             <button method="post" asp-page-handler="Submit" class="btn btn-primary">Submit</button>

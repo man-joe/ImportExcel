@@ -1,0 +1,65 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayCMDB_EPO.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="border backgroundWhite container">
+    <br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">CMDB And EPO List</h2>
+        </div>
+
+        <div class="col-6 text-right">
+            <a asp-page="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create New</a>
+        </div>
+
+    </div>
+    <br />
+    <table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+        <!--table table-striped table-bordered compact -->
+        <thead>
+            <tr>
+                <th>EPO ID</th>
+                <th>Managed State</th>
+                <th>System Name</th>
+                <th>Tags</th>
+                <th>IP Address</th>
+                <th>User Name</th>
+                <th>CMDB ID</th>
+                <th>CD Tag</th>
+                <th>Organization</th>
+                <th>Host Name</th>
+                <th>Location</th>
+                <th>Floor</th>
+                <th>Room</th>
+                <th>IP Address</th>
+                <th>Subnet Mask</th>
+                <th>MAC Address</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Operating System</th>
+                <th>AD User</th>
+                <th>Sunflower User</th>
+                <th>Status</th>
+                <th>Class - Type</th>
+                <th>Acquisition Date</th>
+                <th>Warranty End Date</th>
+                <th>Custodian</th>
+                <th>Comments</th>
+                <th>Inventoried By</th>
+                <th>Inventory Date</th>
+                <th>Last Scan</th>
+                <th>Modified By</th>
+                <th>Modified</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/dtCMDB_EPO.js"></script>
+}

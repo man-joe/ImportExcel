@@ -257,6 +257,127 @@ namespace ImportExcelDemo.Controllers
                           };
             return Json(new { data = queryCD.ToList() });
         }
+
+        [HttpGet]
+        [ActionName("GetCMDB_Sunflower")]
+        public IActionResult GetCMDB_Sunflower()
+        {
+            var Cd_Sunflower = from s in _context.Sunflowers
+                          join d in _context.Cmdbs on s.BarcodeNum equals d.CDTag
+                          orderby d.AdUser
+                          select new
+                          {
+                              s.SunID,
+                              s.BarcodeNum,
+                              s.Status,
+                              s.OfficialName,
+                              s.Manufacturer,
+                              s.Model,
+                              s.ModelName,
+                              s.SerialNumber,
+                              s.AssetValue,
+                              s.EffectiveDate,
+                              s.CustArea,
+                              s.BureauOrRegion,
+                              s.PropertyContact,
+                              s.CurrentUser,
+                              s.FedSupplyGroup,
+                              s.UtilizationCode,
+                              s.AssetCondition,
+                              s.ConditionDescription,
+                              s.PhysicalInventoryDate,
+                              s.AcquisitionDate,
+                              s.ResponsibilityDate,
+                              s.Site,
+                              s.Stlv1,
+                              s.Stlv2,
+                              s.Stlv3,
+                              s.MailStop,
+                              s.Gps1,
+                              s.Gps2,
+                              s.Gps3,
+                              s.ResolutionDate,
+                              s.Resolution,
+                              s.FinalEvent,
+                              s.Datetime,
+                              s.FinalEventUserDefinedLabel01,
+                              s.FinalEventUserField01,
+                              d.CmdbID,
+                              d.CDTag,
+                              d.Org,
+                              d.HostName,
+                              d.Location,
+                              d.Floor,
+                              d.Room,
+                              d.IpAddress,
+                              d.SubnetMask,
+                              d.MacAddress,
+                              CMDB_Manufacturer = d.Manufacturer,
+                              CMDB_Model = d.Model,
+                              CMDB_SerialNumber = d.SerialNumber,
+                              d.OperatingSystem,
+                              d.AdUser,
+                              d.SunflowerUser,
+                              CMDB_Status = d.Status,
+                              d.ClassType,
+                              CMDB_AcquisitionDate = d.AcquisitionDate,
+                              d.WarrantyEndDate,
+                              d.Custodian,
+                              d.Comments,
+                              d.InventoriedBy,
+                              d.InventoryDate,
+                              d.LastScan,
+                              d.ModifiedBy,
+                              d.Modified
+                          };
+            return Json(new { data = Cd_Sunflower.ToList() });
+        }
+
+        [HttpGet]
+        [ActionName("GetCMDB_EPO")]
+        public IActionResult GetCMDB_EPO()
+        {
+            var Cd_Sunflower = from e in _context.Epos
+                               join d in _context.Cmdbs on e.SystemName equals d.HostName
+                               orderby d.AdUser
+                               select new
+                               {
+                                   e.EpoID,
+                                   e.SystemName,
+                                   e.ManagedState,
+                                   e.Tags,
+                                   e.IpAddress,
+                                   e.UserName,
+                                   d.CmdbID,
+                                   d.CDTag,
+                                   d.Org,
+                                   d.HostName,
+                                   d.Location,
+                                   d.Floor,
+                                   d.Room,
+                                   CMDB_IP_Address = d.IpAddress,
+                                   d.SubnetMask,
+                                   d.MacAddress,
+                                   CMDB_Manufacturer = d.Manufacturer,
+                                   CMDB_Model = d.Model,
+                                   CMDB_SerialNumber = d.SerialNumber,
+                                   d.OperatingSystem,
+                                   d.AdUser,
+                                   d.SunflowerUser,
+                                   CMDB_Status = d.Status,
+                                   d.ClassType,
+                                   CMDB_AcquisitionDate = d.AcquisitionDate,
+                                   d.WarrantyEndDate,
+                                   d.Custodian,
+                                   d.Comments,
+                                   d.InventoriedBy,
+                                   d.InventoryDate,
+                                   d.LastScan,
+                                   d.ModifiedBy,
+                                   d.Modified
+                               };
+            return Json(new { data = Cd_Sunflower.ToList() });
+        }
     }
 }
 
