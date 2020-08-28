@@ -64,7 +64,7 @@
     <form method="post" enctype="multipart/form-data">
         <label for="SccmFile" style="font-weight:bold">AD File</label>
         <div class="form-group flex-group">
-            <input type="file" asp-for="ExcelUpload" accept=".csv" />
+            <input type="file" asp-for="ExcelUpload" accept=".xls, .xlsx" />
             <input type="submit" value="Commit" style="float:right" asp-page-handler="ADCommit" />
         </div>
     </form>

@@ -398,98 +398,93 @@ namespace ImportExcelDemo.Pages.ImportExcel
         [Obsolete]
         public async Task OnPostADCommitAsync()
         {
-            string folderPath = Path.Combine(_environment.ContentRootPath, "uploads");
-            var filePath = Path.Combine(folderPath,
-                                                    Path.GetFileName(ExcelUpload.FileName));
-
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            string filePath = SaveAndGetFilePath();
+            if (!Message.Contains("Error!"))
             {
-                using (var ep = new ExcelPackage(stream))
+                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    // get the first worksheet
-                    ExcelWorkbook wb = ep.Workbook;
-                    /*var ws = wb.Worksheets["owssvr"];*/
-                    int iSheetsCount = ep.Workbook.Worksheets.Count;
-                    var ws = wb.Worksheets["Users"];
-                    // initialize the record counters
-                    var nAD = 0;
-
-                    #region Import all CMDB entries
-                    // create a list containing all the CMDB entries already existing
-                    // into the Database (it should be empty on first run).
-                    var lstAD_Computers = _context.AD_Computers.ToList();
-                    var lstAD_Users = _context.AD_Users.ToList();
-
-                    // iterates through all rows, skipping the first one
-                    for (int nRow = 2; nRow <= ws.Dimension.Rows; nRow++)
+                    using (var ep = new ExcelPackage(stream))
                     {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
+                        // get the first worksheet
+                        ExcelWorkbook wb = ep.Workbook;
 
+                        int iSheetsCount = ep.Workbook.Worksheets.Count;
+                        var ws = wb.Worksheets["Users"];
+                        // initialize the record counters
+                        var nAD = 0;
 
-                        lstAD_Users.Add(new AD_User
+                        #region Import all CMDB entries
+                        // create a list containing all the AD entries already existing
+                        // into the Database (it should be empty on first run).
+                        var lstAD_Computers = _context.AD_Computers.ToList();
+                        var lstAD_Users = _context.AD_Users.ToList();
+
+                        // iterates through all rows, skipping the first one
+                        for (int nRow = 2; nRow <= ws.Dimension.Rows; nRow++)
                         {
-                            ProgramOffice = row[nRow, 1].GetValue<string>(),
-                            CACExemptionReason = row[nRow, 2].GetValue<string>(),
-                            SmartCardRequired = row[nRow, 3].GetValue<bool>(),
-                            UserEmailAddress = row[nRow, 4].GetValue<string>(),
-                            EmployeeType = row[nRow, 5].GetValue<string>(),
-                            SAMAccountName = row[nRow, 6].GetValue<string>(),
-                            Description = row[nRow, 7].GetValue<string>(),
-                            UserPrincipalName = row[nRow, 8].GetValue<string>(),
-                            AccountDisabled = row[nRow, 9].GetValue<bool>(),
-                            PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>(),
-                            PasswordCannotChange = row[nRow, 11].GetValue<bool>(),
-                            PasswordExpired = row[nRow, 12].GetValue<bool>(),
-                            AccountLockedOut = row[nRow, 13].GetValue<bool>(),
-                            CACExtendedInfo = row[nRow, 14].GetValue<string>(),
-                            UAC = row[nRow, 15].GetValue<int>(),
-                            UserName = row[nRow, 16].GetValue<string>(),
-                            DN = row[nRow, 17].GetValue<string>(),
-                            Created = row[nRow, 18].GetValue<DateTime>(),
-                            Changed = row[nRow, 19].GetValue<DateTime>()
-                        });
-                        _context.AD_Users.AddRange(lstAD_Users);
-                        nAD++;
-                    }
+                            var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
 
+                            lstAD_Users.Add(new AD_User
+                            {
+                                ProgramOffice = row[nRow, 1].GetValue<string>(),
+                                CACExemptionReason = row[nRow, 2].GetValue<string>(),
+                                SmartCardRequired = row[nRow, 3].GetValue<bool>(),
+                                UserEmailAddress = row[nRow, 4].GetValue<string>(),
+                                EmployeeType = row[nRow, 5].GetValue<string>(),
+                                SAMAccountName = row[nRow, 6].GetValue<string>(),
+                                Description = row[nRow, 7].GetValue<string>(),
+                                UserPrincipalName = row[nRow, 8].GetValue<string>(),
+                                AccountDisabled = row[nRow, 9].GetValue<bool>(),
+                                PasswordDoesNotExpire = row[nRow, 10].GetValue<bool>(),
+                                PasswordCannotChange = row[nRow, 11].GetValue<bool>(),
+                                PasswordExpired = row[nRow, 12].GetValue<bool>(),
+                                AccountLockedOut = row[nRow, 13].GetValue<bool>(),
+                                CACExtendedInfo = row[nRow, 14].GetValue<string>(),
+                                UAC = row[nRow, 15].GetValue<int>(),
+                                UserName = row[nRow, 16].GetValue<string>(),
+                                DN = row[nRow, 17].GetValue<string>(),
+                                Created = row[nRow, 18].GetValue<DateTime>(),
+                                Changed = row[nRow, 19].GetValue<DateTime>()
+                            });
+                            _context.AD_Users.AddRange(lstAD_Users);
+                            nAD++;
+                        }
 
+                        ws = ep.Workbook.Worksheets["Computers"];
 
-                    ws = ep.Workbook.Worksheets["Computers"];
-
-                    // iterates through all rows, skipping the first one
-                    for (int nRow = 2; nRow <= ws.Dimension.End.Row; nRow++)
-                    {
-                        var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
-
-
-                        lstAD_Computers.Add(new AD_Computer
+                        // iterates through all rows, skipping the first one
+                        for (int nRow = 2; nRow <= ws.Dimension.End.Row; nRow++)
                         {
-                            ADComputerName = row[nRow, 2].GetValue<string>(),
-                            ProgramOffice = row[nRow, 1].GetValue<string>(),
-                            OSType = row[nRow, 3].GetValue<string>(),
-                            OSVersion = row[nRow, 4].GetValue<string>(),
-                            ServicePack = row[nRow, 5].GetValue<string>(),
-                            Created = row[nRow, 6].GetValue<DateTime>(),
-                            Changed = row[nRow, 7].GetValue<DateTime>(),
-                            UAC = row[nRow, 8].GetValue<int>(),
-                            AccountDisabled = row[nRow, 9].GetValue<bool>(),
-                            SmartCardRequired = row[nRow, 10].GetValue<bool>(),
-                            Description = row[nRow, 11].GetValue<string>(),
-                            DN = row[nRow, 12].GetValue<string>(),
-                            Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>()
-                        });
+                            var row = ws.Cells[nRow, 1, nRow, ws.Dimension.End.Column];
 
-                        _context.AddRange(lstAD_Computers);
-                        nAD++;
+                            lstAD_Computers.Add(new AD_Computer
+                            {
+                                ADComputerName = row[nRow, 2].GetValue<string>(),
+                                ProgramOffice = row[nRow, 1].GetValue<string>(),
+                                OSType = row[nRow, 3].GetValue<string>(),
+                                OSVersion = row[nRow, 4].GetValue<string>(),
+                                ServicePack = row[nRow, 5].GetValue<string>(),
+                                Created = row[nRow, 6].GetValue<DateTime>(),
+                                Changed = row[nRow, 7].GetValue<DateTime>(),
+                                UAC = row[nRow, 8].GetValue<int>(),
+                                AccountDisabled = row[nRow, 9].GetValue<bool>(),
+                                SmartCardRequired = row[nRow, 10].GetValue<bool>(),
+                                Description = row[nRow, 11].GetValue<string>(),
+                                DN = row[nRow, 12].GetValue<string>(),
+                                Win7StatusExtendedinfo = row[nRow, 13].GetValue<string>()
+                            });
+
+                            _context.AddRange(lstAD_Computers);
+                            nAD++;
+                        }
+                        await _context.SaveChangesAsync();
+
+                        Message = "AD Committed to Database. " +
+                                    nAD + " entries Added.";
                     }
-                    await _context.SaveChangesAsync();
-
-                    Message = "AD Committed to Database. " +
-                                nAD + " entries Added.";
                 }
+                #endregion
             }
-
-            #endregion
         }
 
         [Obsolete]

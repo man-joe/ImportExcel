@@ -7,18 +7,15 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#DT_load').DataTable( {
         "ajax": {
-            "type": "GET",
             "url": "/api/sample/GetSun",
+            "type": "GET",
             "serverSide": true,
-            // "url": PlaySpace/?handler=List
-
-            //dataSrc: "",
-            //contentType: "application/json",
             "dataType": "json"
-        },        
+        },
+        "scrollX": true,
         
         "columns": [
-            { "data": "sunID" },
+            { "data": "sunID" }, // position 0
             { "data": "barcodeNum" },
             { "data": "status" },
             { "data": "officialName" },
@@ -54,19 +51,19 @@ function loadList() {
             { "data": "finalEventUserDefinedLabel01" },
             { "data": "finalEventUserField01" }
         ],
-
-        "responsive": {
-            "details": {
-                "display": $.fn.dataTable.Responsive.display.modal({
-                    "header": function (row) {
-                        var data = row.data();
-                        return 'Details for ' + data[0] + ' ' + data[1];
-                    }
-                }),
-                "renderer": $.fn.dataTable.Responsive.renderer.tableAll()
-            }
+        //Search Panes
+        searchPanes: {
+            cascadePanes: true,
+            controls: true,
+            layout: 'columns-5',
+            columns: [2, 4, 5, 11, 12] // find crucial columns to filter, more than 10 slows down the page
         },
-        "scrollX": true,
+        //Buttons
+        buttons: [
+            'colvis', 'copy', 'csv', 'excel', 'print'
+        ],
+        dom: 'PBlfrtip',
+
         "width":"100%",
     });
 }

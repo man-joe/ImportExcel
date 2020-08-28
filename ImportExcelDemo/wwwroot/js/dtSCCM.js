@@ -32,26 +32,15 @@ function loadList() {
             { "data": "freeDiskSpaceMB" },
         ],
 
-        //Modal
-       /* responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.modal({
-                    header: function (row) {
-                        var data = row.data();
-                        return 'Details for ' + data[0] + ' ' + data[1];
-                    }
-                }),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                    tableClass: 'table'
-                })
-            }
-        },*/
-
         //Search Panes
         searchPanes: {
             cascadePanes: true
         },
-        dom: 'Plfr<t>ip', 
+        //Buttons
+        buttons: [
+            'colvis', 'copy', 'csv', 'excel', 'print'
+        ],
+        dom: 'PBlfrtip',
 
         "width":"100%",
     });
