@@ -11,15 +11,14 @@
     <link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
     <!-- Toastr notifcations -->
     <link rel="stylesheet" href="~/toastr/2.1.1/content/content/toastr.min.css" />
-
-
 </head>
+
 <body style="background-color: lightblue">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark navbar-custom border-bottom box-shadow mb-3">
 
             <a class="navbar-brand" asp-area="" asp-page="/Index">
-                <img src="./NOAA_logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="./images/NOAA_logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
                 CMDB+
             </a>
 
@@ -58,24 +57,20 @@
                         </div>
                     </li>
 
+                    <!-- Dropdown menu for queries -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
                             Queries
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-page="/DisplayCMDB/Index">AD User And CMDB</a>
-                            <a class="dropdown-item" asp-page="/DisplaySun/Index">Sunflower</a>
-                            <a class="dropdown-item" asp-page="/DisplayEPO/Index">EPO</a>
-                            <a class="dropdown-item" asp-page="/Admin/User/Index">ECMO</a> <!-- Add ECMO-->
-                            <a class="dropdown-item" asp-page="/DisplaySCCM/Index">SCCM</a>
-                            <a class="dropdown-item" asp-page="/DisplayADComputer/Index">AD Computer</a>
-                            <a class="dropdown-item" asp-page="/DisplayADUser/Index">AD User</a>
+                            <a class="dropdown-item" asp-page="/DisplayADUser_CMDB/Index">AD User and CMDB</a>
+                            <a class="dropdown-item" asp-page="/DisplayADComputer_CMDB/Index">AD Computer and CMDB</a>
+                            <a class="dropdown-item" asp-page="/DisplayAD_CMDB/Index">AD User, AD Computer, and CMDB</a>
+                            <a class="dropdown-item" asp-page="/DisplayCMDB_Sunflower/Index">CMDB and Sunflower</a>
+                            <a class="dropdown-item" asp-page="/DisplayCMDB_EPO/Index">CMDB and EPO</a>
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/Display_AD_CMDB/Index">AD and CMDB</a>
-                    </li>
                 </ul>
             </div>
 

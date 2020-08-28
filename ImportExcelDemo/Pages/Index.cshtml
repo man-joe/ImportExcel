@@ -6,68 +6,164 @@
 
 <div class="text-center">
 
+    <!-- Description of Web Application -->
     <div class="jumbotron">
-        <h1 class="display-4">Welcome To Our CMDB Project</h1>
-        <h1 class="display-4">@Model.TimeNow</h1>
+        <h2 class="display-4">Welcome To Our CMDB+ Project</h2>
+        <h2 class="display-4">@Model.TimeNow</h2>
         <hr class="my-4" />
         <p class="lead">
-            This is a simple Web app using C#'s ASP.NET Core Framework following RazorPages Layout. Will incorporate SQL as Database
+            The Office of Coast Survey (OCS) Information Technology (IT)
+            Configuration Management Database (CMDB) hardware inventory list on
+            SharePoint is nearing capacity for the maximum number of records
+            that can be contained within a SharePoint list.  In order to
+            research and evaluate possible migration solutions, this Web
+            Application will provide a sample solution to replace the
+            current CMDB hardware inventory list while providing similar
+            functionality.
         </p>
 
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <p>
+            This is a Web Application created with C#'s ASP.NET Core
+            Framework following RazorPages Layout. It incorporate SQL as
+            Database and is publish internally below.
+        </p>
+        <p>
+            <mark> \\OCS-VS-WEBD1\www$\testCMDB </mark>
+        </p>
+
+        <p>
+            Learn about <a href="https://docs.microsoft.com/aspnet/core">
+                building Web apps with ASP.NET Core
+            </a>.
+        </p>
     </div>
 
-    <form method="post" class="form-horizontal">
-        <fieldset>
-            <!-- Form Name -->
-            <legend>Please Select Which Data Source You Wish To Look At</legend>
-            <!-- Multiple Checkboxes -->
-            <div class="form-group" >
-                <div class="col-md-12">
-                    <select name="DataSet">
-                        <option value="0">
-                            AD Computer
-                        </option>
+    <!-- Card Decks of Data Sources-->
+    <div class="card-deck">
 
-                        <option value="1">
-                            AD User
-                        </option>
+        <div class="card">
+            <img class="card-img-top" src="./images/CMDB_Image.jpg" alt="CMDB image">
 
-                        <option value="2">
-                            CMDB
-                        </option>
-
-                        <option value="3">
-                            Sunflower
-                        </option>
-
-                        <option value="4">
-                            EPO
-                        </option>
-
-                        <option value="5">
-                            AD User and CMDB
-                        </option>
-
-                        <option value="6">
-                            AD Computer and CMDB
-                        </option>
-
-                        <option value="7">
-                            AD User, AD Computer, and CMDB
-                        </option>
-
-                        <option value="8">
-                            CMDB And Sunflower
-                        </option>
-
-                        <option value="9">
-                            CMDB And EPO
-                        </option>
-                    </select>
-                </div>
+            <div class="card-body">
+                <h5 class="card-title">CMDB</h5>
+                <p class="card-text">
+                    Day-to-Day inventory management System that the OCS IT group uses.
+                    *Will contain duplicates*
+                </p>
+                <a asp-page="/DisplayCMDB/Index" class=" stretched-link"></a> <!-- Makes the whole card clickable -->
             </div>
-            <button method="post" asp-page-handler="Submit" class="btn btn-primary">Submit</button>
-        </fieldset>
-    </form>
+
+            <div class="card-footer">
+                <small class="text-muted">Configuration Management Database</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="./images/Sunflower_Image.png" alt="Sunflower Image">
+
+            <div class="card-body">
+                <h5 class="card-title">Sunflower</h5>
+                <p class="card-text">
+                    Federal Government Asset Management System. Maintains official list in Government IT assets
+                </p>
+                <a asp-page="/DisplaySun/Index" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">Sunflower System</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="./images/ePO_Image.png" alt="ePO Image">
+
+            <div class="card-body">
+                <h5 class="card-title">ePO</h5>
+                <p class="card-text">
+                    ePolicy Orchestrator System Tree organizes managed systems in units for monitoring,
+                    assigning policies, scheduling tasks, and taking actions.
+                </p>
+                <a asp-page="/DisplayEPO/Index" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">McAfee ePolicy Orchestrator</small>
+            </div>
+        </div>
+
+    </div> <!-- End of Card Deck -->
+    <br />
+
+    <div class="card-deck">
+
+        <div class="card">
+            <img class="card-img-top" src="./images/SCCM_Image.jpg" alt="SCCM Image">
+
+            <div class="card-body">
+                <h5 class="card-title">SCCM</h5>
+                <p class="card-text">
+                    Windows product that enables administrators to manage
+                    the deployment and security of devices and applications
+                    across an enterprise.
+                </p>
+                <a asp-page="/DisplaySCCM/Index" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">System Center Configuration Manager</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="./images/ECMO_Image.png" alt="ECMO Image">
+
+            <div class="card-body">
+                <h5 class="card-title">ECMO</h5>
+                <p class="card-text">
+                    Application that maintains and features asset-life management, preventative
+                    maintenance scheduling, and warrenty management.
+                </p>
+                <a asp-page="#" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">Enterprise Continuous Monitoring Operations </small>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="./images/AD_User_Image.jpg" alt="AD User Image">
+
+            <div class="card-body">
+                <h5 class="card-title">AD User</h5>
+                <p class="card-text">
+                    Microsoft proprietary directory service that manages permissions and access
+                    to network resources. This list contains User info.
+                </p>
+                <a asp-page="/DisplayADUser/Index" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">Active Directory</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="./images/AD_Computer_Image.png" alt="AD Computer Image">
+
+            <div class="card-body">
+                <h5 class="card-title">AD Computer</h5>
+                <p class="card-text">
+                    Microsoft proprietary directory service that manages permissions and access
+                    to network resources. This list contains Computer info.
+                </p>
+                <a asp-page="/DisplayADComputer/Index" class=" stretched-link"></a>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">Active Directory</small>
+            </div>
+        </div>
+    </div> <!-- End of Card Deck -->
+
 </div>
