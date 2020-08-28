@@ -36,10 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="uploads\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\toastr\2.1.1\.nupkg.metadata" />
     <None Include="wwwroot\toastr\2.1.1\.signature.p7s" />
     <None Include="wwwroot\toastr\2.1.1\content\content\toastr.less" />
