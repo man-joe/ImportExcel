@@ -57,6 +57,13 @@ namespace ImportExcelDemo.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetSCCM")]
+        public async Task<IActionResult> GetSCCM()
+        {
+            return Json(new { data = await _context.Sccms.ToListAsync() });
+        }
+
+        [HttpGet]
         [ActionName("GetAD_Computer")]
         public async Task<IActionResult> GetADComputer()
         {

@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CsvHelper; //CSV .net library
+using ImportExcelDemo.Data;
+using ImportExcelDemo.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Web;
+using OfficeOpenXml; //EPPlus .net library
+using System;
 using System.Data;
-using System.Data.OleDb;
-using System.Data.Odbc;
-using Microsoft.Data.SqlClient;
-using ExcelDataReader;
-using ImportExcelDemo.Models;
-using ImportExcelDemo.Data;
-using OfficeOpenXml;
-using CsvHelper;
-using System.Reflection;
-using System.Text;
 using System.Globalization;
-using Newtonsoft.Json;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ImportExcelDemo.Pages.ImportExcel
 {
@@ -46,7 +38,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
         [BindProperty]
         public IFormFile ExcelUpload { get; set; }
 
-
         public IFormFile CmdbUpload { get; set; }
 
         [BindProperty]
@@ -69,7 +60,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                     //Validate file Type
                     if (fileExt != ".xls" && fileExt != ".xlsx" && fileExt != ".csv")
                     {
-                        Message = "Please select an excel with .xls, .xlsx, or .csv extension";
+                        Message = "Error! Please select an excel file with .xls, .xlsx, or .csv extension";
                     }
                     else
                     {
@@ -93,9 +84,9 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         {
                             if (fileName.ToUpper().Contains("CMDB"))
                             {
-                                Message = "CMDB File uploaded.";
                                 //CmdbUpload.CopyTo(fileStream);
                                 await ExcelUpload.CopyToAsync(fileStream);
+                                Message = "CMDB File uploaded.";
                                 /* await CmdbUpload.CopyToAsync  */
                             }
                             else if (fileName.ToUpper().Contains("SUN"))
@@ -124,7 +115,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
             }
             else
             {
-                Message = "Please select a File to upload.";
+                Message = "Error! Please select a File to upload.";
             }
         }
 
@@ -266,8 +257,15 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                 Console.WriteLine(lstSuns.Where(c => c.BarcodeNum == barcodeNum).Count());
                                 lstSuns.RemoveAll(c => c.BarcodeNum == barcodeNum);
                             }
-                            // create a new CMDB entity and fill it with xlsx data                         
 
+                            // For empty Strings in DateTime Cells
+                            DateTime? dateTime = String.IsNullOrEmpty(row[nRow, 56].GetValue<string>())
+                                ? (DateTime?)null : DateTime.Parse(row[nRow, 56].GetValue<string>());
+
+                           //DateTime? dateTime = null;
+                          //  DateTime.TryParse( (DateTime) row[nRow, 56].GetValue<DateTime>(), out dateTime);
+                          
+                            // create a new Sunflower entity and fill it with xlsx data                         
                             lstSuns.Add(new Sunflower //I prefer it this way better
                             {
                                 BarcodeNum = barcodeNum,
@@ -301,7 +299,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                 ResolutionDate = row[nRow, 53].GetValue<DateTime>(),
                                 Resolution = row[nRow, 54].GetValue<string>(),
                                 FinalEvent = row[nRow, 55].GetValue<string>(),
-                                Datetime = row[nRow, 56].GetValue<DateTime>(),
+                                Datetime = dateTime,
                                 FinalEventUserDefinedLabel01 = row[nRow, 57].GetValue<string>(),
                                 FinalEventUserField01 = row[nRow, 58].GetValue<string>()
                             });
@@ -319,6 +317,8 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             sunSum++;
                         }
                     }
+
+                   // int 
                     await _context.SaveChangesAsync();
                     #endregion
 
@@ -361,19 +361,23 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
 
                     //Change Model using DateTimeOffset???
+                    //Reads Header
                     csv.Read();
                     csv.ReadHeader();
-                    var lstEpos = _context.Epos.ToList();
+
+                    //var lstEpos = _context.Epos.ToList();
                     while (csv.Read())
                     {
-                        /* csv.ReadHeader();*/
-                        //Grab and saves 
+
+                        //Checking for duplicate entries
                         var epo = _context.Epos
                             .Where(e => e.SystemName == csv.GetField<string>("System Name"))
                             .FirstOrDefault();
                         if (epo != null) // there exists an entry already
                             continue;
 
+
+                        // Need to parse Last Communication Datetime because DOES NOT accept timezone abbreviations 
                         var getLastCom = csv.GetField<string>("Last Communication");
                         DateTime LastCom;
 
@@ -381,7 +385,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                         {
                             LastCom = new DateTime();
                         }
-                        else 
+                        else
                         {
                             if (getLastCom.Contains("EDT"))
                             {
@@ -396,9 +400,10 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                                 getLastCom,
                                                 "M/d/yy h:mm:ss tt zzz",
                                                 System.Globalization.CultureInfo.InvariantCulture).ToUniversalTime();
-                        }                                           
+                        }
 
-                        lstEpos.Add(new EPO
+                        //Add to List
+                        _context.Epos.Add(new EPO
                         {
                             SystemName = csv.GetField<string>("System Name"),
                             ManagedState = csv.GetField<string>("Managed State"),
@@ -408,7 +413,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             LastCommunication = LastCom
                         });
 
-                        _context.Epos.AddRange(lstEpos);
+                       // _context.Epos.AddRange(lstEpos);
                         nEPO++;
                     }
 
@@ -524,54 +529,140 @@ namespace ImportExcelDemo.Pages.ImportExcel
         [Obsolete]
         public async Task OnPostSCCMCommitAsync()
         {
-            string folderPath = Path.Combine(_environment.ContentRootPath, "uploads");
-            var filePath = Path.Combine(folderPath,
-                                                    Path.GetFileName(ExcelUpload.FileName));
+            //Reminder! Uploading a file will not give you the system   
+            string filePath = SaveAndGetFilePath();
 
             Assembly assembly = Assembly.GetExecutingAssembly();
-
-            using (var streamReader = System.IO.File.OpenText(filePath))
-            using (var csv = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+            if (!Message.Contains("Error!"))
             {
-                csv.Configuration.HeaderValidated = null;
-                csv.Configuration.MissingFieldFound = null;
-
-
-                //Skips non-header
-                while(csv.Read())
+                using (var streamReader = System.IO.File.OpenText(filePath))
+                using (var csv = new CsvReader(streamReader, CultureInfo.InvariantCulture))
                 {
-                    if(csv.Context.Record[0].StartsWith("Header_"))
+                    csv.Configuration.HeaderValidated = null;
+                    csv.Configuration.MissingFieldFound = null;
+
+                    for (int i = 0; i < 2; i++) // Skips first 3 rows *blank rows don't count*
                     {
                         csv.Read();
-                        var header = csv.ReadHeader();
-                        break;
                     }
-                }
 
-                int nSCCM = 0;
-                var records = csv.GetRecords<SCCM>().ToList();
-                nSCCM = records.Count();
-                _context.Sccms.AddRange(records);
-                await _context.SaveChangesAsync();
-                Message = "SCCM Commited to Database. " + 
-                    nSCCM + " entries Added.";
+                    //Reads Header
+                    csv.Read();
+                    csv.ReadHeader();
+                    int nSCCM = 0;
 
-                /*try
-                {
-                    int nEPO = 0;
-                    var records = csv.GetRecords<EPO>().ToList();
-                    int nEPO = records.Count();
-                    _context.Epos.AddRange(records);
+                    while (csv.Read())
+                    {
+                        //Check if table contains this same computer name. ensuring no duplicate entries. 
+                        var sccm = _context.Sccms
+                            .Where(s => s.ComputerName == csv.GetField<string>("Details_Table0_ComputerName"))
+                            .FirstOrDefault();
+                        if (sccm != null)
+                            continue;
+
+                        _context.Sccms.Add(new SCCM
+                        {
+                            ComputerName = csv.GetField<string>("Details_Table0_ComputerName"),
+                            DomainWorkGroup = csv.GetField<string>("Details_Table0_DomainWorkgroup"),
+                            SiteName = csv.GetField<string>("Details_Table0_SMSSiteName"),
+                            TopConsoleUser = csv.GetField<string>("Details_Table0_TopConsoleUser"),
+                            OperatingSystem = csv.GetField<string>("Details_Table0_OperatingSystem"),
+                            SerialNumber = csv.GetField<string>("Details_Table0_SerialNumber"),
+                            AssetTag = csv.GetField<string>("Details_Table0_AssetTag"),
+                            Manufacturer = csv.GetField<string>("Details_Table0_Manufacturer"),
+                            ReleaseDate = csv.GetField<DateTime>("Release_Date"),
+                            BiosVersion = csv.GetField<string>("SMBIOS_Version"),
+                            Model = csv.GetField<string>("Details_Table0_Model"),
+                            MemoryKBytes = csv.GetField<int>("Details_Table0_MemoryKBytes"),
+                            ProcessorGhz = csv.GetField<int>("Details_Table0_ProcessorGHz"),
+                            DiskSpaceMB = csv.GetField<int>("Details_Table0_DiskSpaceMB"),
+                            FreeDiskSpaceMB = csv.GetField<int>("Details_Table0_FreeDiskSpaceMB")
+                        });
+                        nSCCM++;
+                    }
+                    //_context.Sccms.Add()
+                    //_context.Sccms.AddRange(lstSccms);
                     await _context.SaveChangesAsync();
-                    Message = "EPO Committed to Database. " +
-                        nEPO + " entries Added.";
+                    Message = "SCCM Committed to Database. " +
+                        nSCCM + " entries Added.";
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("{0} - datetime is not parsed", csv);
-                }*/
             }
 
+        }
+
+
+        // Helper method to save file and returns file path
+        // Reminder! When reading files, you can NOT get full physical file path from client
+        // You will get 3 things: the file, filename, and file extension
+
+        [Obsolete]
+        private string SaveAndGetFilePath()
+        {
+            //Check if user submits a file
+            if (ExcelUpload != null)
+            {
+                try
+                {
+                    string fileExt = Path.GetExtension(ExcelUpload.FileName);
+
+                    //Validate file type
+                    if (fileExt != ".xls" && fileExt != ".xlsx" && fileExt != ".csv")
+                    {
+                        Message = "Error! Please select an excel file with .xls, .xlsx, or .csv extension";
+                    }
+                    else
+                    {
+                        string folderPath = Path.Combine(_environment.WebRootPath, "uploads");
+
+                        //Check for if Directory exists
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+
+                        //Save file to folder         
+
+                        var fileName = Path.GetFileName(ExcelUpload.FileName);
+                        var filePath = Path.Combine(folderPath, fileName);
+                        /*                            var filePath = Path.Combine(folderPath,
+                                                                            Path.GetFileName(CmdbUpload.FileName));*/
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            ExcelUpload.CopyTo(fileStream);
+                            if (fileName.ToUpper().Contains("CMDB"))
+                            {
+                                Message = "CMDB File uploaded.";
+                            }
+                            else if (fileName.ToUpper().Contains("SUN"))
+                            {
+                                Message = "Sunflower File uploaded.";
+                            }
+                            else if (fileName.ToUpper().Contains("EPO"))
+                            {
+                                Message = "EPO File uploaded.";
+                            }
+                            else if (fileName.ToUpper().Contains("ACTIVE") || fileName.ToUpper().Contains("AD"))
+                            {
+                                Message = "AD File uploaded.";
+                            }
+                            else if (fileName.ToUpper().Contains("SCCM"))
+                            {
+                                Message = "SCCM File uploaded";
+                            }
+                        }
+                        return filePath;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Message = ex.Message;
+                    return null;
+                }
+            }
+
+            Message = "Error! Please select a File to upload.";
+            return null;
         }
 
         //Helper Method with grabbing specific data/columns 

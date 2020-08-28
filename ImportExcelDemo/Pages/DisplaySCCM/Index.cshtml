@@ -1,0 +1,40 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplaySCCM.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Data Table -->
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">SCCM List</h2>
+    </div>
+</div>
+<br />
+<table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>SCCM ID</th>
+            <th>Computer Name</th>
+            <th>Domain Work Group</th>
+            <th>Site Name</th>
+            <th>Top Console User</th>
+            <th>Operating System</th>
+            <th>Serial Number</th>
+            <th>Asset Tag</th>
+            <th>Manufacturer</th>
+            <th>Release Date</th>
+            <th>BIOS Version</th>
+            <th>Model</th>
+            <th>Memory (KB)</th>
+            <th>Processor (Ghz)</th>
+            <th>Disk Space (MB)</th>
+            <th>Free Disk Space (MB)</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+
+    <script src="~/js/dtSCCM.js"></script>
+}
