@@ -5,7 +5,7 @@ $(document).ready(function () {
     highlight();
 });
 
-
+/* experimenting with coloring columns...
 function highlight() {
     var table = dataTable.DataTable();
 
@@ -15,6 +15,7 @@ function highlight() {
         $(table.cells().nodes()).removeClass('highlight');
         $(table.column(colIdx).nodes()).addClass('highlight');
     },
+    */
 
  function loadList() {
     dataTable = $('#DT_load').DataTable({
@@ -78,21 +79,8 @@ function highlight() {
         },
         //Buttons
         buttons: [
-            'colvis', 'copy', 'csv', 'excel', 'pdf', 'print'
+            'colvis', 'copy', 'csv', 'excel', 'print'
         ],
-
-        /*responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.modal({
-                    header: function (row) {
-                        var data = row.data();
-                        return 'Details for ' + data[0] + ' ' + data[1];
-                    }
-                }),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll()
-            }
-        },*/
-
         dom: 'PBlfrtip',
 
         "width": "100%",
