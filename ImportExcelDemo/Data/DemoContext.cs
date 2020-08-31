@@ -13,8 +13,7 @@ namespace ImportExcelDemo.Data
         #region Constructor
         public DemoContext()
         {
-/*            DemoContext(Base64FormattingOptions);
-*/        }
+        }
 
         public DemoContext(DbContextOptions<DemoContext> options) : base(options)
         {
@@ -39,6 +38,7 @@ namespace ImportExcelDemo.Data
         public DbSet<AD_User> AD_Users { get; set; }
         public DbSet<AD_Computer> AD_Computers { get; set; }
         public DbSet<SCCM> Sccms { get; set; }
+        public DbSet<ECMO> Ecmos { get; set; }
 
         #endregion
     }

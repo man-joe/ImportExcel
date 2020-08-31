@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ImportExcelDemo.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,12 +23,9 @@ namespace ImportExcelDemo
         {
             //Added Windows-1252 Encoding
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
             
             services.AddDbContext<DemoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DemoContext")));
-
-           /* services.AddScoped<DemoContext, DbContext>*/
 
             //Allows MVC to be used along with RazorPages
             services.AddMvc(options => options.EnableEndpointRouting = false)
@@ -61,15 +53,11 @@ namespace ImportExcelDemo
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            /*app.UseRouting();*/
 
             app.UseAuthorization();
 
             app.UseMvc();
-            /* app.UseEndpoints(endpoints =>
-             {
-                 endpoints.MapRazorPages();
-             });*/
+
         }
     }
 }

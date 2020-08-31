@@ -64,6 +64,13 @@ namespace ImportExcelDemo.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetECMO")]
+        public async Task<IActionResult> GetECMO()
+        {
+            return Json(new { data = await _context.Ecmos.ToListAsync() });
+        }
+
+        [HttpGet]
         [ActionName("GetAD_Computer")]
         public async Task<IActionResult> GetADComputer()
         {
@@ -79,7 +86,7 @@ namespace ImportExcelDemo.Controllers
 
         [HttpGet]
         [ActionName("GetADUser_CMDB")]
-        public IActionResult GetADUser_CMDB()
+        public async Task<IActionResult> GetADUser_CMDB()
         {
             var Cd_User = from u in _context.AD_Users
                           join d in _context.Cmdbs on u.UserName equals d.AdUser
@@ -134,12 +141,12 @@ namespace ImportExcelDemo.Controllers
                               d.ModifiedBy,
                               d.Modified
                           };
-            return Json(new { data = Cd_User.ToList() });
+            return Json(new { data = await Cd_User.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetADComputer_CMDB")]
-        public IActionResult GetADComputer_CMDB()
+        public async Task<IActionResult> GetADComputer_CMDB()
         {
             var Cd_User = from c in _context.AD_Computers
                           join d in _context.Cmdbs on c.ADComputerName equals d.HostName
@@ -187,12 +194,12 @@ namespace ImportExcelDemo.Controllers
                               d.ModifiedBy,
                               d.Modified
                           };
-            return Json(new { data = Cd_User.ToList() });
+            return Json(new { data = await Cd_User.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetAD_CMDB")]
-        public IActionResult GetAD_CMDB()
+        public async Task<IActionResult> GetAD_CMDB()
         {
 
             var queryCD = from d in _context.Cmdbs
@@ -262,12 +269,12 @@ namespace ImportExcelDemo.Controllers
                               d.ModifiedBy,
                               d.Modified
                           };
-            return Json(new { data = queryCD.ToList() });
+            return Json(new { data = await queryCD.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetCMDB_Sunflower")]
-        public IActionResult GetCMDB_Sunflower()
+        public async Task<IActionResult> GetCMDB_Sunflower()
         {
             var Cd_Sunflower = from s in _context.Sunflowers
                           join d in _context.Cmdbs on s.BarcodeNum equals d.CDTag
@@ -337,12 +344,12 @@ namespace ImportExcelDemo.Controllers
                               d.ModifiedBy,
                               d.Modified
                           };
-            return Json(new { data = Cd_Sunflower.ToList() });
+            return Json(new { data = await Cd_Sunflower.ToListAsync() });
         }
 
         [HttpGet]
         [ActionName("GetCMDB_EPO")]
-        public IActionResult GetCMDB_EPO()
+        public async Task<IActionResult> GetCMDB_EPO()
         {
             var Cd_Sunflower = from e in _context.Epos
                                join d in _context.Cmdbs on e.SystemName equals d.HostName
@@ -383,7 +390,7 @@ namespace ImportExcelDemo.Controllers
                                    d.ModifiedBy,
                                    d.Modified
                                };
-            return Json(new { data = Cd_Sunflower.ToList() });
+            return Json(new { data = await Cd_Sunflower.ToListAsync() });
         }
     }
 }

@@ -341,7 +341,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                             if (epo != null) // there exists an entry already
                                 continue;
 
-
                             // Need to parse Last Communication Datetime because DOES NOT accept timezone abbreviations 
                             var getLastCom = csv.GetField<string>("Last Communication");
                             DateTime LastCom;
@@ -378,7 +377,6 @@ namespace ImportExcelDemo.Pages.ImportExcel
                                 LastCommunication = LastCom
                             });
 
-                            // _context.Epos.AddRange(lstEpos);
                             nEPO++;
                         }
 
@@ -488,7 +486,7 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
         [Obsolete]
         public async Task OnPostSCCMCommitAsync()
-        {            
+        {
             string filePath = SaveAndGetFilePath();
 
             if (!Message.Contains("Error!"))
@@ -547,6 +545,90 @@ namespace ImportExcelDemo.Pages.ImportExcel
 
         }
 
-    }
+        [Obsolete]
+        public async Task OnPostECMOCommitAsync()
+        {
+            string filePath = SaveAndGetFilePath();
 
+            if (!Message.Contains("Error!"))
+            {
+                using (var streamReader = System.IO.File.OpenText(filePath))
+                using (var csv = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+                {
+                    csv.Configuration.HeaderValidated = null;
+                    csv.Configuration.MissingFieldFound = null;
+
+                    try
+                    {
+                        int nECMO = 0;
+                        //Reads Header
+                        csv.Read();
+                        csv.ReadHeader();
+
+                        while (csv.Read())
+                        {
+                            //Checking for duplicate entries
+                            var ecmo = _context.Ecmos
+                                .Where(e => e.ComputerName == csv.GetField<string>("Computer Name"))
+                                .FirstOrDefault();
+                            if (ecmo != null) // there exists an entry already
+                                continue;
+
+                            // Need to parse Last Communication Datetime because DOES NOT accept timezone abbreviations 
+                            var getLastReportTime = csv.GetField<string>("Last Report Time");
+                            DateTime lastReportTime;
+
+
+                            //Parsing Last Report Time
+                            if (String.IsNullOrEmpty(getLastReportTime))
+                            {
+                                lastReportTime = new DateTime();
+                            }
+                            else
+                            {                               
+                                lastReportTime = DateTime.ParseExact(
+                                                    getLastReportTime,
+                                                    "ddd, dd MMM yyyy HH:mm:ss +0000",
+                                                    System.Globalization.CultureInfo.InvariantCulture);
+                            }
+
+                            //Parsing Bios Time
+                            var getBios = csv.GetField<string>("BIOS");
+                            DateTime bios;
+
+                            if (DateTime.TryParse(getBios, out bios))
+                                bios = DateTime.Parse(getBios);
+                            else
+                                bios = new DateTime();
+
+                            //Add to List
+                            _context.Ecmos.Add(new ECMO
+                            {
+                                ComputerName = csv.GetField<string>("Computer Name"),
+                                NoaaAssetTag = csv.GetField<string>("NOAA Asset Tag"),
+                                UserName = csv.GetField<string>("User Name"),
+                                NoaaSerialNumber = csv.GetField<string>("NOAA Serial Number"),
+                                IpAddress = csv.GetField<string>("IP Address"),
+                                IpAndMacAddress = csv.GetField<string>("IP and MAC addresses"),
+                                OS = csv.GetField<string>("OS"),
+                                Cpu = csv.GetField<string>("CPU"),
+                                LastReportTime = lastReportTime,
+                                Bios = bios
+                            });                            
+                            nECMO++;
+                        }
+
+                        await _context.SaveChangesAsync();
+                        Message = "ECMO Committed to Database. " +
+                            nECMO + " entries Added.";
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("{0} - datetime is not parsed", csv);
+                    }
+
+                }
+            }
+        }
+    }
 }

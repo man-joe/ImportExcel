@@ -1,0 +1,35 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayTables.DisplayECMO.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">ECMO List</h2>
+    </div>
+</div>
+
+<br />
+
+<table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>ECMO ID</th>
+            <th>Computer Name</th>
+            <th>NOAA Asset Tag</th>
+            <th>User Name</th>
+            <th>NOAA Serial Number</th>
+            <th>IP Address</th>
+            <th>IP and MAC addresses</th>
+            <th>OS</th>
+            <th>CPU</th>
+            <th>Last Report Time</th>
+            <th>BIOS</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    <script src="~/js/dtECMO.js"></script>
+}

@@ -1,0 +1,37 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayTables.DisplayADComputer.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">AD Computer List</h2>
+    </div>
+</div>
+
+<br />
+
+<table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>AD ComputerId</th>
+            <th>AD Computer Name</th>
+            <th>Program Office</th>
+            <th>OS Type</th>
+            <th>OS Version</th>
+            <th>Service Pack</th>
+            <th>Created</th>
+            <th>Changed</th>
+            <th>UAC</th>
+            <th>Account Disabled</th>
+            <th>Smart Card Required</th>
+            <th>Description</th>
+            <th>DN</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts {
+    <script src="~/js/dtADComputer.js"></script>
+}

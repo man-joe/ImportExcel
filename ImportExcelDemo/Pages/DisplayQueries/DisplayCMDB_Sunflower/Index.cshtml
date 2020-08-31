@@ -1,0 +1,87 @@
+﻿@page
+@model ImportExcelDemo.Pages.DisplayQueries.DisplayCMDB_Sunflower.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">CMDB And Sunflower List</h2>
+    </div>
+</div>
+
+<br />
+
+<table id="DT_load" class="display cell-border compact nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>CMDB ID</th>
+            <th>CD Tag</th>
+            <th>Organization</th>
+            <th>Host Name</th>
+            <th>Location</th>
+            <th>Floor</th>
+            <th>Room</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+            <th>MAC Address</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Operating System</th>
+            <th>AD User</th>
+            <th>Sunflower User</th>
+            <th>Status</th>
+            <th>Class - Type</th>
+            <th>Acquisition Date</th>
+            <th>Warranty End Date</th>
+            <th>Custodian</th>
+            <th>Comments</th>
+            <th>Inventoried By</th>
+            <th>Inventory Date</th>
+            <th>Last Scan</th>
+            <th>Modified By</th>
+            <th>Modified</th>
+            <th>Sun ID</th>
+            <th>Barcode #</th>
+            <th>Status</th>
+            <th>Official Name</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Model Name</th>
+            <th>Serial Number</th>
+            <th>Asset Value</th>
+            <th>Effective Date</th>
+            <th>Cust Area</th>
+            <th>Bureau Or Region</th>
+            <th>Property Contact</th>
+            <th>Current User</th>
+            <th>Fed Supply Group</th>
+            <th>Utilization Code</th>
+            <th>Asset Condition</th>
+            <th>Condition Description</th>
+            <th>Physical Inventory Date</th>
+            <th>Acquisition Date</th>
+            <th>Responsibility Date</th>
+            <th>Site</th>
+            <th>Stlv 1</th>
+            <th>Stlv 2</th>
+            <th>Stlv 3</th>
+            <th>MailStop</th>
+            <th>Gps 1</th>
+            <th>Gps 2</th>
+            <th>Gps 3</th>
+            <th>Resolution Date</th>
+            <th>Resolution</th>
+            <th>Final Event</th>
+            <th>Date Time</th>
+            <th>Final Event User Defined Label 01</th>
+            <th>Final Event User Field 01</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    <script src="~/js/dtCMDB_Sunflower.js"></script>
+}
